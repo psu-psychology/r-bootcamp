@@ -1,0 +1,39 @@
+---
+title: "PSU Psychology R Bootcamp"
+---
+
+Welcome to the R Bootcamp for PSU Psychology researchers.
+
+## Instructors
+
+Michael Hallquist, Ph.D.</br>
+Assistant Professor of Psychology</br>
+michael.hallquist AT-SIGN psu PERIOD edu</br>
+[http://dependpsu.weebly.com/](http://dependpsu.weebly.com/)</br>
+
+James LeBreton, Ph.D.</br>
+Professor of Psychology</br>
+jml70 AT-SIGN psu PERIOD edu</br>
+
+Rick O. Gilmore, Ph.D.</br>
+Associate Professor of Psychology</br>
+rogilmore AT-SIGN psu PERIOD edu</br>
+[http://gilmore-lab.github.io](http://gilmore-lab.github.io)</br>
+
+## Student Coaches
+
+Daniel Albohn</br>
+dna5021 AT-SIGN psu PERIOD edu</br>
+
+Alicia Vallorani</br>
+auv27 AT-SIGN psu PERIOD edu</br>
+
+## Meeting times and location
+
+Wednesday, August 16, 2017, 9:00 am - 12:30 pm</br>
+Thursday, August 17, 2017, 9:00 am - 4:30 pm</br>
+127 [Moore Building](http://www.psumap.com/#Moore)
+
+## About this course
+
+R is one of the core languages in data science. It's free and fun to use. Join us in learning how to use this tool to accelerate your research.

@@ -1,4 +1,4 @@
-# Topics
+## Topics
 
 1. installation of R and its packages, loading and using libraries, accessing the help system
 2. data import/export

@@ -1,0 +1,25 @@
+---
+title: "Bootcamp Schedule"
+---
+
+## Wednesday, August 16, 9:00 am - 12:30 pm, 127 Moore
+
+- 09:00 am • Welcome and introductions
+- 09:15 am • Installing R, installing packages, getting help
+- 10:30 am • Break
+- 10:45 am • Reading & summarizing data files, indexing arrays and data frames, data types, simple descriptive stats
+- 12:30 pm • Lunch (on your own)
+- 01:30 pm • Help/office hours
+
+## Thursday, August 17, 9:00 am - 4:00 pm, 127 Moore
+
+- 09:00 am • Welcome back
+- 09:15 am • Data wrangling & pipelines
+- 10:30 am • Break
+- 10:45 am • Data visualization
+- 12:00 pm • Lunch (on your own)
+- 01:00 pm • Progamming basics
+- 02:45 pm • Break
+- 03:00 pm • Literate programming, reproducible, open science
+- 04:30 pm • End
+- 05:00 pm • Happy Hour @ Whisker's

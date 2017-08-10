@@ -1,0 +1,21 @@
+---
+title: "Resources"
+---
+
+## Websites
+
+- [WeR User Group](http://sites.psu.edu/werclub/2016/10/09/the-goal-of-we-r-penn-state-r-users-group/)
+- [R bloggers](https://www.r-bloggers.com/)
+- [RStudio](http://rstudio.com)
+- [Tidyverse curriculum](https://dcl-2017-04.github.io/curriculum/)
+- [R for Data Science](http://r4ds.had.co.nz/)
+
+## Online learning
+
+- [DataCamp](http://datacamp.com)
+
+## Books
+
+- Gandrud, C. (2015). Reproducible Research with R and R Studio, Second Edition. CRC Press. https://www.crcpress.com/Reproducible-Research-with-R-and-R-Studio-Second-Edition/Gandrud/p/book/9781498715379.
+- Wickham, H. & Grolemund, G. (2016). R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media. http://shop.oreilly.com/product/0636920034407.do.
+- Muenchen, R. (2009). R for SAS and SPSS Users. http://www.springer.com/us/book/9780387094182. Mentioned by Michael Hallquist at 2017-01-12 meeting.
