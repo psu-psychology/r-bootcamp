@@ -83,7 +83,7 @@ Here are the data from the Nature survey.
 - James' R commands from Day 1
 - [Raw R script (.R)](R-Workshop-James.R)
 - Converted to [R Markdown](R-Workshop-James.R.Rmd)
-- Output as | [HTML Slides](R-Workshop-James.html) | [PDF](R-Workshop-James.pdf) | [DOCX](R-Workshop-James.docx) |
+- Output as | [HTML notebook](R-Workshop-James.nb.html) | [HTML Slides](R-Workshop-James.html) | [PDF](R-Workshop-James.pdf) | [DOCX](R-Workshop-James.docx) |
 
 ## How to
 
@@ -126,11 +126,41 @@ Here are the data from the Nature survey.
 - Use R scripts to automate different pieces of the pipeline.
 - Make README files to explain how to put pieces together.
 
+## Toward a reproducible psychological science...
+
+- Transparent, reproducible, open workflows pre-publication
+- Openly shared materials + data + code
+- Munafò, M. R., Nosek, B. A., Bishop, D. V. M., Button, K. S., Chambers, C. D., Sert, N. P. du, Simonsohn, U., et al. (2017). A manifesto for reproducible science. *Nature Human Behaviour*, *1*, 0021. Retrieved January 10, 2017, from <http://www.nature.com/articles/s41562-016-0021>.
+- Gilmore, R. O., & Adolph, K. E. (2017). Video can make behavioural science more reproducible. *Nature Human Behavior*, *1*. Retrieved from <http://dx.doi.org/10.1038/s41562-017-0128>.
+
 ## Advanced topics
 
-- Version control with git and GitHub
-- Websites, blogs, (even books) with R Markdown
-- Reference lists
+- Use R Studio [projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
+- Version control with git and [GitHub](http://github.com)
+- [Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html), [blogs](https://bookdown.org/yihui/blogdown/), (even [books](https://bookdown.org/)) with R Markdown
 - Scriptable analysis workflows
     - Reports for each participant
     - Example: [PEEP-II project](https://github.com/gilmore-lab/peep-II-ratings-analysis)
+
+## My GitHub workflow
+
+1. Create a repo on GitHub
+2. Copy repo URL
+3. `File/New Project.../`
+4. Version Control, Git
+5. Paste repo URL
+6. Select local name for repo and directory where it lives.
+7. Open project within R Studio `File/Open Project...`
+8. Commit early & often
+
+## Learn from my mistakes
+
+- Script **everything** you possibly can
+    - If you have to repeat something, make a function or write a parameterized script
+- Document **all the time**
+    - Comments in code
+    - Update README files
+- Don't be afraid to ask
+- Don't be afraid to work in the open
+- Learn from others
+- Just do it!
