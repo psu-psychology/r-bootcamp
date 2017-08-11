@@ -5,6 +5,12 @@ date: "`r Sys.time()`"
 output: 
   ioslides_presentation:
     widescreen: true
+  pdf_document:
+    toc: true
+    toc_depth: 3
+  github_document:
+    toc: true
+    toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}

@@ -1,7 +1,7 @@
 R-Workshop-James
 ================
 James LeBreton with Rick Gilmore
-2017-08-11 09:24:05
+2017-08-11 12:17:53
 
 -   [PART 1: INSTALLATION, SETTINGS, AND DATA MANAGEMENT](#part-1-installation-settings-and-data-management)
     -   [TOPIC 1: Projects & Directories in R Studio](#topic-1-projects-directories-in-r-studio)

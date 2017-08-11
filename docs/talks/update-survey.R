@@ -1,4 +1,4 @@
-# make-survey-report.R
+# update-survey.R
 #
 # Updates Googlesheet survey data and generates new R Markdown report
 #
