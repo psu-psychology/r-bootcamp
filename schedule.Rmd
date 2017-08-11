@@ -22,6 +22,6 @@ title: "Bootcamp Schedule"
 - 12:00 pm • Lunch (on your own)
 - 01:00 pm • Progamming basics
 - 02:45 pm • Break
-- 03:00 pm • Transparent, open & reproducible science with R. | [HTML slides](talks/r-reproducible-science.html) | [PDF](talks/r-reproducible-science.pdf) | [docx](talks/r-reproducible-science.docx) |
+- 03:00 pm • Transparent, open & reproducible science with R. | [HTML slides](talks/r-eproducible-science.html) | [PDF](talks/r-eproducible-science.pdf) | [docx](talks/r-eproducible-science.docx) |
 - 04:30 pm • End
 - 05:00 pm • Happy Hour @ Whisker's
