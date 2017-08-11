@@ -1,55 +1,83 @@
----
-title: "R-Workshop-James"
-author: "James LeBreton with Rick Gilmore"
-date: "`r Sys.time()`"
-output: 
-  github_document:
-    toc: true
-    toc_depth: 3
-  ioslides_presentation:
-    widescreen: true
-    fig_caption: true
-  pdf_document:
-    toc: true
-    toc_depth: 3
----
-  
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
-```
+R-Workshop-James
+================
+James LeBreton with Rick Gilmore
+2017-08-11 09:24:05
 
-# PART 1: INSTALLATION, SETTINGS, AND DATA MANAGEMENT#
+-   [PART 1: INSTALLATION, SETTINGS, AND DATA MANAGEMENT](#part-1-installation-settings-and-data-management)
+    -   [TOPIC 1: Projects & Directories in R Studio](#topic-1-projects-directories-in-r-studio)
+    -   [TOPIC 2: Installing Packages & Loading into Active Library of Resources](#topic-2-installing-packages-loading-into-active-library-of-resources)
+        -   [Install packages via syntax](#install-packages-via-syntax)
+        -   [Understanding How R Searches for Information](#understanding-how-r-searches-for-information)
+        -   [Obtaining Help](#obtaining-help)
+    -   [TOPIC 3: Data Types & Structures in R](#topic-3-data-types-structures-in-r)
+        -   [Numbers](#numbers)
+        -   [Strings](#strings)
+        -   [Logical Data](#logical-data)
+        -   [Vectors](#vectors)
+        -   [Arrays & Data Frames](#arrays-data-frames)
+    -   [TOPIC 4: Reading Data Files into R](#topic-4-reading-data-files-into-r)
+        -   [Reading Data - From R Data Sets](#reading-data---from-r-data-sets)
+        -   [Saving data frames as comma-separated value (CSV)](#saving-data-frames-as-comma-separated-value-csv)
+        -   [Reading data from SPSS](#reading-data-from-spss)
+        -   [Handling missing values](#handling-missing-values)
+    -   [TOPIC 5: Merging Data Files](#topic-5-merging-data-files)
+        -   [Merging data by adding rows (subjects)](#merging-data-by-adding-rows-subjects)
+        -   [Deleting a variable from a data frame](#deleting-a-variable-from-a-data-frame)
+        -   [Recoding variables](#recoding-variables)
+    -   [TOPIC 6: Summarizing & Visualizing Data Frames](#topic-6-summarizing-visualizing-data-frames)
+        -   [Central Tendency](#central-tendency)
+        -   [Alternative: Hmisc](#alternative-hmisc)
+        -   [Alternative: psych](#alternative-psych)
+        -   [Simple Distributions](#simple-distributions)
+        -   [Correlations using cor (part of stats) or rcorr (part of Hmisc)](#correlations-using-cor-part-of-stats-or-rcorr-part-of-hmisc)
+    -   [Popular Packages](#popular-packages)
+        -   [[multilevel](https://cran.r-project.org/web/packages/multilevel/multilevel.pdf)](#multilevel)
+        -   [[lme4](https://cran.r-project.org/web/packages/lme4/lme4.pdf) & [nlme](https://cran.r-project.org/web/packages/nlme/nlme.pdf)](#lme4-nlme)
+        -   [[plyr](https://cran.r-project.org/web/packages/plyr/plyr.pdf)](#plyr)
+        -   [[ggplot2](http://ggplot2.org/)](#ggplot2)
+        -   [[reshape2](https://cran.r-project.org/web/packages/reshape2/reshape2.pdf)](#reshape2)
+        -   [[Rcmdr](https://cran.r-project.org/web/packages/Rcmdr/Rcmdr.pdf)](#rcmdr)
+        -   [[Hmisc](https://cran.r-project.org/web/packages/Hmisc/Hmisc.pdf)](#hmisc)
 
-## TOPIC 1: Projects & Directories in R Studio
-```{r}
+PART 1: INSTALLATION, SETTINGS, AND DATA MANAGEMENT
+===================================================
+
+TOPIC 1: Projects & Directories in R Studio
+-------------------------------------------
+
+``` r
 getwd() #get the current working directory
 setwd("~/Dropbox/James Work Files/R Workshop/2017") #change the working directory
 ```
 
 Since `~/Dropbox/James Work Files/R Workshop/2017` is specific to James' computer, it won't work for others. When using an RStudio project, I don't change my working directory. Instead, I just make sure I give relevant functions information about the directories where other resources can be found.
 
-## TOPIC 2: Installing Packages & Loading into Active Library of Resources
+TOPIC 2: Installing Packages & Loading into Active Library of Resources
+-----------------------------------------------------------------------
 
-### Install packages via syntax 
-```{r}
+### Install packages via syntax
+
+``` r
 install.packages("multilevel") #Downloading a package to my computer
 #loading packages into working library
 library("multilevel")
 ```
 
----
+------------------------------------------------------------------------
 
 ### Understanding How R Searches for Information
-```{r}
+
+``` r
 search()
 detach(package:multilevel)
 search()
 ```
 
----
+------------------------------------------------------------------------
 
 ### Obtaining Help
-```{r}
+
+``` r
 #You may inquire about a function using any of the following:
 ##If you know the exact name:
 ?search
@@ -62,10 +90,12 @@ apropos("searc")
 
 Another good source of help is [StackOverflow](http://stackoverflow.com).
 
-## TOPIC 3: Data Types & Structures in R
+TOPIC 3: Data Types & Structures in R
+-------------------------------------
 
 ### Numbers
-```{r}
+
+``` r
 x <- 2
 x
 y = c(1:3); y
@@ -77,11 +107,11 @@ is.numeric(x)
 is.numeric(z)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Strings
 
-```{r}
+``` r
 #String Data as character:
 z
 #String Data as factor:
@@ -96,10 +126,11 @@ nchar(z)
 #nchar(z2) Throws error during rendering
 ```
 
----
+------------------------------------------------------------------------
 
 ### Logical Data
-```{r}
+
+``` r
 ##Assumes values of TRUE or FALSE
 ###TRUE is considered equal to 1
 ###FALSE is considered equal to 0
@@ -114,11 +145,11 @@ is.logical(t)
 2==3
 ```
 
----
+------------------------------------------------------------------------
 
 ### Vectors
 
-```{r}
+``` r
 #Vectors - 1 dimensional collections of same type data
 v1=1:5; v1 #creating vector of numbers
 v2=c(1,2,3,4,5); v2
@@ -128,11 +159,11 @@ v1; v2; v3
 m=matrix(1:20, nrow=5); m
 ```
 
----
+------------------------------------------------------------------------
 
 ### Arrays & Data Frames
 
-```{r}
+``` r
 #Arrays - multidimensional collection of same type data
 #example of 3D array
 a=array(1:20, dim=c(2,5,2)); a
@@ -153,9 +184,9 @@ data1
 names(data1)
 ```
 
----
+------------------------------------------------------------------------
 
-```{r}
+``` r
 # Change the names of the variables in a data frame
 data2=data.frame(id=v2, model=v3, eng=eng, doors=doors) #creates a new data frame 
 data1
@@ -169,11 +200,12 @@ names(data1)=c("id","model", "eng", "doors")  #replaces names of all variables i
 data1
 ```
 
-## TOPIC 4: Reading Data Files into R
+TOPIC 4: Reading Data Files into R
+----------------------------------
 
 ### Reading Data - From R Data Sets
 
-```{r}
+``` r
 rm(list=ls()) #Clear the Global Environment
 
 ##List of avaialble data sets
@@ -189,11 +221,11 @@ d=univbct
 class(d)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Saving data frames as comma-separated value (CSV)
 
-```{r}
+``` r
 #Saving a data frame as a .csv file (to be read into SPSS, Excel, Text Editor, etc.)
 write.table(d,file = "d2.csv",sep=",",row.names=F)
 write.table(d,"d1.csv",sep=",", row.names=FALSE) 
@@ -209,11 +241,11 @@ file.show("univbct.csv")
 file.show("univbct.sps")
 ```
 
----
+------------------------------------------------------------------------
 
 ### Reading data from SPSS
 
-```{r}
+``` r
 library("foreign")
 demo1=read.spss(file="../data/demo1.sav", 
                 use.value.labels=TRUE, 
@@ -235,9 +267,9 @@ data1=read.csv("../data/data1.csv", header=T)
 data2=read.csv("../data/data2.csv")
 ```
 
----
+------------------------------------------------------------------------
 
-```{r}
+``` r
 #Now click on "Environment" tab and the "data1" dataframe
 #NA (not available) is automatically inserted by R for any missing data
 head(data1) # display first 6 cases
@@ -246,11 +278,11 @@ summary(data1) # display summary
 summary(data2)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Handling missing values
 
-```{r}
+``` r
 #Note: I used 999 to represent missing data for JOBSAT1 COMMIT1 and READY1  
 #R needs to be told that 999 is not a legitimate value, but is user-defined missing value
 data1$JOBSAT1[data1$JOBSAT1==999]=NA #Explain what the heck this means!
@@ -260,9 +292,9 @@ summary(data1)
 summary(data2)
 ```
 
----
+------------------------------------------------------------------------
 
-```{r}
+``` r
 #The above can be tedious if you have a large number of variables
 ### it is eaiser if you copy & paste code
 #Or, if 999 doens't hold any meaning for ANY of the variables
@@ -272,8 +304,9 @@ summary(data1)
 my999isNA=function(x) {x[x==999]=NA; x}
 ```
 
----
-```{r}
+------------------------------------------------------------------------
+
+``` r
 #Now we will apply this missing data function to the proper variables in data2
 #To do this, we use the "lapply" function which allows us to apply the same function over a list or array
 
@@ -284,9 +317,10 @@ data1[3:5]=lapply(data1[3:5],my999isNA)
 summary(data1)
 ```
 
-## TOPIC 5: Merging Data Files
+TOPIC 5: Merging Data Files
+---------------------------
 
-```{r}
+``` r
 #Merging data by adding variables (e.g, two data.frames, demo1 + data1)
 dd1=merge(demo1,data1, by="SUBNUM")
 dd1=merge(demo1,data1, by=c("SUBNUM","TIME"), all=TRUE)
@@ -296,8 +330,9 @@ summary(dd1)
 summary(dd2)
 ```
 
-###Merging data by adding rows (subjects)
-```{r}
+### Merging data by adding rows (subjects)
+
+``` r
 #let's combine dd1 with dd2
 #when you have IDENTICAL columns in both data sets you may use rbind
 names(dd1); names(dd2)
@@ -314,11 +349,11 @@ dd3=rbind.fill(dd1,dd2)
 head(dd3); tail(dd3)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Deleting a variable from a data frame
 
-```{r}
+``` r
 #let's delete STAY from the previous dd3 data.frame
 names(dd3)
 dd4=dd3[c(1,2,3:22)]
@@ -330,11 +365,11 @@ dd4=rename(dd4, c(HOWLONG="TENURE", MARITAL="STATUS"))
 names(dd4)
 ```
 
----
+------------------------------------------------------------------------
 
 ### Recoding variables
 
-```{r}
+``` r
 #Categorical Variables: recode sex into a different, dummy variable
 #Only “factor” type variables are assigned value labels
 dd4$GENDER2=revalue(as.factor(dd4$GENDER), c("1"="male","2"="female"))
@@ -348,11 +383,12 @@ class(dd4$GENDER3)
 dd4$LEAVE=6-dd4$COMMIT
 ```
 
-## TOPIC 6: Summarizing & Visualizing Data Frames
+TOPIC 6: Summarizing & Visualizing Data Frames
+----------------------------------------------
 
 ### Central Tendency
 
-```{r}
+``` r
 mean(dd3$JSAT); median(dd3$JSAT)
 mean(dd3$JSAT,na.rm=TRUE); median(dd3$JSAT,na.rm=TRUE)
 #Dispersion
@@ -366,15 +402,15 @@ quantile(dd3$JSAT,probs=c(.1,.2,.3,.4,.5,.6,.7,.8,.9),na.rm=T)
 
 ### Alternative: Hmisc
 
-```{r}
+``` r
 #install.packages("Hmisc")
 library("Hmisc")
 describe(dd4)
 ```
 
-### Alternative:  psych
+### Alternative: psych
 
-```{r}
+``` r
 detach("package:Hmisc")
 #install.packages("psych")
 library(psych)
@@ -385,7 +421,7 @@ describe(na.omit(dd4))
 
 ### Simple Distributions
 
-```{r}
+``` r
 #Frequency Counts
 table(dd4$COMPANY)
 #Proportions
@@ -396,9 +432,9 @@ round(prop.table(table(dd4$COMPANY)),3)
 100*(prop.table(table(dd4$COMPANY)))
 ```
 
----
+------------------------------------------------------------------------
 
-```{r}
+``` r
 #Cross Tabs & Simple Tables
 #install.packages("gmodels")
 library(gmodels)
@@ -407,7 +443,7 @@ table(dd4$GENDER,dd4$COMPANY)
 prop.table(table(dd4$GENDER,dd4$COMPANY))
 ```
 
-```{r}
+``` r
 #Histograms
 hist(dd4$JSAT)
 hist(dd4$JSAT, main="Job Satisfaction Histogram",xlab="Job Satisfaction" )
@@ -415,19 +451,26 @@ hist(dd4$JSAT, main="Job Satisfaction Histogram",xlab="Job Satisfaction" )
 
 ### Correlations using cor (part of stats) or rcorr (part of Hmisc)
 
-```{r}
+``` r
 cor(dd4[,20:22],use="complete.obs")
 #install.packages("Hmisc")
 library(Hmisc)
 rcorr(as.matrix(dd4[,c(20:22)]))
 ```
 
-## Popular Packages
+Popular Packages
+----------------
 
 ### [multilevel](https://cran.r-project.org/web/packages/multilevel/multilevel.pdf)
+
 ### [lme4](https://cran.r-project.org/web/packages/lme4/lme4.pdf) & [nlme](https://cran.r-project.org/web/packages/nlme/nlme.pdf)
+
 ### [plyr](https://cran.r-project.org/web/packages/plyr/plyr.pdf)
+
 ### [ggplot2](http://ggplot2.org/)
+
 ### [reshape2](https://cran.r-project.org/web/packages/reshape2/reshape2.pdf)
+
 ### [Rcmdr](https://cran.r-project.org/web/packages/Rcmdr/Rcmdr.pdf)
+
 ### [Hmisc](https://cran.r-project.org/web/packages/Hmisc/Hmisc.pdf)
