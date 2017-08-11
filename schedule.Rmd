@@ -5,7 +5,7 @@ title: "Bootcamp Schedule"
 ## Wednesday, August 16, 9:00 am - 12:30 pm, 127 Moore
 
 - 09:00 am • Welcome and introductions
-- 09:15 am • Installing R, installing packages, getting help. | [R](talks/R-Workshop-James.R) | [HTML slides](talks/R-Workshop-James.html) | [PDF](talks/R-Workshop-James.pdf) | [docx](talks/R-Workshop-James.docx) | 
+- 09:15 am • Installing R, installing packages, getting help. | [R](talks/R-Workshop-James.R) | [HTML slides](talks/R-Workshop-James.html) | [HTML notebook](talks/R-Workshop-James.nb.html) | [PDF](talks/R-Workshop-James.pdf) | [docx](talks/R-Workshop-James.docx) | 
 - 10:30 am • Break
 - 10:45 am • Reading & summarizing data files, indexing arrays and data frames, data types, simple descriptive stats
 - 12:30 pm • Lunch (on your own)
