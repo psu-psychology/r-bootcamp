@@ -10,13 +10,16 @@ rmarkdown::render("talks/r-eproducible-science.Rmd",
                                     "word_document", 
                                     "ioslides_presentation"))
 
-source("talks/update-survey.R")
+source("R/update-survey.R")
 
-rmarkdown::render("talks/R-Workshop-James.Rmd", 
-                  output_format = c("github_document", 
-                                    "pdf_document", 
-                                    "word_document", 
-                                    "ioslides_presentation"))
+# Since James' talk is now html_notebook, it expects
+# to be run interactively. This breaks rmarkdown::render()
+# 
+# rmarkdown::render("talks/R-Workshop-James.Rmd", 
+#                   output_format = c("github_document", 
+#                                     "pdf_document", 
+#                                     "word_document", 
+#                                     "ioslides_presentation"))
 
 # Render site last so that updated versions get copied to docs/
 rmarkdown::render_site()
