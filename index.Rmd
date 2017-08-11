@@ -37,3 +37,5 @@ Thursday, August 17, 2017, 9:00 am - 4:30 pm</br>
 ## About this course
 
 R is one of the core languages in data science. It's free and fun to use. Join us in learning how to use this tool to accelerate your research.
+
+Here is the [GitHub repo](https://github.com/psu-psychology/r-bootcamp/) where the course files are shared.
