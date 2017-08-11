@@ -116,7 +116,7 @@ Here are the data from the Nature survey.
 ## Let's try it
 
 - [bootcamp-survey.Rmd](bootcamp-survey.Rmd)
-- [bootcamp-survey.html](bootcamp-survey.html)
+- [bootcamp-survey.md](bootcamp-survey.md)
 
 ## Key points
 

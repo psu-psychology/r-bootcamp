@@ -1,7 +1,7 @@
 R-eproducible-science
 ================
 Rick Gilmore
-2017-08-11 12:17:37
+2017-08-11 12:34:53
 
 -   [R-eproducible psychological science](#r-eproducible-psychological-science)
 -   [Themes](#themes)
@@ -117,7 +117,7 @@ Let's try it
 ------------
 
 -   [bootcamp-survey.Rmd](bootcamp-survey.Rmd)
--   [bootcamp-survey.html](bootcamp-survey.html)
+-   [bootcamp-survey.md](bootcamp-survey.md)
 
 Key points
 ----------
