@@ -1,0 +1,26 @@
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:GoT-by-experience}Descriptive statistics of Game of Thrones enthusiasm by R experience.}
+\begin{tabular}{llllll}
+\toprule
+R\_exp & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Median} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max}\\
+\midrule
+none & 4.60 & 5.00 & 1.51 & 2.00 & 6.00\\
+limited & 4.80 & 4.50 & 2.53 & 1.00 & 8.00\\
+some & 5.00 & 4.50 & 2.00 & 2.00 & 8.00\\
+lots & 5.30 & 5.00 & 2.87 & 1.00 & 10.00\\
+pro & 4.90 & 4.50 & 1.85 & 2.00 & 8.00\\
+\bottomrule
+\addlinespace
+\end{tabular}
+\begin{tablenotes}[para]
+\textit{Note.} This table was created with apa\_table()
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table*}
+\efloatseparator
+ 

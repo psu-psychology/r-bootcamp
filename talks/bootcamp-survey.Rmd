@@ -39,17 +39,25 @@ There are some idiosyncrasies in using the `googlesheets` package in an R Markdo
 ---
 
 ```{r load-data}
-survey <- read_csv("../data/survey.csv")
+# survey <- read_csv("../data/survey.csv")
+survey <- read_csv("../data/survey-test.csv")
 survey
 ```
 
 Notice that the `get-bootcamp-googlesheet.R` script changed the names of the variables a bit. We may also want to modify the levels of the `R_exp` variable to make it an ordered factor.
 
 ```{r modify-r-exp}
-survey$R_exp <- ordered(survey$R_exp, levels=c("No experience",
-                                               "Limited experience",
-                                               "Extensive",
-                                               "I should be teaching this course"))
+(survey_responses <- unique(survey$R_exp))
+```
+
+This shows us the different survey response values.
+
+```{r}
+survey$R_exp <- ordered(survey$R_exp, levels=c("none",
+                                               "limited",
+                                               "some",
+                                               "lots",
+                                               "pro"))
 ```
 
 ## Visualization and analysis

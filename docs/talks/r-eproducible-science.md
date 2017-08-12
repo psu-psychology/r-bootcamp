@@ -1,7 +1,7 @@
 R-eproducible-science
 ================
 Rick Gilmore
-2017-08-11 15:26:25
+2017-08-12 07:45:07
 
 -   [R-eproducible psychological science](#r-eproducible-psychological-science)
 -   [Themes](#themes)
@@ -142,6 +142,7 @@ Toward a reproducible psychological science...
 Advanced topics
 ---------------
 
+-   Write papers in R Markdown using [`papaja`](https://github.com/crsh/papaja)
 -   Use R Studio [projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
 -   Version control with git and [GitHub](http://github.com)
 -   [Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html), [blogs](https://bookdown.org/yihui/blogdown/), (even [books](https://bookdown.org/)) with R Markdown
