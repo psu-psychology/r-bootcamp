@@ -2,6 +2,14 @@
 title: "Resources"
 ---
 
+## Cheatsheets
+- [Base R](http://github.com/rstudio/cheatsheets/raw/master/source/pdfs/base-r.pdf)
+- [RStudio](https://www.rstudio.com/wp-content/uploads/2016/01/rstudio-IDE-cheatsheet.pdf)
+- [Data import](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-import-cheatsheet.pdf)
+- [Data transformation](https://github.com/rstudio/cheatsheets/raw/master/source/pdfs/data-transformation-cheatsheet.pdf)
+- [Visualization with ggplot2](https://www.rstudio.com/wp-content/uploads/2016/11/ggplot2-cheatsheet-2.1.pdf)
+- [R Markdown](https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
+
 ## Websites
 
 - [WeR User Group](http://sites.psu.edu/werclub/2016/10/09/the-goal-of-we-r-penn-state-r-users-group/)
@@ -13,6 +21,7 @@ title: "Resources"
 ## Online learning
 
 - [DataCamp](http://datacamp.com)
+- [Data science Coursera](https://www.coursera.org/specializations/jhu-data-science)
 
 ## Books
 

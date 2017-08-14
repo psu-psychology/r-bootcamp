@@ -13,6 +13,8 @@ rmarkdown::render("talks/r-eproducible-science.Rmd",
 source("R/update-survey.R")
 source("R/Make_test_survey.R")
 
+rmarkdown::render("papaja_demo/gilmore-lebreton-hallquist.Rmd")
+
 # Since James' talk is now in html_notebook, it expects
 # to be run interactively. This breaks rmarkdown::render()
 # 

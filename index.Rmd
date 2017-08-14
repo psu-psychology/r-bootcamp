@@ -1,8 +1,10 @@
 ---
-title: "PSU Psychology R Bootcamp"
+title: "2017 PSU Psychology R Bootcamp"
 ---
 
-Welcome to the R Bootcamp for PSU Psychology researchers.
+Welcome to the R Bootcamp for PSU Psychology researchers. The goal of this two-day workshop is to provide a broad introduction to the use of R for social science research. Participants are not expected to have prior experience with R or another programming language. The scope and schedule of the course is provided [here](https://psu-psychology.github.io/r-bootcamp/schedule.html)
+
+**Note**: If possible, please bring a laptop, preferably with [R](https://cran.r-project.org) and [Rstudio](https://www.rstudio.com/products/rstudio/download/) already installed. We will be walking through a number of demonstrations during the course and it may be useful to follow along on your own machine.
 
 ## Instructors
 
