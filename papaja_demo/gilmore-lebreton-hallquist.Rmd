@@ -1,7 +1,6 @@
 ---
 title             : "R you ready for some data?"
 shorttitle        : "R you ready"
-
 author: 
   - name          : "Rick O. Gilmore"
     affiliation   : "1,2"
@@ -12,35 +11,30 @@ author:
     affiliation   : "1"
   - name          : "Michael Hallquist"
     affiliation   : "1"
-
 affiliation:
   - id            : "1"
     institution   : "The Pennsylvania State University"
   - id            : "2"
     institution   : "Databrary.org"
-
 author_note: |
   The authors are with the Department of Psychology at The Pennsylvania State University.
-
   The authors acknowledge support from the Department of Psychology and the Social, Life, & Engineering Sciences Imaging Center (SLEIC).
-
 abstract: |
   Want to write a paper using R Markdown? Keep reading to see how.
   
 keywords          : "APA, R Markdown"
 wordcount         : "Not that many."
-
 bibliography      : ["r-references.bib", "references.bib"]
-
 figsintext        : no
 figurelist        : no
 tablelist         : no
 footnotelist      : no
 lineno            : yes
-
 lang              : "english"
 class             : "man"
 output            : papaja::apa6_pdf
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -50,6 +44,9 @@ knitr::opts_chunk$set(echo = FALSE, warning=FALSE, error=FALSE)
 ```{r load_packages, include = FALSE}
 if(!require("papaja")){install.packages("papaja")}
 library("papaja")
+
+# May need this for newer versions of R (needed for R 3.4.1)
+# devtools::install_github("crsh/papaja")
 
 if(!require("tidyverse")){install.packages("tidyverse")}
 library("tidyverse")
@@ -66,9 +63,12 @@ set.seed(42)
 It is possible to write an entire APA-formatted article in R Markdown. 
 This very brief paper shows how it might be done.
 As illustration, we use the data from a brief, informal survey of participants in the inaugural R Bootcamp at Penn State.
-We predicted that higher levels of enthusiams for "Game of Thrones"" would be reported by respondents with *lower* reported hours/day of preferred sleep, at least among younger respondents.
+We predicted that higher levels of enthusiasms for "Game of Thrones"" would be reported by respondents with *lower* reported hours/day of preferred sleep, at least among younger respondents.
 
 ```{r import-survey}
+
+#setwd('papaja_demo/')
+
 survey <- read_csv("../data/survey-test.csv")
 
 survey$R_exp <- ordered(survey$R_exp, levels=c("none",
@@ -138,6 +138,23 @@ corr_got_age <- apa_print(cor.test(survey$GoT,survey$Age_yrs))
 corr_got_sleep <- apa_print(cor.test(survey$GoT,survey$Sleep_hrs))
 corr_age_sleep <- apa_print(cor.test(survey$Age_yrs,survey$Sleep_hrs))
 ```
+
+```{r apa-corr-table, results="asis"}
+source('../R/corstars.R')
+## Get correlation matrix
+cor_mat <- round(survey[c('GoT','Age_yrs','Sleep_hrs')],2)
+
+## Format with sig. stars using custom function
+cor_stars <- as.data.frame(corstars(cor_mat))
+
+apa_table(cor_stars
+  , caption = "Correlation table of the example data set."
+  , note = "This is a correlation table created using apa_table()."
+  , escape = TRUE
+)
+
+```
+
 
 ```{r GoT-by-age-exp, fig.cap="Game of Thrones enthusiasm by age and R experience"}
 got_vs_r_exp <- survey %>%
