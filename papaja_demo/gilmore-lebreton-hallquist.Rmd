@@ -48,8 +48,14 @@ knitr::opts_chunk$set(echo = FALSE, warning=FALSE, error=FALSE)
 ```
 
 ```{r load_packages, include = FALSE}
+if(!require("papaja")){install.packages("papaja")}
 library("papaja")
+
+if(!require("tidyverse")){install.packages("tidyverse")}
 library("tidyverse")
+
+# Could also source("R/Install_load_package.R") and then
+# lapply(c("papaja", "tidyverse"), Install_load_package)
 ```
 
 ```{r analysis_preferences}
@@ -62,16 +68,26 @@ This very brief paper shows how it might be done.
 As illustration, we use the data from a brief, informal survey of participants in the inaugural R Bootcamp at Penn State.
 We predicted that higher levels of enthusiams for "Game of Thrones"" would be reported by respondents with *lower* reported hours/day of preferred sleep, at least among younger respondents.
 
-# Methods
+```{r import-survey}
+survey <- read_csv("../data/survey-test.csv")
+
+survey$R_exp <- ordered(survey$R_exp, levels=c("none",
+                                               "limited",
+                                               "some",
+                                               "lots",
+                                               "pro"))
+```
+
+# Methods {#methods}
 Consistent with open and transparent science practices, we report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
-## Participants
+## Participants {#participants}
 
 We asked participants in an optional "R Bootcamp" held at the Pennsylvania State University Department of Psychology to complete an anonymous survey using a Google Form.
 We asked participants to report their age in years.
-A total of <!-- add code to compute total number of respondents --> answered the survey with a reported age of <!-- age range -->.
+A total of `r length(survey$Age_yrs)` respondents answered the survey with a reported age of [`r min(survey$Age_yrs)`-`r max(survey$Age_yrs)`] years.
 
-## Material
+## Material {#material}
 
 The survey can be found at this URL: <https://docs.google.com/forms/d/1l5OX8PcN_lfVn3ykr_PtHCzhRbWzMbxhqtgILD45zRg/edit>.
 There were five questions asked:
@@ -82,31 +98,19 @@ There were five questions asked:
 4. Preferred number of hours spent sleeping/day
 5. Favorite day of the week?
 6. Are your data tidy?
-    - Yes
-    - No
 
-## Procedure
+## Procedure {#procedure}
 
 We emailed a link to the survey to the list of participants.
 We also include a link to the survey on the web page containing the course schedule (https://psu-psychology.github.io/r-bootcamp/schedule.html).
 We encouraged participants to complete the survey after the first day's material.
 
-## Data analysis
+## Data analysis {#data-analysis}
 We used `r cite_r("r-references.bib")` for all our analyses.
 The code used to generate these analyses is embedded in this document.
 To view it, see the R Markdown file in the [GitHub repository](http://github.com/psu-psychology/r-bootcamp/papaja-demo/) associated with this paper.
 
-# Results
-
-```{r import-survey}
-survey <- read_csv("../data/survey-test.csv")
-
-survey$R_exp <- ordered(survey$R_exp, levels=c("none",
-                                               "limited",
-                                               "some",
-                                               "lots",
-                                               "pro"))
-```
+# Results {#results}
 
 ```{r GoT-by-experience, results="asis"}
 descriptives_GoT <- survey %>%
@@ -129,7 +133,13 @@ apa_table(
 )
 ```
 
-```{r fig.cap="Game of Thrones enthusiasm by age and R experience"}
+```{r apaTables-corr, results="asis"}
+corr_got_age <- apa_print(cor.test(survey$GoT,survey$Age_yrs))
+corr_got_sleep <- apa_print(cor.test(survey$GoT,survey$Sleep_hrs))
+corr_age_sleep <- apa_print(cor.test(survey$Age_yrs,survey$Sleep_hrs))
+```
+
+```{r GoT-by-age-exp, fig.cap="Game of Thrones enthusiasm by age and R experience"}
 got_vs_r_exp <- survey %>%
   ggplot() +
   aes(x=GoT, y=Age_yrs) +
@@ -138,18 +148,40 @@ got_vs_r_exp <- survey %>%
 got_vs_r_exp
 ```
 
-To evaluate our core hypothesis that enthusiasm for Game of Thrones would increase as the preferred number of hours of sleep per day decreased, we...
-
-```{r fig.cap="Game of Thrones enthusiasm by preferred hours of sleep"}
+```{r GoT-by-sleep, fig.cap="Game of Thrones enthusiasm by preferred hours of sleep"}
 got_vs_sleep <- survey %>%
   ggplot() +
   aes(x=Sleep_hrs, y=GoT) +
   geom_point() +
-  geom_smooth()
+  geom_smooth() +
+  theme_apa()
 got_vs_sleep
 ```
 
-# Discussion
+```{r got-r_exp-aov}
+got_aov <- afex::aov_ez("X1", "GoT", survey, between = c("R_exp", "Tidy_data"))
+got_aov_results <- apa_print(got_aov, es = "pes")
+got_aov_results_p <- apa_print(got_aov, es = "pes", in_paren = TRUE)
+```
+
+```{r GoT-aov-table, results="asis"}
+apa_table(
+  got_aov_results$table
+  , align = c("l", "r", "c", "r", "r", "r")
+  , caption = "ANOVA table for the analyis of the example data set."
+  , note = "This is a table created using apa\\_print() and apa\\_table()."
+)
+```
+
+Table \@ref(tab:GoT-by-experience) summarizes the Game of Thrones ratings data by levels of R experience.
+
+Let's examine the correlations between our continuous variables.
+There is a negative correlation (`r corr_got_age$estimate`) between Game of Thrones enthusiasm and age (`r corr_got_age$statistic`), a negative correlation (`r corr_got_sleep$estimate`) between Game of Thrones enthusiasm and sleep (`r corr_got_sleep$statistic`), but no correlation (`r corr_age_sleep$estimate`) between age and sleep (`r corr_age_sleep$statistic`). Figures \@ref(fig:GoT-by-age-exp) and \@ref(fig:GoT-by-sleep) depict these patterns.
+
+To test the hypothesis that GoT enthusiasm varies as a function of R expertise and the extent to which respondents use tidy data, we carried out a one-way ANOVA.
+R experience (`r got_aov_results$full$R_exp`) and the use of tidy data principles (`r got_aov_results$full$Tidy_data`) did not predict enthusiasm for Game of Thrones. Table \@ref(tab:GoT-aov-table) summarizes these results.
+
+# Discussion {#discussion}
 
 These results show how awesome it can be to use R, R Markdown, and literate programming principles to conduct and open, transparent, and reproducible psychological science. Yay, us!
 

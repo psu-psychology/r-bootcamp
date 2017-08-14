@@ -24,3 +24,27 @@ pro & 4.90 & 4.50 & 1.85 & 2.00 & 8.00\\
 \end{table*}
 \efloatseparator
  
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:GoT-aov-table}ANOVA table for the analyis of the example data set.}
+\begin{tabular}{lrcrrrl}
+\toprule
+Effect & \multicolumn{1}{c}{$F$} & \multicolumn{1}{c}{$\mathit{df}_1$} & \multicolumn{1}{c}{$\mathit{df}_2$} & \multicolumn{1}{c}{$\mathrm{MSE}$} & \multicolumn{1}{c}{$p$} & \multicolumn{1}{c}{$\eta^2_p$}\\
+\midrule
+R exp & 0.12 & 4 & 40 & 5.29 & .974 & .012\\
+Tidy data & 0.17 & 1 & 40 & 5.29 & .686 & .004\\
+R exp $\times$ Tidy data & 0.32 & 4 & 40 & 5.29 & .865 & .031\\
+\bottomrule
+\addlinespace
+\end{tabular}
+\begin{tablenotes}[para]
+\textit{Note.} This is a table created using apa\_print() and apa\_table().
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table*}
+\efloatseparator
+ 
