@@ -29,6 +29,30 @@ pro & 4.90 & 4.50 & 1.85 & 2.00 & 8.00\\
 [tbp]
 \begin{center}
 \begin{threeparttable}
+\caption{\label{tab:apa-corr-table}Correlation table of the example data set.}
+\begin{tabular}{lll}
+\toprule
+ & \multicolumn{1}{c}{GoT} & \multicolumn{1}{c}{Age\_yrs}\\
+\midrule
+GoT &  & \\
+Age\_yrs & -0.92*** & \\
+Sleep\_hrs & -0.48*** & 0.22\\
+\bottomrule
+\addlinespace
+\end{tabular}
+\begin{tablenotes}[para]
+\textit{Note.} This is a correlation table created using apa\_table().
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table*}
+\efloatseparator
+ 
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+\begin{center}
+\begin{threeparttable}
 \caption{\label{tab:GoT-aov-table}ANOVA table for the analyis of the example data set.}
 \begin{tabular}{lrcrrrl}
 \toprule

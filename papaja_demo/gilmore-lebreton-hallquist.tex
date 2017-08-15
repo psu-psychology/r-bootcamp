@@ -137,10 +137,9 @@
   \authornote{
     \newcounter{author}
     The authors are with the Department of Psychology at The Pennsylvania
-    State University.
-    
-    The authors acknowledge support from the Department of Psychology and
-    the Social, Life, \& Engineering Sciences Imaging Center (SLEIC).
+    State University. The authors acknowledge support from the Department of
+    Psychology and the Social, Life, \& Engineering Sciences Imaging Center
+    (SLEIC).
 
                       Correspondence concerning this article should be addressed to Rick O. Gilmore, Department of Psychology, The Pennsylvania State University, University
 Park, PA 16802 USA. E-mail: \href{mailto:rogilmore@psu.edu}{\nolinkurl{rogilmore@psu.edu}}
@@ -180,7 +179,7 @@ It is possible to write an entire APA-formatted article in R Markdown.
 This very brief paper shows how it might be done. As illustration, we
 use the data from a brief, informal survey of participants in the
 inaugural R Bootcamp at Penn State. We predicted that higher levels of
-enthusiams for \enquote{Game of Thrones}" would be reported by
+enthusiasms for \enquote{Game of Thrones}" would be reported by
 respondents with \emph{lower} reported hours/day of preferred sleep, at
 least among younger respondents.
 
@@ -233,12 +232,12 @@ material.
 \subsection{Data analysis}\label{data-analysis}
 
 We used R (3.4.1, R Core Team, 2017) and the R-packages \emph{dplyr}
-(0.5.0, Wickham \& Francois, 2016), \emph{ggplot2} (2.2.1, Wickham,
+(0.7.0, Wickham \& Francois, 2016), \emph{ggplot2} (2.2.1, Wickham,
 2009), \emph{googlesheets} (0.2.2, Bryan \& Zhao, 2017), \emph{papaja}
-(0.1.0.9492, Aust \& Barth, 2017), \emph{purrr} (0.2.2.2, Henry \&
-Wickham, 2017), \emph{readr} (1.1.1, Wickham, Hester, \& Francois,
-2017), \emph{tibble} (1.3.0, Wickham, Francois, \& Müller, 2017),
-\emph{tidyr} (0.6.3, Wickham, 2017a), and \emph{tidyverse} (1.1.1,
+(0.1.0.9492, Aust \& Barth, 2017), \emph{purrr} (0.2.2, Henry \&
+Wickham, 2017), \emph{readr} (1.1.0, Wickham, Hester, \& Francois,
+2017), \emph{tibble} (1.3.3, Wickham, Francois, \& Müller, 2017),
+\emph{tidyr} (0.6.1, Wickham, 2017a), and \emph{tidyverse} (1.1.1,
 Wickham, 2017b) for all our analyses. The code used to generate these
 analyses is embedded in this document. To view it, see the R Markdown
 file in the
@@ -270,14 +269,35 @@ pro & 4.90 & 4.50 & 1.85 & 2.00 & 8.00\\
 \end{center}
 \end{table}
 
-\begin{figure}[htbp]
+\begin{table}[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:apa-corr-table}Correlation table of the example data set.}
+\begin{tabular}{lll}
+\toprule
+ & \multicolumn{1}{c}{GoT} & \multicolumn{1}{c}{Age\_yrs}\\
+\midrule
+GoT &  & \\
+Age\_yrs & -0.92*** & \\
+Sleep\_hrs & -0.48*** & 0.22\\
+\bottomrule
+\addlinespace
+\end{tabular}
+\begin{tablenotes}[para]
+\textit{Note.} This is a correlation table created using apa\_table().
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table}
+
+\begin{figure}
 \centering
 \includegraphics{gilmore-lebreton-hallquist_files/figure-latex/GoT-by-age-exp-1.pdf}
 \caption{\label{fig:GoT-by-age-exp}Game of Thrones enthusiasm by age and R
 experience}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}
 \centering
 \includegraphics{gilmore-lebreton-hallquist_files/figure-latex/GoT-by-sleep-1.pdf}
 \caption{\label{fig:GoT-by-sleep}Game of Thrones enthusiasm by preferred
