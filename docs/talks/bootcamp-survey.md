@@ -1,7 +1,7 @@
 bootcamp-survey
 ================
 Rick Gilmore
-2017-08-12 07:45:18
+2017-08-15 09:27:21
 
 -   [Goals](#goals)
 -   [Preliminaries](#preliminaries)
@@ -35,6 +35,7 @@ There are some idiosyncrasies in using the `googlesheets` package in an R Markdo
 ------------------------------------------------------------------------
 
 ``` r
+# Created test data set for testing.
 # survey <- read_csv("../data/survey.csv")
 survey <- read_csv("../data/survey-test.csv")
 ```
@@ -60,16 +61,16 @@ survey
     ## # A tibble: 50 × 8
     ##       X1           Timestamp   R_exp   GoT Age_yrs Sleep_hrs   Fav_date
     ##    <int>              <dttm>   <chr> <int>   <int>     <dbl>     <date>
-    ## 1      1 2017-08-12 07:30:39 limited     1      53  7.348351 2017-08-12
-    ## 2      2 2017-08-12 07:30:39    lots     2      52  7.619878 2017-08-12
-    ## 3      3 2017-08-12 07:30:39    none     6      33  8.411470 2017-08-12
-    ## 4      4 2017-08-12 07:30:39     pro     2      54  8.231536 2017-08-12
-    ## 5      5 2017-08-12 07:30:39     pro     5      38  8.179473 2017-08-12
-    ## 6      6 2017-08-12 07:30:39    none     3      45  8.368195 2017-08-12
-    ## 7      7 2017-08-12 07:30:39    lots     3      39  9.608013 2017-08-12
-    ## 8      8 2017-08-12 07:30:39    some     5      37  7.876698 2017-08-12
-    ## 9      9 2017-08-12 07:30:39    none     7      28  7.506042 2017-08-12
-    ## 10    10 2017-08-12 07:30:39    none     5      40  7.368981 2017-08-12
+    ## 1      1 2017-08-15 09:22:20 limited     2      47  7.309440 2017-08-15
+    ## 2      2 2017-08-15 09:22:20    some     4      39  7.723569 2017-08-15
+    ## 3      3 2017-08-15 09:22:20    lots     7      29  6.890581 2017-08-15
+    ## 4      4 2017-08-15 09:22:20    none     3      46  8.133869 2017-08-15
+    ## 5      5 2017-08-15 09:22:20    none     2      47  9.785339 2017-08-15
+    ## 6      6 2017-08-15 09:22:20 limited     2      45 10.422163 2017-08-15
+    ## 7      7 2017-08-15 09:22:20     pro     8      28  6.923171 2017-08-15
+    ## 8      8 2017-08-15 09:22:20    none     6      32  8.485941 2017-08-15
+    ## 9      9 2017-08-15 09:22:20    lots     6      33  9.388522 2017-08-15
+    ## 10    10 2017-08-15 09:22:20    lots     4      41  7.804343 2017-08-15
     ## # ... with 40 more rows, and 1 more variables: Tidy_data <chr>
 
 Notice that the `get-bootcamp-googlesheet.R` script changed the names of the variables a bit. We may also want to modify the levels of the `R_exp` variable to make it an ordered factor.
@@ -78,7 +79,7 @@ Notice that the `get-bootcamp-googlesheet.R` script changed the names of the var
 (survey_responses <- unique(survey$R_exp))
 ```
 
-    ## [1] "limited" "lots"    "none"    "pro"     "some"
+    ## [1] "limited" "some"    "lots"    "none"    "pro"
 
 This shows us the different survey response values.
 

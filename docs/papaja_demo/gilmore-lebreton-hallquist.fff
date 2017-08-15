@@ -2,8 +2,8 @@
 \ifnextchar[{\eatarg}{}
 [htbp]
 \centering
-\includegraphics{gilmore-lebreton-hallquist_files/figure-latex/unnamed-chunk-1-1.pdf}
-\caption{\label{fig:unnamed-chunk-1}Game of Thrones enthusiasm by age and R
+\includegraphics{gilmore-lebreton-hallquist_files/figure-latex/GoT-by-age-exp-1.pdf}
+\caption{\label{fig:GoT-by-age-exp}Game of Thrones enthusiasm by age and R
 experience}
 \end{figure*}
 \efloatseparator
@@ -12,8 +12,8 @@ experience}
 \ifnextchar[{\eatarg}{}
 [htbp]
 \centering
-\includegraphics{gilmore-lebreton-hallquist_files/figure-latex/unnamed-chunk-2-1.pdf}
-\caption{\label{fig:unnamed-chunk-2}Game of Thrones enthusiasm by preferred
+\includegraphics{gilmore-lebreton-hallquist_files/figure-latex/GoT-by-sleep-1.pdf}
+\caption{\label{fig:GoT-by-sleep}Game of Thrones enthusiasm by preferred
 hours of sleep}
 \end{figure*}
 \efloatseparator

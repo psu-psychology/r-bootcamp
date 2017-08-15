@@ -2,7 +2,8 @@
 title: "bootcamp-survey"
 author: "Rick Gilmore"
 date: "`r Sys.time()`"
-output: 
+output:
+  html_notebook:
   github_document:
     toc: true
     toc_depth: 3
@@ -39,6 +40,7 @@ There are some idiosyncrasies in using the `googlesheets` package in an R Markdo
 ---
 
 ```{r load-data}
+# Created test data set for testing.
 # survey <- read_csv("../data/survey.csv")
 survey <- read_csv("../data/survey-test.csv")
 survey

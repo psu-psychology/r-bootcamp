@@ -76,7 +76,7 @@ survey$R_exp <- ordered(survey$R_exp, levels=c("none",
 ```
 
 # Methods {#methods}
-Consistent with open and transparent science practices, we report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study [@Simmons2011-za]. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
+Consistent with open and transparent science practices, we report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study [@Simmons2011-za].
 
 ## Participants {#participants}
 
@@ -113,7 +113,7 @@ To view it, see the R Markdown file in the [GitHub repository](http://github.com
 descriptives_GoT <- survey %>%
   select(R_exp, GoT) %>%
   group_by(R_exp) %>%
-  summarize(
+  summarise(
     Mean = mean(GoT)
     , Median = median(GoT)
     , SD = sd(GoT)

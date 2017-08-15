@@ -1,4 +1,4 @@
-# make-site.R
+# Make_site.R
 #
 # Updates and makes R bootcamp site
 #
@@ -9,10 +9,11 @@ rmarkdown::render("talks/r-eproducible-science.Rmd",
                                     "pdf_document", 
                                     "word_document", 
                                     "ioslides_presentation"))
-
-source("R/update-survey.R")
+# Survey data
+source("R/Update_survey.R")
 source("R/Make_test_survey.R")
 
+# Sample papja document
 rmarkdown::render("papaja_demo/gilmore-lebreton-hallquist.Rmd")
 
 # Since James' talk is now in html_notebook, it expects

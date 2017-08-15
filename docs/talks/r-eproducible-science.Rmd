@@ -2,6 +2,7 @@
 title: "R-eproducible-science"
 author: "Rick Gilmore"
 date: "`r Sys.time()`"
+bibliography: bootcamp.bib
 output: 
   ioslides_presentation:
     widescreen: true
@@ -12,10 +13,6 @@ output:
     toc: true
     toc_depth: 3
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
-```
 
 ## R-eproducible psychological science
 
@@ -53,6 +50,14 @@ knitr::opts_chunk$set(echo = FALSE)
 
 <div class="notes">
 Here are the data from the Nature survey.
+</div>
+
+## [[@Munafo2017-dc]](http://doi.org/10.1038/s41562-016-0021) manifesto
+
+<div class="centered">
+<a href="http://www.nature.com/articles/s41562-016-0021/figures/1">
+<img src="http://www.nature.com/article-assets/npg/nathumbehav/2017/s41562-016-0021/images_hires/w926/s41562-016-0021-f1.jpg" height=500px>
+</a>
 </div>
 
 ## What am I trying to reproduce?
@@ -130,8 +135,8 @@ Here are the data from the Nature survey.
 
 - Transparent, reproducible, open workflows pre-publication
 - Openly shared materials + data + code
-- Munafò, M. R., Nosek, B. A., Bishop, D. V. M., Button, K. S., Chambers, C. D., Sert, N. P. du, Simonsohn, U., et al. (2017). A manifesto for reproducible science. *Nature Human Behaviour*, *1*, 0021. Retrieved January 10, 2017, from <http://www.nature.com/articles/s41562-016-0021>.
-- Gilmore, R. O., & Adolph, K. E. (2017). Video can make behavioural science more reproducible. *Nature Human Behavior*, *1*. Retrieved from <http://dx.doi.org/10.1038/s41562-017-0128>.
+- [[@Munafo2017-dc]](http://doi.org/10.1038/s41562-016-0021)
+- [[@Gilmore2017-eh]](http://dx.doi.org/10.1038/s41562-017-0128)
 
 ## Advanced topics
 
@@ -165,3 +170,6 @@ Here are the data from the Nature survey.
 - Don't be afraid to work in the open
 - Learn from others
 - Just do it!
+
+## References
+

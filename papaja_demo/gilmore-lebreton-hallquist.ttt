@@ -8,11 +8,11 @@
 \toprule
 R\_exp & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Median} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max}\\
 \midrule
-none & 4.60 & 5.00 & 1.51 & 2.00 & 6.00\\
-limited & 4.80 & 4.50 & 2.53 & 1.00 & 8.00\\
-some & 5.00 & 4.50 & 2.00 & 2.00 & 8.00\\
-lots & 5.30 & 5.00 & 2.87 & 1.00 & 10.00\\
-pro & 4.90 & 4.50 & 1.85 & 2.00 & 8.00\\
+none & 4.80 & 4.50 & 2.66 & 1.00 & 9.00\\
+limited & 4.90 & 4.50 & 1.91 & 2.00 & 8.00\\
+some & 4.30 & 4.00 & 2.54 & 1.00 & 8.00\\
+lots & 2.70 & 3.00 & 1.42 & 1.00 & 5.00\\
+pro & 5.00 & 5.00 & 1.15 & 3.00 & 7.00\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -35,8 +35,8 @@ pro & 4.90 & 4.50 & 1.85 & 2.00 & 8.00\\
  & \multicolumn{1}{c}{GoT} & \multicolumn{1}{c}{Age\_yrs}\\
 \midrule
 GoT &  & \\
-Age\_yrs & -0.92*** & \\
-Sleep\_hrs & -0.48*** & 0.22\\
+Age\_yrs & -0.93*** & \\
+Sleep\_hrs & -0.25 & -0.01\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -58,9 +58,9 @@ Sleep\_hrs & -0.48*** & 0.22\\
 \toprule
 Effect & \multicolumn{1}{c}{$F$} & \multicolumn{1}{c}{$\mathit{df}_1$} & \multicolumn{1}{c}{$\mathit{df}_2$} & \multicolumn{1}{c}{$\mathrm{MSE}$} & \multicolumn{1}{c}{$p$} & \multicolumn{1}{c}{$\eta^2_p$}\\
 \midrule
-R exp & 0.12 & 4 & 40 & 5.29 & .974 & .012\\
-Tidy data & 0.17 & 1 & 40 & 5.29 & .686 & .004\\
-R exp $\times$ Tidy data & 0.32 & 4 & 40 & 5.29 & .865 & .031\\
+R exp & 2.72 & 4 & 40 & 4.19 & .043 & .214\\
+Tidy data & 0.00 & 1 & 40 & 4.19 & .985 & .000\\
+R exp $\times$ Tidy data & 1.02 & 4 & 40 & 4.19 & .410 & .092\\
 \bottomrule
 \addlinespace
 \end{tabular}

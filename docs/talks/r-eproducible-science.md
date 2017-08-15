@@ -1,13 +1,14 @@
 R-eproducible-science
 ================
 Rick Gilmore
-2017-08-12 07:45:07
+2017-08-15 09:27:13
 
 -   [R-eproducible psychological science](#r-eproducible-psychological-science)
 -   [Themes](#themes)
 -   [Is there a crisis?](#is-there-a-crisis)
 -   [Not just in psychology](#not-just-in-psychology)
 -   [If so, why?](#if-so-why)
+-   [[(Munafò et al. 2017)](http://doi.org/10.1038/s41562-016-0021) manifesto](#munafo2017-dc-manifesto)
 -   [What am I trying to reproduce?](#what-am-i-trying-to-reproduce)
 -   [Reproducible workflows](#reproducible-workflows)
 -   [Using R for reproducible workflows](#using-r-for-reproducible-workflows)
@@ -20,6 +21,7 @@ Rick Gilmore
 -   [Advanced topics](#advanced-topics)
 -   [My GitHub workflow](#my-github-workflow)
 -   [Learn from my mistakes](#learn-from-my-mistakes)
+-   [References](#references)
 
 R-eproducible psychological science
 -----------------------------------
@@ -51,6 +53,11 @@ If so, why?
 [Baker 2016](http://doi.org/10.1038/533452a)
 
 Here are the data from the Nature survey.
+
+[(Munafò et al. 2017)](http://doi.org/10.1038/s41562-016-0021) manifesto
+------------------------------------------------------------------------
+
+<a href="http://www.nature.com/articles/s41562-016-0021/figures/1"> <img src="http://www.nature.com/article-assets/npg/nathumbehav/2017/s41562-016-0021/images_hires/w926/s41562-016-0021-f1.jpg" height=500px> </a>
 
 What am I trying to reproduce?
 ------------------------------
@@ -136,8 +143,8 @@ Toward a reproducible psychological science...
 
 -   Transparent, reproducible, open workflows pre-publication
 -   Openly shared materials + data + code
--   Munafò, M. R., Nosek, B. A., Bishop, D. V. M., Button, K. S., Chambers, C. D., Sert, N. P. du, Simonsohn, U., et al. (2017). A manifesto for reproducible science. *Nature Human Behaviour*, *1*, 0021. Retrieved January 10, 2017, from <http://www.nature.com/articles/s41562-016-0021>.
--   Gilmore, R. O., & Adolph, K. E. (2017). Video can make behavioural science more reproducible. *Nature Human Behavior*, *1*. Retrieved from <http://dx.doi.org/10.1038/s41562-017-0128>.
+-   [(Munafò et al. 2017)](http://doi.org/10.1038/s41562-016-0021)
+-   [(Gilmore and Adolph 2017)](http://dx.doi.org/10.1038/s41562-017-0128)
 
 Advanced topics
 ---------------
@@ -174,3 +181,10 @@ Learn from my mistakes
 -   Don't be afraid to work in the open
 -   Learn from others
 -   Just do it!
+
+References
+----------
+
+Gilmore, Rick O, and Karen E Adolph. 2017. “Video Can Make Behavioural Science More Reproducible.” *Nature Human Behavior* 1 (12~jun). doi:[10.1038/s41562-017-0128](https://doi.org/10.1038/s41562-017-0128).
+
+Munafò, Marcus R, Brian A Nosek, Dorothy V M Bishop, Katherine S Button, Christopher D Chambers, Nathalie Percie du Sert, Uri Simonsohn, Eric-Jan Wagenmakers, Jennifer J Ware, and John P A Ioannidis. 2017. “A Manifesto for Reproducible Science.” *Nature Human Behaviour* 1 (10~jan): 0021. doi:[10.1038/s41562-016-0021](https://doi.org/10.1038/s41562-016-0021).

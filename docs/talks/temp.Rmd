@@ -2,16 +2,7 @@
 title: "R-eproducible-science"
 author: "Rick Gilmore"
 date: "`r Sys.time()`"
-bibliography: bootcamp.bib
-output: 
-  ioslides_presentation:
-    widescreen: true
-  pdf_document:
-    toc: true
-    toc_depth: 3
-  github_document:
-    toc: true
-    toc_depth: 3
+output: github_document
 ---
 
 ## R-eproducible psychological science
@@ -82,7 +73,7 @@ Here are the data from the Nature survey.
 - One input file, multiple outputs to
     - PDF, Word (.docx)
     - HTML for web pages, slides
-    
+
 ## Example 1
 
 - James' R commands from Day 1
@@ -171,5 +162,5 @@ Here are the data from the Nature survey.
 - Learn from others
 - Just do it!
 
-## References
+<!-- ## References -->
 
