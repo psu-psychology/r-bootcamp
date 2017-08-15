@@ -42,7 +42,7 @@ knitr::opts_chunk$set(echo = FALSE, warning=FALSE, error=FALSE)
 ```
 
 ```{r load_packages, include = FALSE}
-if(!require("papaja")){install.packages("papaja")}
+if(!require("papaja")){devtools::install_github("crsh/papaja")}
 library("papaja")
 
 # May need this for newer versions of R (needed for R 3.4.1)
@@ -63,12 +63,9 @@ set.seed(42)
 It is possible to write an entire APA-formatted article in R Markdown. 
 This very brief paper shows how it might be done.
 As illustration, we use the data from a brief, informal survey of participants in the inaugural R Bootcamp at Penn State.
-We predicted that higher levels of enthusiasms for "Game of Thrones"" would be reported by respondents with *lower* reported hours/day of preferred sleep, at least among younger respondents.
+We predicted that higher levels of enthusiasm for "Game of Thrones" would be reported by respondents with *lower* reported hours/day of preferred sleep, at least among younger respondents.
 
 ```{r import-survey}
-
-#setwd('papaja_demo/')
-
 survey <- read_csv("../data/survey-test.csv")
 
 survey$R_exp <- ordered(survey$R_exp, levels=c("none",
@@ -79,7 +76,7 @@ survey$R_exp <- ordered(survey$R_exp, levels=c("none",
 ```
 
 # Methods {#methods}
-Consistent with open and transparent science practices, we report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
+Consistent with open and transparent science practices, we report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study [@Simmons2011-za]. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
 
 ## Participants {#participants}
 
@@ -190,10 +187,10 @@ apa_table(
 )
 ```
 
-Table \@ref(tab:GoT-by-experience) summarizes the Game of Thrones ratings data by levels of R experience.
+Table \@ref(tab:GoT-by-experience) summarizes the Game of Thrones ratings data by levels of R experience. 
 
 Let's examine the correlations between our continuous variables.
-There is a negative correlation (`r corr_got_age$estimate`) between Game of Thrones enthusiasm and age (`r corr_got_age$statistic`), a negative correlation (`r corr_got_sleep$estimate`) between Game of Thrones enthusiasm and sleep (`r corr_got_sleep$statistic`), but no correlation (`r corr_age_sleep$estimate`) between age and sleep (`r corr_age_sleep$statistic`). Figures \@ref(fig:GoT-by-age-exp) and \@ref(fig:GoT-by-sleep) depict these patterns.
+As indicated in Table \@ref(tab:apa-corr-table), there is a negative correlation (`r corr_got_age$estimate`) between Game of Thrones enthusiasm and age (`r corr_got_age$statistic`), a negative correlation (`r corr_got_sleep$estimate`) between Game of Thrones enthusiasm and sleep (`r corr_got_sleep$statistic`), but no correlation (`r corr_age_sleep$estimate`) between age and sleep (`r corr_age_sleep$statistic`). Figures \@ref(fig:GoT-by-age-exp) and \@ref(fig:GoT-by-sleep) depict these patterns.
 
 To test the hypothesis that GoT enthusiasm varies as a function of R expertise and the extent to which respondents use tidy data, we carried out a one-way ANOVA.
 R experience (`r got_aov_results$full$R_exp`) and the use of tidy data principles (`r got_aov_results$full$Tidy_data`) did not predict enthusiasm for Game of Thrones. Table \@ref(tab:GoT-aov-table) summarizes these results.

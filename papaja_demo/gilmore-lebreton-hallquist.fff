@@ -1,6 +1,6 @@
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
-
+[htbp]
 \centering
 \includegraphics{gilmore-lebreton-hallquist_files/figure-latex/GoT-by-age-exp-1.pdf}
 \caption{\label{fig:GoT-by-age-exp}Game of Thrones enthusiasm by age and R
@@ -10,7 +10,7 @@ experience}
  
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
-
+[htbp]
 \centering
 \includegraphics{gilmore-lebreton-hallquist_files/figure-latex/GoT-by-sleep-1.pdf}
 \caption{\label{fig:GoT-by-sleep}Game of Thrones enthusiasm by preferred

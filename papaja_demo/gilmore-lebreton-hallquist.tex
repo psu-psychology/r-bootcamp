@@ -179,7 +179,7 @@ It is possible to write an entire APA-formatted article in R Markdown.
 This very brief paper shows how it might be done. As illustration, we
 use the data from a brief, informal survey of participants in the
 inaugural R Bootcamp at Penn State. We predicted that higher levels of
-enthusiasms for \enquote{Game of Thrones}" would be reported by
+enthusiasm for \enquote{Game of Thrones} would be reported by
 respondents with \emph{lower} reported hours/day of preferred sleep, at
 least among younger respondents.
 
@@ -187,7 +187,8 @@ least among younger respondents.
 
 Consistent with open and transparent science practices, we report how we
 determined our sample size, all data exclusions (if any), all
-manipulations, and all measures in the study.
+manipulations, and all measures in the study (Simmons, Nelson, \&
+Simonsohn, 2011).
 
 \subsection{Participants}\label{participants}
 
@@ -231,16 +232,20 @@ material.
 
 \subsection{Data analysis}\label{data-analysis}
 
-We used R (3.4.1, R Core Team, 2017) and the R-packages \emph{dplyr}
-(0.7.0, Wickham \& Francois, 2016), \emph{ggplot2} (2.2.1, Wickham,
-2009), \emph{googlesheets} (0.2.2, Bryan \& Zhao, 2017), \emph{papaja}
-(0.1.0.9492, Aust \& Barth, 2017), \emph{purrr} (0.2.2, Henry \&
-Wickham, 2017), \emph{readr} (1.1.0, Wickham, Hester, \& Francois,
-2017), \emph{tibble} (1.3.3, Wickham, Francois, \& Müller, 2017),
-\emph{tidyr} (0.6.1, Wickham, 2017a), and \emph{tidyverse} (1.1.1,
-Wickham, 2017b) for all our analyses. The code used to generate these
-analyses is embedded in this document. To view it, see the R Markdown
-file in the
+We used R (3.4.1, R Core Team, 2017) and the R-packages \emph{bindrcpp}
+(0.2, Müller, 2016), \emph{dplyr} (0.5.0, Wickham \& Francois, 2016),
+\emph{Formula} (1.2.1, Zeileis \& Croissant, 2010), \emph{ggplot2}
+(2.2.1, Wickham, 2009), \emph{googlesheets} (0.2.2, Bryan \& Zhao,
+2017), \emph{Hmisc} (4.0.3, Harrell Jr, Charles Dupont, \& others.,
+2017), \emph{lattice} (0.20.35, Sarkar, 2008), \emph{papaja}
+(0.1.0.9492, Aust \& Barth, 2017), \emph{purrr} (0.2.2.2, Henry \&
+Wickham, 2017), \emph{readr} (1.1.1, Wickham, Hester, \& Francois,
+2017), \emph{survival} (2.41.3, Terry M. Therneau \& Patricia M.
+Grambsch, 2000), \emph{tibble} (1.3.0, Wickham, Francois, \& Müller,
+2017), \emph{tidyr} (0.6.3, Wickham, 2017a), and \emph{tidyverse}
+(1.1.1, Wickham, 2017b) for all our analyses. The code used to generate
+these analyses is embedded in this document. To view it, see the R
+Markdown file in the
 \href{http://github.com/psu-psychology/r-bootcamp/papaja-demo/}{GitHub
 repository} associated with this paper.
 
@@ -290,14 +295,14 @@ Sleep\_hrs & -0.48*** & 0.22\\
 \end{center}
 \end{table}
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics{gilmore-lebreton-hallquist_files/figure-latex/GoT-by-age-exp-1.pdf}
 \caption{\label{fig:GoT-by-age-exp}Game of Thrones enthusiasm by age and R
 experience}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[htbp]
 \centering
 \includegraphics{gilmore-lebreton-hallquist_files/figure-latex/GoT-by-sleep-1.pdf}
 \caption{\label{fig:GoT-by-sleep}Game of Thrones enthusiasm by preferred
@@ -328,15 +333,16 @@ R exp $\times$ Tidy data & 0.32 & 4 & 40 & 5.29 & .865 & .031\\
 Table \ref{tab:GoT-by-experience} summarizes the Game of Thrones ratings
 data by levels of R experience.
 
-Let's examine the correlations between our continuous variables. There
-is a negative correlation (\(r = -.92\), 95\% CI \([-.95\), \(-.86]\))
-between Game of Thrones enthusiasm and age (\(t(48) = -16.19\),
-\(p < .001\)), a negative correlation (\(r = -.48\), 95\% CI \([-.67\),
-\(-.23]\)) between Game of Thrones enthusiasm and sleep
-(\(t(48) = -3.79\), \(p < .001\)), but no correlation (\(r = .22\), 95\%
-CI \([-.06\), \(.47]\)) between age and sleep (\(t(48) = 1.55\),
-\(p = .128\)). Figures \ref{fig:GoT-by-age-exp} and
-\ref{fig:GoT-by-sleep} depict these patterns.
+Let's examine the correlations between our continuous variables. As
+indicated in Table \ref{tab:apa-corr-table}, there is a negative
+correlation (\(r = -.92\), 95\% CI \([-.95\), \(-.86]\)) between Game of
+Thrones enthusiasm and age (\(t(48) = -16.19\), \(p < .001\)), a
+negative correlation (\(r = -.48\), 95\% CI \([-.67\), \(-.23]\))
+between Game of Thrones enthusiasm and sleep (\(t(48) = -3.79\),
+\(p < .001\)), but no correlation (\(r = .22\), 95\% CI \([-.06\),
+\(.47]\)) between age and sleep (\(t(48) = 1.55\), \(p = .128\)).
+Figures \ref{fig:GoT-by-age-exp} and \ref{fig:GoT-by-sleep} depict these
+patterns.
 
 To test the hypothesis that GoT enthusiasm varies as a function of R
 expertise and the extent to which respondents use tidy data, we carried
@@ -371,14 +377,39 @@ Bryan, J., \& Zhao, J. (2017). \emph{Googlesheets: Manage google
 spreadsheets from r}. Retrieved from
 \url{https://CRAN.R-project.org/package=googlesheets}
 
+\hypertarget{ref-R-Hmisc}{}
+Harrell Jr, F. E., Charles Dupont, \& others. (2017). \emph{Hmisc:
+Harrell miscellaneous}.
+
 \hypertarget{ref-R-purrr}{}
 Henry, L., \& Wickham, H. (2017). \emph{Purrr: Functional programming
 tools}. Retrieved from \url{https://CRAN.R-project.org/package=purrr}
+
+\hypertarget{ref-R-bindrcpp}{}
+Müller, K. (2016). \emph{Bindrcpp: An 'rcpp' interface to active
+bindings}. Retrieved from
+\url{https://CRAN.R-project.org/package=bindrcpp}
 
 \hypertarget{ref-R-base}{}
 R Core Team. (2017). \emph{R: A language and environment for statistical
 computing}. Vienna, Austria: R Foundation for Statistical Computing.
 Retrieved from \url{https://www.R-project.org/}
+
+\hypertarget{ref-R-lattice}{}
+Sarkar, D. (2008). \emph{Lattice: Multivariate data visualization with
+r}. New York: Springer. Retrieved from
+\url{http://lmdvr.r-forge.r-project.org}
+
+\hypertarget{ref-Simmons2011-za}{}
+Simmons, J. P., Nelson, L. D., \& Simonsohn, U. (2011). False-positive
+psychology: Undisclosed flexibility in data collection and analysis
+allows presenting anything as significant. \emph{Psychol. Sci.},
+\emph{22}(11), 1359--1366. Retrieved from
+\url{http://journals.sagepub.com/doi/abs/10.1177/0956797611417632}
+
+\hypertarget{ref-R-survival-book}{}
+Terry M. Therneau, \& Patricia M. Grambsch. (2000). \emph{Modeling
+survival data: Extending the Cox model}. New York: Springer.
 
 \hypertarget{ref-R-ggplot2}{}
 Wickham, H. (2009). \emph{Ggplot2: Elegant graphics for data analysis}.
@@ -408,6 +439,12 @@ data frames}. Retrieved from
 Wickham, H., Hester, J., \& Francois, R. (2017). \emph{Readr: Read
 rectangular text data}. Retrieved from
 \url{https://CRAN.R-project.org/package=readr}
+
+\hypertarget{ref-R-Formula}{}
+Zeileis, A., \& Croissant, Y. (2010). Extended model formulas in R:
+Multiple parts and multiple responses. \emph{Journal of Statistical
+Software}, \emph{34}(1), 1--13. Retrieved from
+\url{http://www.jstatsoft.org/v34/i01/}
 
 
 
