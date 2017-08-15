@@ -16,7 +16,7 @@ source("R/Make_test_survey.R")
 # Sample papja document
 rmarkdown::render("papaja_demo/gilmore-lebreton-hallquist.Rmd")
 
-# Since James' talk is now in html_notebook, it expects
+# Since James' talk is now an html_notebook, it expects
 # to be run interactively. This breaks rmarkdown::render()
 # 
 # rmarkdown::render("talks/R-Workshop-James.Rmd", 

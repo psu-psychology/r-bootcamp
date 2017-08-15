@@ -10,6 +10,11 @@ output:
   pdf_document:
     toc: true
     toc_depth: 3
+  word_document:
+    toc: true
+    toc_depth: 3
+  ioslides_presentation:
+    widescreen: true
 ---
 
 ```{r setup, include=FALSE}
@@ -35,7 +40,7 @@ library(googlesheets)
 
 The survey data are stored in a [Google Sheet](https://docs.google.com/spreadsheets/d/1Ay56u6g4jyEEdlmV2NHxTLBlcjI2gHavta-Ik0kGrpg/edit#gid=896447063). We'll use the `googlesheets` package to open it and create a data frame. Documentation about the package can be found [here](https://cran.r-project.org/web/packages/googlesheets/vignettes/basic-usage.html).
 
-There are some idiosyncrasies in using the `googlesheets` package in an R Markdown document, so I created a separate R script, `get-bootcamp-googlesheet.R` to extract the survey data and save it to a CSV under `data/survey.csv`. We can then just load this file.
+There are some idiosyncrasies in using the `googlesheets` package in an R Markdown document, so I created a separate R script, `Get_bootcamp_googlesheet.R` to extract the survey data and save it to a CSV under `data/survey.csv`. We can then just load this file.
 
 ---
 
@@ -43,7 +48,16 @@ There are some idiosyncrasies in using the `googlesheets` package in an R Markdo
 # Created test data set for testing.
 # survey <- read_csv("../data/survey.csv")
 survey <- read_csv("../data/survey-test.csv")
+```
+
+```{r}
 survey
+```
+
+The `str()` or 'structure' command is great to see what you've got.
+
+```{r}
+str(survey)
 ```
 
 Notice that the `get-bootcamp-googlesheet.R` script changed the names of the variables a bit. We may also want to modify the levels of the `R_exp` variable to make it an ordered factor.
@@ -75,3 +89,10 @@ got_vs_r_exp <- survey %>%
 got_vs_r_exp
 ```
 
+---
+
+Notice that I sometimes put a label like `got-vs-r-exp` in the brackets for a given 'chunk' of R code. The main reasons to do this are:
+
+- It sometimes makes it easier to debug your code.
+- In some cases, you can have this 'chunk' name serve as the file name for a figure you generate within a chunk.
+- In a bit, we'll see how these chunk names are useful for making tables, figures, and equations that generate their own numbers.

@@ -18,8 +18,9 @@ output:
 
 ## Themes
 
-1. What is reproducible psychological science?
-2. How can R make my science more transparent, open, and reproducible?
+1. Why worry about reproducible science?
+2. What is reproducible psychological science?
+3. How can R make my science more transparent, open, and reproducible?
 
 ## Is there a crisis?
 
@@ -60,6 +61,11 @@ Here are the data from the Nature survey.
 </a>
 </div>
 
+<div class="notes">
+This recent manifesto from Nature Human Behavior describes the risks to reproducible science at every step of the process.
+I urge you to read it.
+</div>
+
 ## What am I trying to reproduce?
 
 - My own workflow
@@ -69,11 +75,27 @@ Here are the data from the Nature survey.
     - Analysis
 - "Hit by a truck" scenario
 
+<div class="notes>
+But today I want us to think more parochially about our own workflows.
+How can using R make our own data collection, cleaning, visualization, and analysis workflows more reproducible.
+Put it this way: If you were hit by a truck tomorrow, could your adviser and collaborators pick up where you left off?
+</div>
+
+
 ## Reproducible workflows
 
 - Scripted, automated = minimize human-dependent steps.
 - Well-documented
+- Be kind to your future (forgetful) self
 - Transparent to me & colleagues == transparent to others
+
+<div class="notes">
+Reproducible workflows are scripted.
+They minimize human contact with your data files.
+They are well-documented.
+And it turns out that workflows that are transparent to you and your colleagues are transparent to others.
+This makes them easy to share.
+</div>
 
 ## Using R for reproducible workflows
 
@@ -83,12 +105,41 @@ Here are the data from the Nature survey.
     - PDF, Word (.docx)
     - HTML for web pages, slides
     
+<div class="notes">
+We've already shown you in this bootcamp how writing R scripts and functions can let you import, clean, munge, reorganize, plot, and analyze data.
+We've already seen how commenting code fragments makes it easier to read and understand.
+An extension to R called R Markdown lets us mix R code, analyses, text, tables, and other formatting to make all sorts of products.
+R Markdown files are just text files.
+But with this one text file, it's easy to produce multiple output types: PDF or Word formatted documents; HTML for blogs, web sites, or even slide presentation.
+</div>
+    
 ## Example 1
 
 - James' R commands from Day 1
 - [Raw R script (.R)](R-Workshop-James.R)
 - Converted to [R Markdown](R-Workshop-James.R.Rmd)
 - Output as | [HTML notebook](R-Workshop-James.nb.html) | [HTML Slides](R-Workshop-James.html) | [PDF](R-Workshop-James.pdf) | [DOCX](R-Workshop-James.docx) |
+
+<div class="notes">
+Just to show you how easy this is, let's look at the R syntax James used yesterday.
+I'm going to show you how adding just a tiny bit of text to that file transforms it.
+Here is the original R script.
+Here is the transformed file with a .Rmd extension.
+</div>
+
+---
+
+```
+---
+title: "R-Workshop-James"
+author: "James LeBreton with Rick Gilmore"
+date: '`r Sys.time()`'
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document: default
+---
+```
 
 ## How to
 
@@ -97,6 +148,27 @@ Here are the data from the Nature survey.
 - Separate segments with `---` and/or `##` or `###`
 - Render via `knit` button or `rmarkdown::render(file="my-file.Rmd")
 
+---
+
+```
+---
+title: "R-Workshop-James"
+author: "James LeBreton with Rick Gilmore"
+date: '`r Sys.time()`'
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document: default
+---
+```
+
+---
+
+- [pdf_document](http://rmarkdown.rstudio.com/pdf_document_format.html)
+- [github_document](http://rmarkdown.rstudio.com/github_document_format.html)
+- [html_notebook](http://rmarkdown.rstudio.com/r_notebooks.html)
+    - Like [jupyter notebooks](http://juypter.org)
+    
 ## How to
 
 - Create new R Markdown file: `New/New File/R Markdown...`
@@ -114,21 +186,107 @@ Here are the data from the Nature survey.
     - Header_2 text starts with `## This is a 2nd level header`
     - Header_3 text starts with `### This is a 3rd level header`
 - Surround R code with triple back-ticks
-- Sections that start with Header_1, Header_2, and `---` will start new slides in `ioslides_presentation` mode.
+- Sections that start with `# Header_1`, `## Header_2`, and `---` will start new slides in `ioslides_presentation` mode.
 - **Bold text**: `**This is bold**`; *Italicized text*: `*Italics*`
 - Start lists with hyphens `- Item 1` or numbers `1. Item 1`.
+
+---
+
+```
+# Big idea
+
+## Smaller idea in service of bigger
+
+- Supporting point
+- Another suppporting point
+- a **bold** point
+- an *italicized* point
+- a [link](http://psu-psychology.github.io/r-bootcamp) to this bootcamp
+- an image: ![rawr](https://www.insidehighered.com/sites/default/server_files/media/PennState2.PNG)
+```
+
+# Big idea
+
+## Smaller idea in service of bigger
+
+- Supporting point
+- Another suppporting point
+- a **bold** point
+- an *italicized* point
+- a [link](http://psu-psychology.github.io/r-bootcamp) to this bootcamp
+- an image: ![rawr](https://www.insidehighered.com/sites/default/server_files/media/PennState2.PNG)
 
 ## Let's try it
 
 - [bootcamp-survey.Rmd](bootcamp-survey.Rmd)
 - [bootcamp-survey.md](bootcamp-survey.md)
 
+## One file, many output options
+
+- **PDF document**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "pdf_document")`
+- **Word document**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "word_document")`
+- GitHub document: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "github_document")`
+- **HTML slides**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "ioslides_presentation")`
+- **Many outputs**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = c("pdf_document", "word_document", "github_document", "ioslides_presentation")`
+
+## Scripting the pipeline
+
+```
+# Get_bootcamp_googlesheet.R
+# 
+# Script to authenticate to Google, extract R bootcamp survey data
+
+library(googlesheets)
+library(tidyverse)
+
+survey_url <- "https://docs.google.com/spreadsheets/d/1Ay56u6g4jyEEdlmV2NHxTLBlcjI2gHavta-Ik0kGrpg/edit?usp=sharing"
+
+bootcamp_by_url <- survey_url %>%
+  extract_key_from_url() %>%
+  gs_key()
+
+bootcamp_sheets <- gs_ws_ls(bootcamp_by_url)
+```
+
+---
+
+```
+boot_data <- bootcamp_by_url %>%
+  gs_read(bootcamp_sheets[1])
+          
+names(boot_data) <- c("Timestamp",
+                      "R_exp",
+                      "GoT",
+                      "Age_yrs",
+                      "Sleep_hrs",
+                      "Fav_date",
+                      "Tidy_data")
+
+write_csv(boot_data, path = "data/survey.csv")
+```
+
+---
+
+```
+# Update_survey.R
+#
+# Updates Googlesheet survey data and generates new R Markdown report
+#
+
+source("R/Get_bootcamp_googlesheet.R")
+rmarkdown::render("talks/bootcamp-survey.Rmd", 
+                  output_format = c("github_document",
+                                    "pdf_document",
+                                    "word_document",
+                                    "ioslides_presentation"))
+```
+
 ## Key points
 
 - Use R Markdown files for documents, reports, presentations.
     - One or more output formats from the same file.
     - Analysis/lab notebook.
-- Use R scripts to automate different pieces of the pipeline.
+- Use R scripts or functions to automate different pieces of the pipeline.
 - Make README files to explain how to put pieces together.
 
 ## Toward a reproducible psychological science...
@@ -147,6 +305,7 @@ Here are the data from the Nature survey.
 - Scriptable analysis workflows
     - Reports for each participant
     - Example: [PEEP-II project](https://github.com/gilmore-lab/peep-II-ratings-analysis)
+    - This bootcamp's [`Make_site.R`](../R/Make_site.R)
 
 ## My GitHub workflow
 
