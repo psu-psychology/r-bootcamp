@@ -22,8 +22,8 @@ title: "2017 R Bootcamp Schedule"
 - 10:45 am • Data visualization (primarily ggplot2)
 - 12:00 pm • Lunch (on your own)
 - 01:00 pm • Programming basics: loops, apply functions, conditional logic, functions
-- 02:15 pm • Best practices in R programming: script management, comments, versioning, legible flow | [Wickham style guide](http://adv-r.had.co.nz/Style.html)
+- 02:15 pm • Best practices in R programming: script management, comments, versioning, legible flow | [Wickham style guide](http://adv-r.had.co.nz/Style.html) |. Tutorial on "joins" | [Rmd](tutorials/joins_tutorial.Rmd) | [HTML](tutorials/joins_tutorial.html) |.
 - 02:45 pm • Break
-- 03:00 pm • Transparent, open & reproducible science with R | [HTML slides](talks/r-eproducible-science.html) | [PDF](talks/r-eproducible-science.pdf) | [docx](talks/r-eproducible-science.docx) |
+- 03:00 pm • Transparent, open & reproducible science with R | [HTML slides](talks/r-eproducible-science.html) | [HTML notebook](talks/r-eproducible-science.nb.html) | [PDF](talks/r-eproducible-science.pdf) | [docx](talks/r-eproducible-science.docx) |. `papaja` demo | [Rmd](papaja_demo/gilmore-lebreton-hallquist.Rmd) | [PDF](papaja_demo/gilmore-lebreton-hallquist.pdf) |
 - 04:30 pm • End
 - 05:00 pm • Optional Happy Hour @ Whisker's
