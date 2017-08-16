@@ -145,7 +145,7 @@ z_score(score, values)</code></pre>
 <ul>
 <li><p>All loops iterate along some sequence</p></li>
 <li><p>Iterators are (generally) numbers, and are initialized by calling: <code>for (i in 1:10) {loop something here}</code></p></li>
-<li><p><code>i</code> is the iterator, and tells the <code>for</code> statement to cycle through the loop 10 times (<code>1:10</code>)</p></li>
+<li><p><code>i</code> is the iterator, and tells the <code>for</code> statement to cycle through the loop 10 times (<code>1:10</code>):</p></li>
 </ul>
 <p>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</p>
 <pre class="r"><code>for (i in 1:10){
@@ -162,7 +162,7 @@ z_score(score, values)</code></pre>
 ## [1] 8
 ## [1] 9
 ## [1] 10</code></pre>
-<p><em>Try to use what you know to loop through the numbers 1 through 10 and square each value</em></p>
+<p><em>Try to use what you know to loop through numbers 1 - 10 and square each value</em></p>
 <p>Write the R code required to print each number’s squared value:</p>
 <div class="tutorial-exercise" data-label="for-loops-1-ex" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
 <script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
@@ -184,7 +184,10 @@ length(list)</code></pre>
 # tidyverse function `readr::parse_number()`
 readr::parse_number(&#39;subject_45&#39;)</code></pre>
 <pre><code>## [1] 45</code></pre>
-<pre class="r"><code># Let&#39;s try combining each of these into a for loop:
+<pre class="r"><code># Initialize an empty vector to fill
+list_sans_text &lt;- vector(&#39;numeric&#39;)
+
+# Let&#39;s try combining each of these into a for loop:
 for (i in 1:length(list)){
   list_sans_text &lt;- readr::parse_number(i)
 }
@@ -199,8 +202,8 @@ print(list_sans_text)</code></pre>
 <div class="tutorial-exercise" data-label="for-loops-2-ex" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
 <pre class="text"><code>list &lt;- c(&#39;subject_1&#39;,&#39;subject_2&#39;,&#39;subject_3&#39;,&#39;subject_4&#39;)
 
-# Create an empty vector to store values in
-list_sans_text &lt;- NULL
+# Initialize an empty vector to fill
+list_sans_text &lt;- vector(&#39;numeric&#39;)
 
 for (i in 1:length(list)){
   list_sans_text &lt;- readr::parse_number(i)
@@ -212,8 +215,9 @@ print(list_sans_text)</code></pre>
 <div class="tutorial-exercise-support" data-label="for-loops-2-ex-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
 <pre class="text"><code>list &lt;- c(&#39;subject_1&#39;,&#39;subject_2&#39;,&#39;subject_3&#39;,&#39;subject_4&#39;)
 
-# Create an empty vector to store values in
-list_sans_text &lt;- NULL
+# Initialize an empty vector to fill (`double()` here is
+# synonomous with `vector(&#39;numeric&#39;)`)
+list_sans_text &lt;- double()
 
 for (i in 1:length(list)){
   list_sans_text[i] &lt;- readr::parse_number(list[i])

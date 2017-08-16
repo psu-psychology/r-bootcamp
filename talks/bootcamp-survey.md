@@ -1,7 +1,7 @@
 bootcamp-survey
 ================
 Rick Gilmore
-2017-08-16 12:22:42
+2017-08-16 16:49:45
 
 -   [Goals](#goals)
 -   [Preliminaries](#preliminaries)
@@ -61,16 +61,16 @@ survey
     ## # A tibble: 50 x 8
     ##       X1           Timestamp   R_exp   GoT Age_yrs Sleep_hrs   Fav_date
     ##    <int>              <dttm>   <chr> <int>   <int>     <dbl>     <date>
-    ##  1     1 2017-08-15 10:55:01    none     3      52  7.569531 2017-08-15
-    ##  2     2 2017-08-15 10:55:01    none     3      53  7.742731 2017-08-15
-    ##  3     3 2017-08-15 10:55:01    some     7      31  6.236837 2017-08-15
-    ##  4     4 2017-08-15 10:55:01    lots     4      49  8.460097 2017-08-15
-    ##  5     5 2017-08-15 10:55:01 limited     4      43  7.360005 2017-08-15
-    ##  6     6 2017-08-15 10:55:01     pro     5      39  8.455450 2017-08-15
-    ##  7     7 2017-08-15 10:55:01    lots     3      46  8.704837 2017-08-15
-    ##  8     8 2017-08-15 10:55:01 limited     7      26  9.035104 2017-08-15
-    ##  9     9 2017-08-15 10:55:01    none     4      44  7.391074 2017-08-15
-    ## 10    10 2017-08-15 10:55:01    some     4      45  8.504955 2017-08-15
+    ##  1     1 2017-08-16 12:23:01    none     7      31  6.964537 2017-08-16
+    ##  2     2 2017-08-16 12:23:01     pro     7      25  8.834509 2017-08-16
+    ##  3     3 2017-08-16 12:23:01 limited     3      49  7.247419 2017-08-16
+    ##  4     4 2017-08-16 12:23:01    lots     5      38  7.263245 2017-08-16
+    ##  5     5 2017-08-16 12:23:01    lots     6      34  8.003129 2017-08-16
+    ##  6     6 2017-08-16 12:23:01    none     7      25  7.747287 2017-08-16
+    ##  7     7 2017-08-16 12:23:01    none     2      52  7.695214 2017-08-16
+    ##  8     8 2017-08-16 12:23:01    none     7      30  6.731940 2017-08-16
+    ##  9     9 2017-08-16 12:23:01    lots     6      41  6.415195 2017-08-16
+    ## 10    10 2017-08-16 12:23:01    some     6      26  8.334207 2017-08-16
     ## # ... with 40 more rows, and 1 more variables: Tidy_data <chr>
 
 The `str()` or 'structure' command is great to see what you've got.
@@ -81,13 +81,13 @@ str(survey)
 
     ## Classes 'tbl_df', 'tbl' and 'data.frame':    50 obs. of  8 variables:
     ##  $ X1       : int  1 2 3 4 5 6 7 8 9 10 ...
-    ##  $ Timestamp: POSIXct, format: "2017-08-15 10:55:01" "2017-08-15 10:55:01" ...
-    ##  $ R_exp    : chr  "none" "none" "some" "lots" ...
-    ##  $ GoT      : int  3 3 7 4 4 5 3 7 4 4 ...
-    ##  $ Age_yrs  : int  52 53 31 49 43 39 46 26 44 45 ...
-    ##  $ Sleep_hrs: num  7.57 7.74 6.24 8.46 7.36 ...
-    ##  $ Fav_date : Date, format: "2017-08-15" "2017-08-15" ...
-    ##  $ Tidy_data: chr  "Yes" "No" "Yes" "No" ...
+    ##  $ Timestamp: POSIXct, format: "2017-08-16 12:23:01" "2017-08-16 12:23:01" ...
+    ##  $ R_exp    : chr  "none" "pro" "limited" "lots" ...
+    ##  $ GoT      : int  7 7 3 5 6 7 2 7 6 6 ...
+    ##  $ Age_yrs  : int  31 25 49 38 34 25 52 30 41 26 ...
+    ##  $ Sleep_hrs: num  6.96 8.83 7.25 7.26 8 ...
+    ##  $ Fav_date : Date, format: "2017-08-16" "2017-08-16" ...
+    ##  $ Tidy_data: chr  "Yes" "Yes" "No" "No" ...
     ##  - attr(*, "spec")=List of 2
     ##   ..$ cols   :List of 8
     ##   .. ..$ X1       : list()
@@ -118,7 +118,7 @@ Notice that the `get-bootcamp-googlesheet.R` script changed the names of the var
 (survey_responses <- unique(survey$R_exp))
 ```
 
-    ## [1] "none"    "some"    "lots"    "limited" "pro"
+    ## [1] "none"    "pro"     "limited" "lots"    "some"
 
 This shows us the different survey response values.
 

@@ -1,9 +1,9 @@
 ---
-title: "bootcamp-survey"
+title: "Analysis of bootcamp survey"
 author: "Rick Gilmore"
 date: "`r Sys.time()`"
 output:
-  html_notebook:
+  html_notebook: default
   github_document:
     toc: true
     toc_depth: 3
@@ -40,27 +40,52 @@ library(googlesheets)
 
 The survey data are stored in a [Google Sheet](https://docs.google.com/spreadsheets/d/1Ay56u6g4jyEEdlmV2NHxTLBlcjI2gHavta-Ik0kGrpg/edit#gid=896447063). We'll use the `googlesheets` package to open it and create a data frame. Documentation about the package can be found [here](https://cran.r-project.org/web/packages/googlesheets/vignettes/basic-usage.html).
 
-There are some idiosyncrasies in using the `googlesheets` package in an R Markdown document, so I created a separate R script, `Get_bootcamp_googlesheet.R` to extract the survey data and save it to a CSV under `data/survey.csv`. We can then just load this file.
+There are some idiosyncrasies in using the `googlesheets` package in an R Markdown document because it requires interaction with the console, so I created a separate R script, `Get_bootcamp_googlesheet.R` to extract the survey data, clean it, and save it to a CSV under `data/survey.csv`.
+We can then just load this file.
+But, let's look at [`R/Clean_survey_data.R`](../R/Clean_survey_data.R).
+
+I also created a test data file, `data/survey-test.csv` so I could see how everything worked before y'all filled out your responses.
+The [`R/Make_test_survey.R`](../R/Make_test_survey.R) file shows how I did this.
+It's a great, reproducible practice to simulate the data you expect, then run it through your pipeline.
 
 ---
 
 ```{r load-data}
 # Created test data set for testing.
-# survey <- read_csv("../data/survey.csv")
-survey <- read_csv("../data/survey-test.csv")
+# survey <- read_csv("../data/survey-test.csv")
+# Or choose data from respondents
+survey <- read_csv("../data/survey.csv")
 ```
 
 ```{r}
 survey
 ```
 
-The `str()` or 'structure' command is great to see what you've got.
+The `str()` or 'structure' command is also a great way to see what you've got.
 
 ```{r}
 str(survey)
 ```
 
-Notice that the `get-bootcamp-googlesheet.R` script changed the names of the variables a bit. We may also want to modify the levels of the `R_exp` variable to make it an ordered factor.
+Clearly, we need to do some cleaning before we can do anything with this.
+
+```{r clean-survey}
+# complete.cases() drops NAs
+survey <- survey[complete.cases(survey),]
+survey
+```
+
+Now, lets make sure we have numbers where we expect them.
+
+```{r make-numbers}
+survey$Age_yrs <- readr::parse_number(survey$Age_yrs)
+survey$Sleep_hrs <- readr::parse_number(survey$Sleep_hrs)
+survey
+```
+
+Looks good.
+
+We may want to make the `R_exp` variable ordered.
 
 ```{r modify-r-exp}
 (survey_responses <- unique(survey$R_exp))
@@ -76,20 +101,57 @@ survey$R_exp <- ordered(survey$R_exp, levels=c("none",
                                                "pro"))
 ```
 
-## Visualization and analysis
+## Visualization
 
-Now, we can ask important questions.
+Now, we follow Mike Meyer's advice: "Plot your data!"
 
-```{r got-vs-r-exp}
-got_vs_r_exp <- survey %>%
+### Descriptive plots
+
+```{r R-exp-hist}
+R_exp_hist <- survey %>%
+  ggplot() +
+  aes(x=R_exp) +
+  geom_histogram(stat = "count") # R_exp is discrete
+R_exp_hist
+```
+
+```{r Sleep_hrs_hist}
+Sleep_hrs_hist <- survey %>%
+  ggplot() +
+  aes(x=Sleep_hrs) +
+  geom_histogram() # Sleep_hrs is continuous
+Sleep_hrs_hist
+```
+
+```{r}
+Got_hist <- survey %>%
+  ggplot() +
+  aes(x=GoT) +
+  geom_histogram()
+Got_hist
+```
+
+Looks like we are of two minds about GoT.
+
+![](https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/03/17/08/thrones-dragon.jpg)
+
+```{r GoT-vs-r-exp}
+GoT_vs_r_exp <- survey %>%
   ggplot() +
   aes(x=GoT, y=Age_yrs) +
   facet_grid(. ~ R_exp) +
   geom_point()
-got_vs_r_exp
+GoT_vs_r_exp
 ```
 
----
+## Analysis
+
+I could use a document like this to plan out my analysis plan **before** I conduct it.
+If I used simulated data, I could make sure that my workflow will run when I get real (cleaned) data.
+I could even preregister my analysis plan before I conduct it.
+That doesn't preclude later exploratory analyses, but it does hold me and my collaborators accountable for what I predicted in advance.
+
+## Notes
 
 Notice that I sometimes put a label like `got-vs-r-exp` in the brackets for a given 'chunk' of R code. The main reasons to do this are:
 

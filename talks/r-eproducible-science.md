@@ -1,11 +1,10 @@
-R-eproducible-science
+R-eproducible Psychological Science
 ================
 Rick Gilmore
-2017-08-16 12:22:19
+2017-08-16 16:49:26
 
--   [R-eproducible psychological science](#r-eproducible-psychological-science)
 -   [Themes](#themes)
--   [Is there a crisis?](#is-there-a-crisis)
+-   [Is there a reproducibility crisis?](#is-there-a-reproducibility-crisis)
 -   [Not just in psychology](#not-just-in-psychology)
 -   [If so, why?](#if-so-why)
 -   [[(Munafò et al. 2017)](http://doi.org/10.1038/s41562-016-0021) manifesto](#munafo2017-dc-manifesto)
@@ -13,8 +12,11 @@ Rick Gilmore
 -   [Reproducible workflows](#reproducible-workflows)
 -   [Using R for reproducible workflows](#using-r-for-reproducible-workflows)
 -   [Example 1](#example-1)
--   [How to](#how-to)
--   [How to](#how-to-1)
+-   [Make script that calls sequence of R commands or functions](#make-script-that-calls-sequence-of-r-commands-or-functions)
+-   [Strengths & Weaknesses](#strengths-weaknesses)
+-   [Example 2 - R Markdown](#example-2---r-markdown)
+-   [Structure of an R Markdown file](#structure-of-an-r-markdown-file)
+-   [One R to rule them all and in the console bind them...](#one-r-to-rule-them-all-and-in-the-console-bind-them...)
 -   [Your turn](#your-turn)
 -   [Things to try if you like](#things-to-try-if-you-like)
 -   [Big idea](#big-idea)
@@ -29,9 +31,6 @@ Rick Gilmore
     -   [Learn from my mistakes](#learn-from-my-mistakes)
     -   [References](#references)
 
-R-eproducible psychological science
------------------------------------
-
 Themes
 ------
 
@@ -39,8 +38,15 @@ Themes
 2.  What is reproducible psychological science?
 3.  How can R make my science more transparent, open, and reproducible?
 
-Is there a crisis?
-------------------
+Is there a reproducibility crisis?
+----------------------------------
+
+-   Yes
+-   A slight crisis
+-   No crisis
+-   Don't know
+
+------------------------------------------------------------------------
 
 <a href="http://www.nature.com/polopoly_fs/7.36716.1469695923!/image/reproducibility-graphic-online1.jpeg_gen/derivatives/landscape_630/reproducibility-graphic-online1.jpeg" height=450px> <img src="http://www.nature.com/polopoly_fs/7.36716.1469695923!/image/reproducibility-graphic-online1.jpeg_gen/derivatives/landscape_630/reproducibility-graphic-online1.jpeg" height=500px> </a>
 
@@ -54,6 +60,8 @@ Not just in psychology
 
 If so, why?
 -----------
+
+------------------------------------------------------------------------
 
 <a href="http://www.nature.com/polopoly_fs/7.36719.1464174488!/image/reproducibility-graphic-online4.jpg_gen/derivatives/landscape_630/reproducibility-graphic-online4.jpg"> <img src="http://www.nature.com/polopoly_fs/7.36719.1464174488!/image/reproducibility-graphic-online4.jpg_gen/derivatives/landscape_630/reproducibility-graphic-online4.jpg" height=500px> </a>
 
@@ -78,7 +86,7 @@ What am I trying to reproduce?
     -   Analysis
 -   "Hit by a truck" scenario
 
-But today I want us to think more parochially about our own workflows. How can using R make our own data collection, cleaning, visualization, and analysis workflows more reproducible. Put it this way: If you were hit by a truck tomorrow, could your adviser and collaborators pick up where you left off?
+But today I want us to think more parochially about our own workflows. How can using R make our own data collection, cleaning, visualization, and analysis workflows more reproducible. Ask yourself this: Can you pick up where you left off on a project you were working on yesterday? Last week? Last month? Six months ago? Put it this way: If you were hit by a truck tomorrow, could your adviser and collaborators pick up where you left off?
 
 Reproducible workflows
 ----------------------
@@ -105,74 +113,72 @@ We've already shown you in this bootcamp how writing R scripts and functions can
 Example 1
 ---------
 
--   James' R commands from Day 1
--   [Raw R script (.R)](R-Workshop-James.R)
+    # Import data
+
+    # Clean data
+
+    # Visualize data
+
+    # Analyze data
+
+    # Report findings
+
+------------------------------------------------------------------------
+
+    # Import data
+    my_data <- read.csv("path/2/data_file.csv")
+
+    # Clean data
+    my_data$gender <- tolower(my_data$gender) # make lower case
+    ...
+
+Make script that calls sequence of R commands or functions
+----------------------------------------------------------
+
+    # Import data
+    source("R/Import_data.R") # source() runs scripts, loads functions
+
+    # Clean data
+    source("R/Clean_data.R")
+
+    # Visualize data
+    source("R/Visualize_data.R")
+    ...
+
+Strengths & Weaknesses
+----------------------
+
+-   R commands in files that can be re-run
+-   Separate pieces of workflow kept separate
+-   "Master" script that can be run to regenerate full sequence of results
+    -   Error in raw data file?
+    -   No problem; fix and re-run "Master"
+-   How to save results or share with collaborators?
+
+Example 2 - R Markdown
+----------------------
+
+-   James' R commands from Day 1: [Raw R script (.R)](R-Workshop-James.R)
 -   Converted to [R Markdown](R-Workshop-James.R.Rmd)
 -   Output as | [HTML notebook](R-Workshop-James.nb.html) | [HTML Slides](R-Workshop-James.html) | [PDF](R-Workshop-James.pdf) | [DOCX](R-Workshop-James.docx) |
 
 Just to show you how easy this is, let's look at the R syntax James used yesterday. I'm going to show you how adding just a tiny bit of text to that file transforms it. Here is the original R script. Here is the transformed file with a .Rmd extension.
 
-------------------------------------------------------------------------
+Structure of an R Markdown file
+-------------------------------
 
-    ---
-    title: "R-Workshop-James"
-    author: "James LeBreton with Rick Gilmore"
-    date: '2017-08-16 12:22:19'
-    output:
-      pdf_document: default
-      html_notebook: default
-      html_document: default
-    ---
+-   header info in [YAML Ain't Markup Language (YAML) format](http://www.yaml.org/start.html)
+-   Markdown for formating text (headers, **boldface**/*italics*, `code`, bulleted or numbered lists, [web links](http://www.psu.edu), etc.
+-   R code "chunks"
 
-How to
-------
+One R to rule them all and in the console bind them...
+------------------------------------------------------
 
--   Add header info in [YAML Ain't Markup Language (YAML) format](http://www.yaml.org/start.html)
--   Wrap R code "chunks" with triple backticks and {r}
--   Separate segments with `---` and/or `##` or `###`
--   Render via `knit` button or \`rmarkdown::render(file="my-file.Rmd")
-
-------------------------------------------------------------------------
-
-    ---
-    title: "R-Workshop-James"
-    author: "James LeBreton with Rick Gilmore"
-    date: '2017-08-16 12:22:19'
-    output:
-      pdf_document: default
-      html_notebook: default
-      html_document: default
-    ---
-
-------------------------------------------------------------------------
-
--   [pdf\_document](http://rmarkdown.rstudio.com/pdf_document_format.html)
--   [github\_document](http://rmarkdown.rstudio.com/github_document_format.html)
--   [html\_notebook](http://rmarkdown.rstudio.com/r_notebooks.html)
-    -   Like [jupyter notebooks](http://juypter.org)
-
-How to
-------
-
--   Create new R Markdown file: `New/New File/R Markdown...`
--   Specify default, alternative output formats:
-    -   `pdf_document`
-    -   `word_document`
-    -   `ioslides_document`: HTML slides
-    -   `github_document`: renders nicely on GitHub
-    -   `html_notebook`: integrates code & comments, easy to share
-
-------------------------------------------------------------------------
-
--   Create your document
-    -   Use an "outline" with Header\_1, Header\_2, Header\_3, etc.
-    -   Header\_1 text starts with `# This is a top level header`
-    -   Header\_2 text starts with `## This is a 2nd level header`
-    -   Header\_3 text starts with `### This is a 3rd level header`
--   Surround R code with triple back-ticks
--   Sections that start with `# Header_1`, `## Header_2`, and `---` will start new slides in `ioslides_presentation` mode.
--   **Bold text**: `**This is bold**`; *Italicized text*: `*Italics*`
--   Start lists with hyphens `- Item 1` or numbers `1. Item 1`.
+-   One file, many possible outputs
+    -   [pdf\_document](http://rmarkdown.rstudio.com/pdf_document_format.html), [word\_document](http://rmarkdown.rstudio.com/word_document_format.html), or [github\_document](http://rmarkdown.rstudio.com/github_document_format.html)
+    -   [ioslides\_presentation](http://rmarkdown.rstudio.com/ioslides_presentation_format.html) for HTML slide show
+    -   Cool interactive web-app like Dan's tutorial
+    -   Web sites like the one for this [bootcamp](https://github.com/psu-psychology/r-bootcamp), [blogs](https://bookdown.org/yihui/blogdown/), even [books](https://bookdown.org/yihui/bookdown/)
 
 Your turn
 ---------
@@ -192,8 +198,11 @@ Things to try if you like
 
     - Supporting point
     - Another suppporting point
-    - a **bold** point
-    - an *italicized* point
+
+    1. an enumerated **bold** point
+    1. an enumerated *italicized* point
+
+    - [html_notebook](http://rmarkdown.rstudio.com/r_notebooks.html) Like [jupyter notebooks](http://juypter.org)
     - a [link](http://psu-psychology.github.io/r-bootcamp) to this bootcamp
     - an image: ![rawr](https://www.insidehighered.com/sites/default/server_files/media/PennState2.PNG)
 
@@ -219,11 +228,11 @@ Let's try it with some data
 One file, many output options
 -----------------------------
 
+-   'Default' for the file: `rmarkdown::render("talks/bootcamp-survey.Rmd")`
 -   **PDF document**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "pdf_document")`
 -   **Word document**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "word_document")`
--   GitHub document: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "github_document")`
 -   **HTML slides**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "ioslides_presentation")`
--   **Many outputs**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = c("pdf_document", "word_document", "github_document", "ioslides_presentation")`
+-   **Multiple outputs**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = c("pdf_document", "word_document", "github_document", "ioslides_presentation")`
 
 Scripting the pipeline
 ----------------------
@@ -275,6 +284,7 @@ Scripting the pipeline
 Key points
 ----------
 
+-   Use R scripts to capture & reproduce workflows and/or
 -   Use R Markdown files for documents, reports, presentations.
     -   One or more output formats from the same file.
     -   Analysis/lab notebook.
@@ -287,18 +297,19 @@ Toward a reproducible psychological science...
 -   Transparent, reproducible, open workflows pre-publication
 -   Openly shared materials + data + code
 -   [(Munafò et al. 2017)](http://doi.org/10.1038/s41562-016-0021): reproducible practices across the workflow
+    -   Where to share and when? Lots of options. Let's talk.
 -   [(Gilmore and Adolph 2017)](http://dx.doi.org/10.1038/s41562-017-0128): video and reproducibility
 
 Advanced topics
 ---------------
 
 -   Write papers in R Markdown using [`papaja`](https://github.com/crsh/papaja)
+    -   Make [this](../papaja_demo/gilmore-lebreton-hallquist.pdf) from [this](../papaja_demo/gilmore-lebreton-hallquist.Rmd)
 -   Use R Studio [projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
 -   Version control with git and [GitHub](http://github.com)
 -   [Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html), [blogs](https://bookdown.org/yihui/blogdown/), (even [books](https://bookdown.org/)) with R Markdown
 -   Scriptable analysis workflows
-    -   Reports for each participant
-    -   Example: [PEEP-II project](https://github.com/gilmore-lab/peep-II-ratings-analysis)
+    -   Reports for each participant, e.g. [PEEP-II project](https://github.com/gilmore-lab/peep-II-ratings-analysis)
     -   This bootcamp's [`Make_site.R`](../R/Make_site.R)
 
 My GitHub workflow
