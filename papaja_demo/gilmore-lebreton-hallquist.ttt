@@ -8,16 +8,64 @@
 \toprule
 R\_exp & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Median} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max}\\
 \midrule
-none & 4.60 & 5.00 & 1.51 & 2.00 & 6.00\\
-limited & 4.80 & 4.50 & 2.53 & 1.00 & 8.00\\
-some & 5.00 & 4.50 & 2.00 & 2.00 & 8.00\\
-lots & 5.30 & 5.00 & 2.87 & 1.00 & 10.00\\
-pro & 4.90 & 4.50 & 1.85 & 2.00 & 8.00\\
+none & 4.80 & 4.50 & 2.66 & 1.00 & 9.00\\
+limited & 4.90 & 4.50 & 1.91 & 2.00 & 8.00\\
+some & 4.30 & 4.00 & 2.54 & 1.00 & 8.00\\
+lots & 2.70 & 3.00 & 1.42 & 1.00 & 5.00\\
+pro & 5.00 & 5.00 & 1.15 & 3.00 & 7.00\\
 \bottomrule
 \addlinespace
 \end{tabular}
 \begin{tablenotes}[para]
 \textit{Note.} This table was created with apa\_table()
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table*}
+\efloatseparator
+ 
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:apa-corr-table}Correlation table of the example data set.}
+\begin{tabular}{lll}
+\toprule
+ & \multicolumn{1}{c}{GoT} & \multicolumn{1}{c}{Age\_yrs}\\
+\midrule
+GoT &  & \\
+Age\_yrs & -0.93*** & \\
+Sleep\_hrs & -0.25 & -0.01\\
+\bottomrule
+\addlinespace
+\end{tabular}
+\begin{tablenotes}[para]
+\textit{Note.} This is a correlation table created using apa\_table().
+\end{tablenotes}
+\end{threeparttable}
+\end{center}
+\end{table*}
+\efloatseparator
+ 
+\begin{table*}[hbt]
+\ifnextchar[{\eatarg}{}
+[tbp]
+\begin{center}
+\begin{threeparttable}
+\caption{\label{tab:GoT-aov-table}ANOVA table for the analyis of the example data set.}
+\begin{tabular}{lrcrrrl}
+\toprule
+Effect & \multicolumn{1}{c}{$F$} & \multicolumn{1}{c}{$\mathit{df}_1$} & \multicolumn{1}{c}{$\mathit{df}_2$} & \multicolumn{1}{c}{$\mathrm{MSE}$} & \multicolumn{1}{c}{$p$} & \multicolumn{1}{c}{$\eta^2_p$}\\
+\midrule
+R exp & 2.72 & 4 & 40 & 4.19 & .043 & .214\\
+Tidy data & 0.00 & 1 & 40 & 4.19 & .985 & .000\\
+R exp $\times$ Tidy data & 1.02 & 4 & 40 & 4.19 & .410 & .092\\
+\bottomrule
+\addlinespace
+\end{tabular}
+\begin{tablenotes}[para]
+\textit{Note.} This is a table created using apa\_print() and apa\_table().
 \end{tablenotes}
 \end{threeparttable}
 \end{center}

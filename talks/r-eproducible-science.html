@@ -93,7 +93,7 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">2017-08-12 07:45:14</p>
+            <p style="margin-top: 6px; margin-left: -2px;">2017-08-15 10:54:47</p>
           </hgroup>
   </slide>
 
@@ -102,6 +102,7 @@
 </article></slide><slide class=''><hgroup><h2>Themes</h2></hgroup><article  id="themes">
 
 <ol>
+<li>Why worry about reproducible science?</li>
 <li>What is reproducible psychological science?</li>
 <li>How can R make my science more transparent, open, and reproducible?</li>
 </ol>
@@ -128,6 +129,13 @@
 
 <aside class='note'><section><p>Here are the data from the Nature survey.</p></section></aside>
 
+</article></slide><slide class=''><hgroup><h2><a href='http://doi.org/10.1038/s41562-016-0021' title=''><span class="cite">(Munafò et al. 2017)</span></a> manifesto</h2></hgroup><article  id="munafo2017-dc-manifesto">
+
+<div class="centered">
+<p><a href="http://www.nature.com/articles/s41562-016-0021/figures/1"> <img src="http://www.nature.com/article-assets/npg/nathumbehav/2017/s41562-016-0021/images_hires/w926/s41562-016-0021-f1.jpg" height=500px> </a></p></div>
+
+<aside class='note'><section><p>This recent manifesto from Nature Human Behavior describes the risks to reproducible science at every step of the process. I urge you to read it.</p></section></aside>
+
 </article></slide><slide class=''><hgroup><h2>What am I trying to reproduce?</h2></hgroup><article  id="what-am-i-trying-to-reproduce">
 
 <ul>
@@ -142,13 +150,19 @@
 <li>&quot;Hit by a truck&quot; scenario</li>
 </ul>
 
+<div class="notes&gt; But today I want us to think more parochially about our own workflows. How can using R make our own data collection, cleaning, visualization, and analysis workflows more reproducible. Put it this way: If you were hit by a truck tomorrow, could your adviser and collaborators pick up where you left off? &lt;/div&gt; ## Reproducible workflows - Scripted, automated = minimize human-dependent steps. - Well-documented - Be kind to your future (forgetful) self - Transparent to me &amp; colleagues == transparent to others &lt;div class=">
+<p>But today I want us to think more parochially about our own workflows. How can using R make our own data collection, cleaning, visualization, and analysis workflows more reproducible. Put it this way: If you were hit by a truck tomorrow, could your adviser and collaborators pick up where you left off?</p></div>
+
 </article></slide><slide class=''><hgroup><h2>Reproducible workflows</h2></hgroup><article  id="reproducible-workflows">
 
 <ul>
 <li>Scripted, automated = minimize human-dependent steps.</li>
 <li>Well-documented</li>
+<li>Be kind to your future (forgetful) self</li>
 <li>Transparent to me &amp; colleagues == transparent to others</li>
 </ul>
+
+<aside class='note'><section><p>Reproducible workflows are scripted. They minimize human contact with your data files. They are well-documented. And it turns out that workflows that are transparent to you and your colleagues are transparent to others. This makes them easy to share.</p></section></aside>
 
 </article></slide><slide class=''><hgroup><h2>Using R for reproducible workflows</h2></hgroup><article  id="using-r-for-reproducible-workflows">
 
@@ -163,6 +177,8 @@
 </ul></li>
 </ul>
 
+<aside class='note'><section><p>We&#39;ve already shown you in this bootcamp how writing R scripts and functions can let you import, clean, munge, reorganize, plot, and analyze data. We&#39;ve already seen how commenting code fragments makes it easier to read and understand. An extension to R called R Markdown lets us mix R code, analyses, text, tables, and other formatting to make all sorts of products. R Markdown files are just text files. But with this one text file, it&#39;s easy to produce multiple output types: PDF or Word formatted documents; HTML for blogs, web sites, or even slide presentation.</p></section></aside>
+
 </article></slide><slide class=''><hgroup><h2>Example 1</h2></hgroup><article  id="example-1">
 
 <ul>
@@ -172,6 +188,20 @@
 <li>Output as | <a href='R-Workshop-James.nb.html' title=''>HTML notebook</a> | <a href='R-Workshop-James.html' title=''>HTML Slides</a> | <a href='R-Workshop-James.pdf' title=''>PDF</a> | <a href='R-Workshop-James.docx' title=''>DOCX</a> |</li>
 </ul>
 
+<aside class='note'><section><p>Just to show you how easy this is, let&#39;s look at the R syntax James used yesterday. I&#39;m going to show you how adding just a tiny bit of text to that file transforms it. Here is the original R script. Here is the transformed file with a .Rmd extension.</p></section></aside>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
+
+<pre >---
+title: &quot;R-Workshop-James&quot;
+author: &quot;James LeBreton with Rick Gilmore&quot;
+date: &#39;2017-08-15 10:54:47&#39;
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document: default
+---</pre>
+
 </article></slide><slide class=''><hgroup><h2>How to</h2></hgroup><article  id="how-to">
 
 <ul>
@@ -179,6 +209,30 @@
 <li>Wrap R code &quot;chunks&quot; with triple backticks and {r}</li>
 <li>Separate segments with <code>---</code> and/or <code>##</code> or <code>###</code></li>
 <li>Render via <code>knit</code> button or `rmarkdown::render(file=&quot;my-file.Rmd&quot;)</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
+
+<pre >---
+title: &quot;R-Workshop-James&quot;
+author: &quot;James LeBreton with Rick Gilmore&quot;
+date: &#39;2017-08-15 10:54:47&#39;
+output:
+  pdf_document: default
+  html_notebook: default
+  html_document: default
+---</pre>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
+
+<ul>
+<li><a href='http://rmarkdown.rstudio.com/pdf_document_format.html' title=''>pdf_document</a></li>
+<li><a href='http://rmarkdown.rstudio.com/github_document_format.html' title=''>github_document</a></li>
+<li><a href='http://rmarkdown.rstudio.com/r_notebooks.html' title=''>html_notebook</a>
+
+<ul>
+<li>Like <a href='http://juypter.org' title=''>jupyter notebooks</a></li>
+</ul></li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>How to</h2></hgroup><article  id="how-to-1">
@@ -207,9 +261,35 @@
 <li>Header_3 text starts with <code>### This is a 3rd level header</code></li>
 </ul></li>
 <li>Surround R code with triple back-ticks</li>
-<li>Sections that start with Header_1, Header_2, and <code>---</code> will start new slides in <code>ioslides_presentation</code> mode.</li>
+<li>Sections that start with <code># Header_1</code>, <code>## Header_2</code>, and <code>---</code> will start new slides in <code>ioslides_presentation</code> mode.</li>
 <li><strong>Bold text</strong>: <code>**This is bold**</code>; <em>Italicized text</em>: <code>*Italics*</code></li>
 <li>Start lists with hyphens <code>- Item 1</code> or numbers <code>1. Item 1</code>.</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
+
+<pre ># Big idea
+
+## Smaller idea in service of bigger
+
+- Supporting point
+- Another suppporting point
+- a **bold** point
+- an *italicized* point
+- a [link](http://psu-psychology.github.io/r-bootcamp) to this bootcamp
+- an image: ![rawr](https://www.insidehighered.com/sites/default/server_files/media/PennState2.PNG)</pre>
+
+</article></slide><slide class='segue dark nobackground level1'><hgroup class = 'auto-fadein'><h2>Big idea</h2></hgroup><article  id="big-idea">
+
+</article></slide><slide class=''><hgroup><h2>Smaller idea in service of bigger</h2></hgroup><article  id="smaller-idea-in-service-of-bigger">
+
+<ul>
+<li>Supporting point</li>
+<li>Another suppporting point</li>
+<li>a <strong>bold</strong> point</li>
+<li>an <em>italicized</em> point</li>
+<li>a <a href='http://psu-psychology.github.io/r-bootcamp' title=''>link</a> to this bootcamp</li>
+<li>an image: <img src='https://www.insidehighered.com/sites/default/server_files/media/PennState2.PNG' title=''/></li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Let&#39;s try it</h2></hgroup><article  id="lets-try-it">
@@ -218,6 +298,62 @@
 <li><a href='bootcamp-survey.Rmd' title=''>bootcamp-survey.Rmd</a></li>
 <li><a href='bootcamp-survey.md' title=''>bootcamp-survey.md</a></li>
 </ul>
+
+</article></slide><slide class=''><hgroup><h2>One file, many output options</h2></hgroup><article  id="one-file-many-output-options">
+
+<ul>
+<li><strong>PDF document</strong>: <code>rmarkdown::render(&#39;talks/bootcamp-survey.Rmd&#39;, output_format = &quot;pdf_document&quot;)</code></li>
+<li><strong>Word document</strong>: <code>rmarkdown::render(&#39;talks/bootcamp-survey.Rmd&#39;, output_format = &quot;word_document&quot;)</code></li>
+<li>GitHub document: <code>rmarkdown::render(&#39;talks/bootcamp-survey.Rmd&#39;, output_format = &quot;github_document&quot;)</code></li>
+<li><strong>HTML slides</strong>: <code>rmarkdown::render(&#39;talks/bootcamp-survey.Rmd&#39;, output_format = &quot;ioslides_presentation&quot;)</code></li>
+<li><strong>Many outputs</strong>: <code>rmarkdown::render(&#39;talks/bootcamp-survey.Rmd&#39;, output_format = c(&quot;pdf_document&quot;, &quot;word_document&quot;, &quot;github_document&quot;, &quot;ioslides_presentation&quot;)</code></li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Scripting the pipeline</h2></hgroup><article  id="scripting-the-pipeline">
+
+<pre ># Get_bootcamp_googlesheet.R
+# 
+# Script to authenticate to Google, extract R bootcamp survey data
+
+library(googlesheets)
+library(tidyverse)
+
+survey_url &lt;- &quot;https://docs.google.com/spreadsheets/d/1Ay56u6g4jyEEdlmV2NHxTLBlcjI2gHavta-Ik0kGrpg/edit?usp=sharing&quot;
+
+bootcamp_by_url &lt;- survey_url %&gt;%
+  extract_key_from_url() %&gt;%
+  gs_key()
+
+bootcamp_sheets &lt;- gs_ws_ls(bootcamp_by_url)</pre>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
+
+<pre >boot_data &lt;- bootcamp_by_url %&gt;%
+  gs_read(bootcamp_sheets[1])
+          
+names(boot_data) &lt;- c(&quot;Timestamp&quot;,
+                      &quot;R_exp&quot;,
+                      &quot;GoT&quot;,
+                      &quot;Age_yrs&quot;,
+                      &quot;Sleep_hrs&quot;,
+                      &quot;Fav_date&quot;,
+                      &quot;Tidy_data&quot;)
+
+write_csv(boot_data, path = &quot;data/survey.csv&quot;)</pre>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
+
+<pre ># Update_survey.R
+#
+# Updates Googlesheet survey data and generates new R Markdown report
+#
+
+source(&quot;R/Get_bootcamp_googlesheet.R&quot;)
+rmarkdown::render(&quot;talks/bootcamp-survey.Rmd&quot;, 
+                  output_format = c(&quot;github_document&quot;,
+                                    &quot;pdf_document&quot;,
+                                    &quot;word_document&quot;,
+                                    &quot;ioslides_presentation&quot;))</pre>
 
 </article></slide><slide class=''><hgroup><h2>Key points</h2></hgroup><article  id="key-points">
 
@@ -228,7 +364,7 @@
 <li>One or more output formats from the same file.</li>
 <li>Analysis/lab notebook.</li>
 </ul></li>
-<li>Use R scripts to automate different pieces of the pipeline.</li>
+<li>Use R scripts or functions to automate different pieces of the pipeline.</li>
 <li>Make README files to explain how to put pieces together.</li>
 </ul>
 
@@ -237,8 +373,8 @@
 <ul>
 <li>Transparent, reproducible, open workflows pre-publication</li>
 <li>Openly shared materials + data + code</li>
-<li>Munafò, M. R., Nosek, B. A., Bishop, D. V. M., Button, K. S., Chambers, C. D., Sert, N. P. du, Simonsohn, U., et al. (2017). A manifesto for reproducible science. <em>Nature Human Behaviour</em>, <em>1</em>, 0021. Retrieved January 10, 2017, from <a href='http://www.nature.com/articles/s41562-016-0021' title=''>http://www.nature.com/articles/s41562-016-0021</a>.</li>
-<li>Gilmore, R. O., &amp; Adolph, K. E. (2017). Video can make behavioural science more reproducible. <em>Nature Human Behavior</em>, <em>1</em>. Retrieved from <a href='http://dx.doi.org/10.1038/s41562-017-0128' title=''>http://dx.doi.org/10.1038/s41562-017-0128</a>.</li>
+<li><a href='http://doi.org/10.1038/s41562-016-0021' title=''><span class="cite">(Munafò et al. 2017)</span></a></li>
+<li><a href='http://dx.doi.org/10.1038/s41562-017-0128' title=''><span class="cite">(Gilmore and Adolph 2017)</span></a></li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>Advanced topics</h2></hgroup><article  id="advanced-topics">
@@ -253,6 +389,7 @@
 <ul>
 <li>Reports for each participant</li>
 <li>Example: <a href='https://github.com/gilmore-lab/peep-II-ratings-analysis' title=''>PEEP-II project</a></li>
+<li>This bootcamp&#39;s <a href='../R/Make_site.R' title=''><code>Make_site.R</code></a></li>
 </ul></li>
 </ul>
 
@@ -287,7 +424,16 @@
 <li>Don&#39;t be afraid to work in the open</li>
 <li>Learn from others</li>
 <li>Just do it!</li>
-</ul></article></slide>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>References</h2></hgroup><article  id="references" class="unnumbered">
+
+<div id="refs" class="references">
+<div id="ref-Gilmore2017-eh">
+<p>Gilmore, Rick O, and Karen E Adolph. 2017. “Video Can Make Behavioural Science More Reproducible.” <em>Nature Human Behavior</em> 1 (12~jun). doi:<a href='https://doi.org/10.1038/s41562-017-0128' title=''>10.1038/s41562-017-0128</a>.</p></div>
+
+<div id="ref-Munafo2017-dc">
+<p>Munafò, Marcus R, Brian A Nosek, Dorothy V M Bishop, Katherine S Button, Christopher D Chambers, Nathalie Percie du Sert, Uri Simonsohn, Eric-Jan Wagenmakers, Jennifer J Ware, and John P A Ioannidis. 2017. “A Manifesto for Reproducible Science.” <em>Nature Human Behaviour</em> 1 (10~jan): 0021. doi:<a href='https://doi.org/10.1038/s41562-016-0021' title=''>10.1038/s41562-016-0021</a>.</p></div></div></article></slide>
 
 
   <slide class="backdrop"></slide>

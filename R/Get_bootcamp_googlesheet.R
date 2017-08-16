@@ -1,4 +1,4 @@
-# get-bootcamp-googlesheet.R
+# Get_bootcamp_googlesheet.R
 # 
 # Script to authenticate to Google, extract R bootcamp survey data
 

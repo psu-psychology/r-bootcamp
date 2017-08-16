@@ -7,6 +7,7 @@ An introduction to R for grad students, postdocs, and others presented by the Pe
 - `docs/`: folder GitHub pages uses to serve site.
 - `data/`: folder with some generated data files.
 - `talks/`: folder with files related to presenter talks.
+- `papaja_demo/`: folder with files related to a very brief demo of the `papaja` package that allows APA-formatted manuscripts to be generated from RMarkdown.
 
 ## Instructions
 
