@@ -1,7 +1,7 @@
 R-eproducible Psychological Science
 ================
 Rick Gilmore
-2017-08-16 16:49:26
+2017-08-16 18:06:38
 
 -   [Themes](#themes)
 -   [Is there a reproducibility crisis?](#is-there-a-reproducibility-crisis)

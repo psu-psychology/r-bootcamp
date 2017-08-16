@@ -1,12 +1,15 @@
-bootcamp-survey
+Analysis of bootcamp survey
 ================
 Rick Gilmore
-2017-08-16 16:49:45
+2017-08-16 18:07:16
 
 -   [Goals](#goals)
 -   [Preliminaries](#preliminaries)
 -   [Load data and examine](#load-data-and-examine)
--   [Visualization and analysis](#visualization-and-analysis)
+-   [Visualization](#visualization)
+    -   [Descriptive plots](#descriptive-plots)
+-   [Analysis](#analysis)
+-   [Notes](#notes)
 
 Goals
 -----
@@ -30,27 +33,27 @@ Load data and examine
 
 The survey data are stored in a [Google Sheet](https://docs.google.com/spreadsheets/d/1Ay56u6g4jyEEdlmV2NHxTLBlcjI2gHavta-Ik0kGrpg/edit#gid=896447063). We'll use the `googlesheets` package to open it and create a data frame. Documentation about the package can be found [here](https://cran.r-project.org/web/packages/googlesheets/vignettes/basic-usage.html).
 
-There are some idiosyncrasies in using the `googlesheets` package in an R Markdown document, so I created a separate R script, `Get_bootcamp_googlesheet.R` to extract the survey data and save it to a CSV under `data/survey.csv`. We can then just load this file.
+There are some idiosyncrasies in using the `googlesheets` package in an R Markdown document because it requires interaction with the console, so I created a separate R script, `Get_bootcamp_googlesheet.R` to extract the survey data, clean it, and save it to a CSV under `data/survey.csv`. We can then just load this file. But, let's look at [`R/Clean_survey_data.R`](../R/Clean_survey_data.R).
+
+I also created a test data file, `data/survey-test.csv` so I could see how everything worked before y'all filled out your responses. The [`R/Make_test_survey.R`](../R/Make_test_survey.R) file shows how I did this. It's a great, reproducible practice to simulate the data you expect, then run it through your pipeline.
 
 ------------------------------------------------------------------------
 
 ``` r
 # Created test data set for testing.
-# survey <- read_csv("../data/survey.csv")
-survey <- read_csv("../data/survey-test.csv")
+# survey <- read_csv("../data/survey-test.csv")
+# Or choose data from respondents
+survey <- read_csv("../data/survey.csv")
 ```
-
-    ## Warning: Missing column names filled in: 'X1' [1]
 
     ## Parsed with column specification:
     ## cols(
-    ##   X1 = col_integer(),
-    ##   Timestamp = col_datetime(format = ""),
+    ##   Timestamp = col_character(),
     ##   R_exp = col_character(),
     ##   GoT = col_integer(),
     ##   Age_yrs = col_integer(),
     ##   Sleep_hrs = col_double(),
-    ##   Fav_date = col_date(format = ""),
+    ##   Fav_day = col_character(),
     ##   Tidy_data = col_character()
     ## )
 
@@ -58,43 +61,39 @@ survey <- read_csv("../data/survey-test.csv")
 survey
 ```
 
-    ## # A tibble: 50 x 8
-    ##       X1           Timestamp   R_exp   GoT Age_yrs Sleep_hrs   Fav_date
-    ##    <int>              <dttm>   <chr> <int>   <int>     <dbl>     <date>
-    ##  1     1 2017-08-16 12:23:01    none     7      31  6.964537 2017-08-16
-    ##  2     2 2017-08-16 12:23:01     pro     7      25  8.834509 2017-08-16
-    ##  3     3 2017-08-16 12:23:01 limited     3      49  7.247419 2017-08-16
-    ##  4     4 2017-08-16 12:23:01    lots     5      38  7.263245 2017-08-16
-    ##  5     5 2017-08-16 12:23:01    lots     6      34  8.003129 2017-08-16
-    ##  6     6 2017-08-16 12:23:01    none     7      25  7.747287 2017-08-16
-    ##  7     7 2017-08-16 12:23:01    none     2      52  7.695214 2017-08-16
-    ##  8     8 2017-08-16 12:23:01    none     7      30  6.731940 2017-08-16
-    ##  9     9 2017-08-16 12:23:01    lots     6      41  6.415195 2017-08-16
-    ## 10    10 2017-08-16 12:23:01    some     6      26  8.334207 2017-08-16
-    ## # ... with 40 more rows, and 1 more variables: Tidy_data <chr>
+    ## # A tibble: 28 x 7
+    ##             Timestamp   R_exp   GoT Age_yrs Sleep_hrs  Fav_day
+    ##                 <chr>   <chr> <int>   <int>     <dbl>    <chr>
+    ##  1 8/13/2017 23:29:24    some    10      28       8.0   Friday
+    ##  2 8/14/2017 12:01:12    some    10      22       7.0   Friday
+    ##  3 8/15/2017 12:42:09    some    10      24      10.0 Saturday
+    ##  4 8/15/2017 17:13:08    none    10      28       9.0 Saturday
+    ##  5 8/15/2017 19:03:40 limited    10      24       9.0 Saturday
+    ##  6 8/15/2017 23:36:07    some    10      23       6.0   Friday
+    ##  7 8/15/2017 23:45:05 limited     3      25       8.0   Friday
+    ##  8  8/16/2017 0:26:01     pro     9      37       7.0   Friday
+    ##  9  8/16/2017 1:09:44    none    10      25       9.0 Saturday
+    ## 10  8/16/2017 8:51:05 limited     1      23       7.5 Thursday
+    ## # ... with 18 more rows, and 1 more variables: Tidy_data <chr>
 
-The `str()` or 'structure' command is great to see what you've got.
+The `str()` or 'structure' command is also a great way to see what you've got.
 
 ``` r
 str(survey)
 ```
 
-    ## Classes 'tbl_df', 'tbl' and 'data.frame':    50 obs. of  8 variables:
-    ##  $ X1       : int  1 2 3 4 5 6 7 8 9 10 ...
-    ##  $ Timestamp: POSIXct, format: "2017-08-16 12:23:01" "2017-08-16 12:23:01" ...
-    ##  $ R_exp    : chr  "none" "pro" "limited" "lots" ...
-    ##  $ GoT      : int  7 7 3 5 6 7 2 7 6 6 ...
-    ##  $ Age_yrs  : int  31 25 49 38 34 25 52 30 41 26 ...
-    ##  $ Sleep_hrs: num  6.96 8.83 7.25 7.26 8 ...
-    ##  $ Fav_date : Date, format: "2017-08-16" "2017-08-16" ...
-    ##  $ Tidy_data: chr  "Yes" "Yes" "No" "No" ...
+    ## Classes 'tbl_df', 'tbl' and 'data.frame':    28 obs. of  7 variables:
+    ##  $ Timestamp: chr  "8/13/2017 23:29:24" "8/14/2017 12:01:12" "8/15/2017 12:42:09" "8/15/2017 17:13:08" ...
+    ##  $ R_exp    : chr  "some" "some" "some" "none" ...
+    ##  $ GoT      : int  10 10 10 10 10 10 3 9 10 1 ...
+    ##  $ Age_yrs  : int  28 22 24 28 24 23 25 37 25 23 ...
+    ##  $ Sleep_hrs: num  8 7 10 9 9 6 8 7 9 7.5 ...
+    ##  $ Fav_day  : chr  "Friday" "Friday" "Saturday" "Saturday" ...
+    ##  $ Tidy_data: chr  "Yes" "That's a personal question" "No" "Yes" ...
     ##  - attr(*, "spec")=List of 2
-    ##   ..$ cols   :List of 8
-    ##   .. ..$ X1       : list()
-    ##   .. .. ..- attr(*, "class")= chr  "collector_integer" "collector"
-    ##   .. ..$ Timestamp:List of 1
-    ##   .. .. ..$ format: chr ""
-    ##   .. .. ..- attr(*, "class")= chr  "collector_datetime" "collector"
+    ##   ..$ cols   :List of 7
+    ##   .. ..$ Timestamp: list()
+    ##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
     ##   .. ..$ R_exp    : list()
     ##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
     ##   .. ..$ GoT      : list()
@@ -103,22 +102,69 @@ str(survey)
     ##   .. .. ..- attr(*, "class")= chr  "collector_integer" "collector"
     ##   .. ..$ Sleep_hrs: list()
     ##   .. .. ..- attr(*, "class")= chr  "collector_double" "collector"
-    ##   .. ..$ Fav_date :List of 1
-    ##   .. .. ..$ format: chr ""
-    ##   .. .. ..- attr(*, "class")= chr  "collector_date" "collector"
+    ##   .. ..$ Fav_day  : list()
+    ##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
     ##   .. ..$ Tidy_data: list()
     ##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
     ##   ..$ default: list()
     ##   .. ..- attr(*, "class")= chr  "collector_guess" "collector"
     ##   ..- attr(*, "class")= chr "col_spec"
 
-Notice that the `get-bootcamp-googlesheet.R` script changed the names of the variables a bit. We may also want to modify the levels of the `R_exp` variable to make it an ordered factor.
+Clearly, we need to do some cleaning before we can do anything with this.
+
+``` r
+# complete.cases() drops NAs
+survey <- survey[complete.cases(survey),]
+survey
+```
+
+    ## # A tibble: 28 x 7
+    ##             Timestamp   R_exp   GoT Age_yrs Sleep_hrs  Fav_day
+    ##                 <chr>   <chr> <int>   <int>     <dbl>    <chr>
+    ##  1 8/13/2017 23:29:24    some    10      28       8.0   Friday
+    ##  2 8/14/2017 12:01:12    some    10      22       7.0   Friday
+    ##  3 8/15/2017 12:42:09    some    10      24      10.0 Saturday
+    ##  4 8/15/2017 17:13:08    none    10      28       9.0 Saturday
+    ##  5 8/15/2017 19:03:40 limited    10      24       9.0 Saturday
+    ##  6 8/15/2017 23:36:07    some    10      23       6.0   Friday
+    ##  7 8/15/2017 23:45:05 limited     3      25       8.0   Friday
+    ##  8  8/16/2017 0:26:01     pro     9      37       7.0   Friday
+    ##  9  8/16/2017 1:09:44    none    10      25       9.0 Saturday
+    ## 10  8/16/2017 8:51:05 limited     1      23       7.5 Thursday
+    ## # ... with 18 more rows, and 1 more variables: Tidy_data <chr>
+
+Now, lets make sure we have numbers where we expect them.
+
+``` r
+survey$Age_yrs <- readr::parse_number(survey$Age_yrs)
+survey$Sleep_hrs <- readr::parse_number(survey$Sleep_hrs)
+survey
+```
+
+    ## # A tibble: 28 x 7
+    ##             Timestamp   R_exp   GoT Age_yrs Sleep_hrs  Fav_day
+    ##                 <chr>   <chr> <int>   <dbl>     <dbl>    <chr>
+    ##  1 8/13/2017 23:29:24    some    10      28       8.0   Friday
+    ##  2 8/14/2017 12:01:12    some    10      22       7.0   Friday
+    ##  3 8/15/2017 12:42:09    some    10      24      10.0 Saturday
+    ##  4 8/15/2017 17:13:08    none    10      28       9.0 Saturday
+    ##  5 8/15/2017 19:03:40 limited    10      24       9.0 Saturday
+    ##  6 8/15/2017 23:36:07    some    10      23       6.0   Friday
+    ##  7 8/15/2017 23:45:05 limited     3      25       8.0   Friday
+    ##  8  8/16/2017 0:26:01     pro     9      37       7.0   Friday
+    ##  9  8/16/2017 1:09:44    none    10      25       9.0 Saturday
+    ## 10  8/16/2017 8:51:05 limited     1      23       7.5 Thursday
+    ## # ... with 18 more rows, and 1 more variables: Tidy_data <chr>
+
+Looks good.
+
+We may want to make the `R_exp` variable ordered.
 
 ``` r
 (survey_responses <- unique(survey$R_exp))
 ```
 
-    ## [1] "none"    "pro"     "limited" "lots"    "some"
+    ## [1] "some"    "none"    "limited" "pro"
 
 This shows us the different survey response values.
 
@@ -130,23 +176,74 @@ survey$R_exp <- ordered(survey$R_exp, levels=c("none",
                                                "pro"))
 ```
 
-Visualization and analysis
---------------------------
+Visualization
+-------------
 
-Now, we can ask important questions.
+Now, we follow Mike Meyer's advice: "Plot your data!"
+
+### Descriptive plots
 
 ``` r
-got_vs_r_exp <- survey %>%
+R_exp_hist <- survey %>%
+  ggplot() +
+  aes(x=R_exp) +
+  geom_histogram(stat = "count") # R_exp is discrete
+```
+
+    ## Warning: Ignoring unknown parameters: binwidth, bins, pad
+
+``` r
+R_exp_hist
+```
+
+![](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/R-exp-hist-1.png)
+
+``` r
+Sleep_hrs_hist <- survey %>%
+  ggplot() +
+  aes(x=Sleep_hrs) +
+  geom_histogram() # Sleep_hrs is continuous
+Sleep_hrs_hist
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/Sleep_hrs_hist-1.png)
+
+``` r
+Got_hist <- survey %>%
+  ggplot() +
+  aes(x=GoT) +
+  geom_histogram()
+Got_hist
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+![](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
+
+Looks like we are of two minds about GoT.
+
+![](https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/03/17/08/thrones-dragon.jpg)
+
+``` r
+GoT_vs_r_exp <- survey %>%
   ggplot() +
   aes(x=GoT, y=Age_yrs) +
   facet_grid(. ~ R_exp) +
   geom_point()
-got_vs_r_exp
+GoT_vs_r_exp
 ```
 
-![](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/got-vs-r-exp-1.png)
+![](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/GoT-vs-r-exp-1.png)
 
-------------------------------------------------------------------------
+Analysis
+--------
+
+I could use a document like this to plan out my analysis plan **before** I conduct it. If I used simulated data, I could make sure that my workflow will run when I get real (cleaned) data. I could even preregister my analysis plan before I conduct it. That doesn't preclude later exploratory analyses, but it does hold me and my collaborators accountable for what I predicted in advance.
+
+Notes
+-----
 
 Notice that I sometimes put a label like `got-vs-r-exp` in the brackets for a given 'chunk' of R code. The main reasons to do this are:
 

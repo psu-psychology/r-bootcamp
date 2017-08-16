@@ -16,12 +16,6 @@ bootcamp_sheets <- gs_ws_ls(bootcamp_by_url)
 boot_data <- bootcamp_by_url %>%
   gs_read(bootcamp_sheets[1])
           
-names(boot_data) <- c("Timestamp",
-                      "R_exp",
-                      "GoT",
-                      "Age_yrs",
-                      "Sleep_hrs",
-                      "Fav_date",
-                      "Tidy_data")
+boot_data_clean <- Clean_survey_data(boot_data)
 
-write_csv(boot_data, path = "data/survey.csv")
+write_csv(boot_data_clean, path = "data/survey.csv")

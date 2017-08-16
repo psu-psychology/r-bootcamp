@@ -1,11 +1,10 @@
-Timestamp,R_exp,GoT,Age_yrs,Sleep_hrs,Fav_date,Tidy_data
-NA,NA,NA,NA,NA,NA,NA
-8/13/2017 23:29:24,some,10,28,8!!!,Friday,Yes
+Timestamp,R_exp,GoT,Age_yrs,Sleep_hrs,Fav_day,Tidy_data
+8/13/2017 23:29:24,some,10,28,8,Friday,Yes
 8/14/2017 12:01:12,some,10,22,7,Friday,That's a personal question
 8/15/2017 12:42:09,some,10,24,10,Saturday,No
 8/15/2017 17:13:08,none,10,28,9,Saturday,Yes
 8/15/2017 19:03:40,limited,10,24,9,Saturday,No
-8/15/2017 23:36:07,some,10,23,6-7,Friday,Yes
+8/15/2017 23:36:07,some,10,23,6,Friday,Yes
 8/15/2017 23:45:05,limited,3,25,8,Friday,Yes
 8/16/2017 0:26:01,pro,9,37,7,Friday,That's a personal question
 8/16/2017 1:09:44,none,10,25,9,Saturday,No

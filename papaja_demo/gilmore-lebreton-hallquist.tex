@@ -232,13 +232,18 @@ material.
 
 \subsection{Data analysis}\label{data-analysis}
 
-We used R (3.4.1, R Core Team, 2017) and the R-packages \emph{bindrcpp}
+We used R (3.4.1, R Core Team, 2017b) and the R-packages \emph{bindrcpp}
 (0.2, Müller, 2016), \emph{dplyr} (0.7.2, Wickham \& Francois, 2016),
-\emph{Formula} (1.2.2, Zeileis \& Croissant, 2010), \emph{ggplot2}
-(2.2.1, Wickham, 2009), \emph{googlesheets} (0.2.2, Bryan \& Zhao,
-2017), \emph{Hmisc} (4.0.3, Harrell Jr, Charles Dupont, \& others.,
-2017), \emph{lattice} (0.20.35, Sarkar, 2008), \emph{papaja}
-(0.1.0.9492, Aust \& Barth, 2017), \emph{purrr} (0.2.3, Henry \&
+\emph{foreign} (0.8.69, R Core Team, 2017a), \emph{Formula} (1.2.2,
+Zeileis \& Croissant, 2010), \emph{ggplot2} (2.2.1, Wickham, 2009),
+\emph{gmodels} (2.16.2, Warnes et al., 2015), \emph{googlesheets}
+(0.2.2, Bryan \& Zhao, 2017), \emph{Hmisc} (4.0.3, Harrell Jr, Charles
+Dupont, \& others., 2017), \emph{lattice} (0.20.35, Sarkar, 2008),
+\emph{MASS} (7.3.47, Venables \& Ripley, 2002), \emph{multilevel} (2.6,
+Bliese, 2016), \emph{nlme} (3.1.131, Pinheiro, Bates, DebRoy, Sarkar, \&
+R Core Team, 2017), \emph{papaja} (0.1.0.9492, Aust \& Barth, 2017),
+\emph{plyr} (Wickham, 2011; 1.8.4, Wickham \& Francois, 2016),
+\emph{psych} (1.7.5, Revelle, 2017), \emph{purrr} (0.2.3, Henry \&
 Wickham, 2017), \emph{readr} (1.1.1, Wickham, Hester, \& Francois,
 2017), \emph{survival} (2.41.3, Terry M. Therneau \& Patricia M.
 Grambsch, 2000), \emph{tibble} (1.3.3, Wickham, Francois, \& Müller,
@@ -259,11 +264,11 @@ repository} associated with this paper.
 \toprule
 R\_exp & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Median} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max}\\
 \midrule
-none & 5.30 & 5.50 & 1.57 & 3.00 & 8.00\\
-limited & 4.10 & 4.50 & 2.47 & 0.00 & 7.00\\
-some & 3.60 & 4.00 & 1.17 & 1.00 & 5.00\\
-lots & 5.10 & 5.50 & 1.52 & 3.00 & 7.00\\
-pro & 3.50 & 3.50 & 1.90 & 1.00 & 7.00\\
+none & 4.80 & 4.50 & 2.66 & 1.00 & 9.00\\
+limited & 4.90 & 4.50 & 1.91 & 2.00 & 8.00\\
+some & 4.30 & 4.00 & 2.54 & 1.00 & 8.00\\
+lots & 2.70 & 3.00 & 1.42 & 1.00 & 5.00\\
+pro & 5.00 & 5.00 & 1.15 & 3.00 & 7.00\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -283,8 +288,8 @@ pro & 3.50 & 3.50 & 1.90 & 1.00 & 7.00\\
  & \multicolumn{1}{c}{GoT} & \multicolumn{1}{c}{Age\_yrs}\\
 \midrule
 GoT &  & \\
-Age\_yrs & -0.90*** & \\
-Sleep\_hrs & -0.20 & -0.07\\
+Age\_yrs & -0.93*** & \\
+Sleep\_hrs & -0.25 & -0.01\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -317,9 +322,9 @@ hours of sleep}
 \toprule
 Effect & \multicolumn{1}{c}{$F$} & \multicolumn{1}{c}{$\mathit{df}_1$} & \multicolumn{1}{c}{$\mathit{df}_2$} & \multicolumn{1}{c}{$\mathrm{MSE}$} & \multicolumn{1}{c}{$p$} & \multicolumn{1}{c}{$\eta^2_p$}\\
 \midrule
-R exp & 2.18 & 4 & 40 & 3.32 & .089 & .179\\
-Tidy data & 0.37 & 1 & 40 & 3.32 & .549 & .009\\
-R exp $\times$ Tidy data & 0.66 & 4 & 40 & 3.32 & .624 & .062\\
+R exp & 2.72 & 4 & 40 & 4.19 & .043 & .214\\
+Tidy data & 0.00 & 1 & 40 & 4.19 & .985 & .000\\
+R exp $\times$ Tidy data & 1.02 & 4 & 40 & 4.19 & .410 & .092\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -335,21 +340,21 @@ data by levels of R experience.
 
 Let's examine the correlations between our continuous variables. As
 indicated in Table \ref{tab:apa-corr-table}, there is a negative
-correlation (\(r = -.90\), 95\% CI \([-.94\), \(-.82]\)) between Game of
-Thrones enthusiasm and age (\(t(48) = -14.03\), \(p < .001\)), a
-negative correlation (\(r = -.20\), 95\% CI \([-.46\), \(.08]\)) between
-Game of Thrones enthusiasm and sleep (\(t(48) = -1.43\), \(p = .158\)),
-but no correlation (\(r = -.07\), 95\% CI \([-.34\), \(.21]\)) between
-age and sleep (\(t(48) = -0.51\), \(p = .613\)). Figures
+correlation (\(r = -.93\), 95\% CI \([-.96\), \(-.88]\)) between Game of
+Thrones enthusiasm and age (\(t(48) = -17.78\), \(p < .001\)), a
+negative correlation (\(r = -.25\), 95\% CI \([-.49\), \(.03]\)) between
+Game of Thrones enthusiasm and sleep (\(t(48) = -1.78\), \(p = .082\)),
+but no correlation (\(r = -.01\), 95\% CI \([-.29\), \(.27]\)) between
+age and sleep (\(t(48) = -0.07\), \(p = .944\)). Figures
 \ref{fig:GoT-by-age-exp} and \ref{fig:GoT-by-sleep} depict these
 patterns.
 
 To test the hypothesis that GoT enthusiasm varies as a function of R
 expertise and the extent to which respondents use tidy data, we carried
-out a one-way ANOVA. R experience (\(F(4, 40) = 2.18\),
-\(\mathrm{MSE} = 3.32\), \(p = .089\), \(\eta^2_p = .179\)) and the use
-of tidy data principles (\(F(1, 40) = 0.37\), \(\mathrm{MSE} = 3.32\),
-\(p = .549\), \(\eta^2_p = .009\)) did not predict enthusiasm for Game
+out a one-way ANOVA. R experience (\(F(4, 40) = 2.72\),
+\(\mathrm{MSE} = 4.19\), \(p = .043\), \(\eta^2_p = .214\)) and the use
+of tidy data principles (\(F(1, 40) = 0.00\), \(\mathrm{MSE} = 4.19\),
+\(p = .985\), \(\eta^2_p = .000\)) did not predict enthusiasm for Game
 of Thrones. Table \ref{tab:GoT-aov-table} summarizes these results.
 
 \section{Discussion}\label{discussion}
@@ -372,6 +377,10 @@ So, let's get to it.
 Aust, F., \& Barth, M. (2017). \emph{papaja: Create APA manuscripts with
 R Markdown}. Retrieved from \url{https://github.com/crsh/papaja}
 
+\hypertarget{ref-R-multilevel}{}
+Bliese, P. (2016). \emph{Multilevel: Multilevel functions}. Retrieved
+from \url{https://CRAN.R-project.org/package=multilevel}
+
 \hypertarget{ref-R-googlesheets}{}
 Bryan, J., \& Zhao, J. (2017). \emph{Googlesheets: Manage google
 spreadsheets from r}. Retrieved from
@@ -390,10 +399,26 @@ Müller, K. (2016). \emph{Bindrcpp: An 'rcpp' interface to active
 bindings}. Retrieved from
 \url{https://CRAN.R-project.org/package=bindrcpp}
 
+\hypertarget{ref-R-nlme}{}
+Pinheiro, J., Bates, D., DebRoy, S., Sarkar, D., \& R Core Team. (2017).
+\emph{nlme: Linear and nonlinear mixed effects models}. Retrieved from
+\url{https://CRAN.R-project.org/package=nlme}
+
+\hypertarget{ref-R-foreign}{}
+R Core Team. (2017a). \emph{Foreign: Read data stored by 'minitab', 's',
+'sas', 'spss', 'stata', 'systat', 'weka', 'dBase', .} Retrieved from
+\url{https://CRAN.R-project.org/package=foreign}
+
 \hypertarget{ref-R-base}{}
-R Core Team. (2017). \emph{R: A language and environment for statistical
-computing}. Vienna, Austria: R Foundation for Statistical Computing.
-Retrieved from \url{https://www.R-project.org/}
+R Core Team. (2017b). \emph{R: A language and environment for
+statistical computing}. Vienna, Austria: R Foundation for Statistical
+Computing. Retrieved from \url{https://www.R-project.org/}
+
+\hypertarget{ref-R-psych}{}
+Revelle, W. (2017). \emph{Psych: Procedures for psychological,
+psychometric, and personality research}. Evanston, Illinois:
+Northwestern University. Retrieved from
+\url{https://CRAN.R-project.org/package=psych}
 
 \hypertarget{ref-R-lattice}{}
 Sarkar, D. (2008). \emph{Lattice: Multivariate data visualization with
@@ -411,9 +436,27 @@ allows presenting anything as significant. \emph{Psychol. Sci.},
 Terry M. Therneau, \& Patricia M. Grambsch. (2000). \emph{Modeling
 survival data: Extending the Cox model}. New York: Springer.
 
+\hypertarget{ref-R-MASS}{}
+Venables, W. N., \& Ripley, B. D. (2002). \emph{Modern applied
+statistics with s} (Fourth.). New York: Springer. Retrieved from
+\url{http://www.stats.ox.ac.uk/pub/MASS4}
+
+\hypertarget{ref-R-gmodels}{}
+Warnes, G. R., Bolker, B., Lumley, T., Randall C. Johnson are Copyright
+SAIC-Frederick, R. C. J. C. from, Intramural Research Program, I. F. by
+the, NIH, \ldots{} Cancer Research under NCI Contract NO1-CO-12400., C.
+for. (2015). \emph{Gmodels: Various r programming tools for model
+fitting}. Retrieved from
+\url{https://CRAN.R-project.org/package=gmodels}
+
 \hypertarget{ref-R-ggplot2}{}
 Wickham, H. (2009). \emph{Ggplot2: Elegant graphics for data analysis}.
 Springer-Verlag New York. Retrieved from \url{http://ggplot2.org}
+
+\hypertarget{ref-R-plyr}{}
+Wickham, H. (2011). The split-apply-combine strategy for data analysis.
+\emph{Journal of Statistical Software}, \emph{40}(1), 1--29. Retrieved
+from \url{http://www.jstatsoft.org/v40/i01/}
 
 \hypertarget{ref-R-tidyr}{}
 Wickham, H. (2017a). \emph{Tidyr: Easily tidy data with 'spread()' and
