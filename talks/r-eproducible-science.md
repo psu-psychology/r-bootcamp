@@ -1,7 +1,7 @@
 R-eproducible-science
 ================
 Rick Gilmore
-2017-08-15 10:54:37
+2017-08-16 12:22:19
 
 -   [R-eproducible psychological science](#r-eproducible-psychological-science)
 -   [Themes](#themes)
@@ -15,9 +15,11 @@ Rick Gilmore
 -   [Example 1](#example-1)
 -   [How to](#how-to)
 -   [How to](#how-to-1)
+-   [Your turn](#your-turn)
+-   [Things to try if you like](#things-to-try-if-you-like)
 -   [Big idea](#big-idea)
     -   [Smaller idea in service of bigger](#smaller-idea-in-service-of-bigger)
-    -   [Let's try it](#lets-try-it)
+    -   [Let's try it with some data](#lets-try-it-with-some-data)
     -   [One file, many output options](#one-file-many-output-options)
     -   [Scripting the pipeline](#scripting-the-pipeline)
     -   [Key points](#key-points)
@@ -91,11 +93,12 @@ Reproducible workflows are scripted. They minimize human contact with your data 
 Using R for reproducible workflows
 ----------------------------------
 
--   Mix R code, output, comments, tables using R Markdown
--   R Markdown files = text files
--   One input file, multiple outputs to
+-   **Option 1**: All commands in an R script: e.g., `project_analysis.R`
+-   **Option 2**: Mix R code, output, comments in an [R Markdown](http://rmarkdown.rstudio.com/) document
+    -   R Markdown files = text files
+    -   One input file, multiple outputs to
     -   PDF, Word (.docx)
-    -   HTML for web pages, slides
+    -   HTML for notebooks, web pages, slides
 
 We've already shown you in this bootcamp how writing R scripts and functions can let you import, clean, munge, reorganize, plot, and analyze data. We've already seen how commenting code fragments makes it easier to read and understand. An extension to R called R Markdown lets us mix R code, analyses, text, tables, and other formatting to make all sorts of products. R Markdown files are just text files. But with this one text file, it's easy to produce multiple output types: PDF or Word formatted documents; HTML for blogs, web sites, or even slide presentation.
 
@@ -114,7 +117,7 @@ Just to show you how easy this is, let's look at the R syntax James used yesterd
     ---
     title: "R-Workshop-James"
     author: "James LeBreton with Rick Gilmore"
-    date: '2017-08-15 10:54:37'
+    date: '2017-08-16 12:22:19'
     output:
       pdf_document: default
       html_notebook: default
@@ -134,7 +137,7 @@ How to
     ---
     title: "R-Workshop-James"
     author: "James LeBreton with Rick Gilmore"
-    date: '2017-08-15 10:54:37'
+    date: '2017-08-16 12:22:19'
     output:
       pdf_document: default
       html_notebook: default
@@ -157,6 +160,7 @@ How to
     -   `word_document`
     -   `ioslides_document`: HTML slides
     -   `github_document`: renders nicely on GitHub
+    -   `html_notebook`: integrates code & comments, easy to share
 
 ------------------------------------------------------------------------
 
@@ -170,7 +174,17 @@ How to
 -   **Bold text**: `**This is bold**`; *Italicized text*: `*Italics*`
 -   Start lists with hyphens `- Item 1` or numbers `1. Item 1`.
 
-------------------------------------------------------------------------
+Your turn
+---------
+
+1.  Open "File/New File/R Notebook"
+2.  Change `title: "R Notebook"` to something else, like `title: "Rick's R Notebook"`
+3.  Save the file (default name is `Untitled`) with an `.Rmd` extension.
+4.  Look at the `*.Rmd` code.
+5.  Look at the `*.nb.html` file in a browser.
+
+Things to try if you like
+-------------------------
 
     # Big idea
 
@@ -196,8 +210,8 @@ Smaller idea in service of bigger
 -   a [link](http://psu-psychology.github.io/r-bootcamp) to this bootcamp
 -   an image: ![rawr](https://www.insidehighered.com/sites/default/server_files/media/PennState2.PNG)
 
-Let's try it
-------------
+Let's try it with some data
+---------------------------
 
 -   [bootcamp-survey.Rmd](bootcamp-survey.Rmd)
 -   [bootcamp-survey.md](bootcamp-survey.md)
@@ -272,8 +286,8 @@ Toward a reproducible psychological science...
 
 -   Transparent, reproducible, open workflows pre-publication
 -   Openly shared materials + data + code
--   [(Munafò et al. 2017)](http://doi.org/10.1038/s41562-016-0021)
--   [(Gilmore and Adolph 2017)](http://dx.doi.org/10.1038/s41562-017-0128)
+-   [(Munafò et al. 2017)](http://doi.org/10.1038/s41562-016-0021): reproducible practices across the workflow
+-   [(Gilmore and Adolph 2017)](http://dx.doi.org/10.1038/s41562-017-0128): video and reproducibility
 
 Advanced topics
 ---------------

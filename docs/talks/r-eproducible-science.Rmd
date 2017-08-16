@@ -81,7 +81,6 @@ How can using R make our own data collection, cleaning, visualization, and analy
 Put it this way: If you were hit by a truck tomorrow, could your adviser and collaborators pick up where you left off?
 </div>
 
-
 ## Reproducible workflows
 
 - Scripted, automated = minimize human-dependent steps.
@@ -99,9 +98,10 @@ This makes them easy to share.
 
 ## Using R for reproducible workflows
 
-- Mix R code, output, comments, tables using R Markdown
-- R Markdown files = text files
-- One input file, multiple outputs to
+- Option 1: All commands in an R script :`project_analysis.R`
+- Option 2: Mix R code, output, comments in an R Markdown document
+    - R Markdown files = text files
+    - One input file, multiple outputs to
     - PDF, Word (.docx)
     - HTML for web pages, slides
     
