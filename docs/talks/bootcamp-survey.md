@@ -1,7 +1,7 @@
 Analysis of bootcamp survey
 ================
 Rick Gilmore
-2017-08-17 08:50:12
+2017-08-17 09:27:53
 
 -   [Goals](#goals)
 -   [Preliminaries](#preliminaries)
@@ -250,6 +250,21 @@ GoT_vs_r_exp
 ```
 
 ![](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/GoT-vs-r-exp-1.png)
+
+``` r
+tidy_hist <- survey %>%
+  ggplot() +
+  aes(x=Tidy_data) +
+  geom_histogram(stat = "count")
+```
+
+    ## Warning: Ignoring unknown parameters: binwidth, bins, pad
+
+``` r
+tidy_hist
+```
+
+![](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/tidy-data-1.png)
 
 Analysis
 --------

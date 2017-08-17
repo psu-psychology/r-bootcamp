@@ -3,15 +3,10 @@ title: "Analysis of bootcamp survey"
 author: "Rick Gilmore"
 date: '`r Sys.time()`'
 output:
-  html_document:
-    toc: yes
-    toc_depth: '3'
+  html_notebook: default
   github_document:
     toc: yes
     toc_depth: 3
-  html_notebook: default
-  ioslides_presentation:
-    widescreen: yes
   pdf_document:
     toc: yes
     toc_depth: 3
@@ -98,7 +93,12 @@ survey$Sleep_hrs <- readr::parse_number(survey$Sleep_hrs)
 survey
 ```
 
-Looks good.
+Looks good. Let's save that cleaned file so we don't have to do this again.
+
+```{r }
+write_csv(survey, path="../data/survey_clean.csv")
+```
+
 
 We may want to make the `R_exp` variable ordered.
 
@@ -122,7 +122,7 @@ Now, we follow Mike Meyer's advice: "Plot your data!"
 
 ### Descriptive plots
 
-```{r R-exp-hist}
+```{r R-exp-hist, fig.cap="Distribution of prior R experience"}
 R_exp_hist <- survey %>%
   ggplot() +
   aes(x=R_exp) +
@@ -130,7 +130,7 @@ R_exp_hist <- survey %>%
 R_exp_hist
 ```
 
-```{r Sleep_hrs_hist}
+```{r Sleep_hrs_hist, fig.cap="Distribution of preferred sleep hrs/day"}
 Sleep_hrs_hist <- survey %>%
   ggplot() +
   aes(x=Sleep_hrs) +
@@ -138,7 +138,7 @@ Sleep_hrs_hist <- survey %>%
 Sleep_hrs_hist
 ```
 
-```{r}
+```{r, fig.cap="Distribution of GoT Enthusiasm"}
 Got_hist <- survey %>%
   ggplot() +
   aes(x=GoT) +
@@ -157,6 +157,14 @@ GoT_vs_r_exp <- survey %>%
   facet_grid(. ~ R_exp) +
   geom_point()
 GoT_vs_r_exp
+```
+
+```{r tidy-data}
+tidy_hist <- survey %>%
+  ggplot() +
+  aes(x=Tidy_data) +
+  geom_histogram(stat = "count")
+tidy_hist
 ```
 
 ## Analysis

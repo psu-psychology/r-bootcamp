@@ -5,7 +5,7 @@ title: "2017 R Bootcamp Schedule"
 ## Wednesday, August 16, 9:00 am - 12:30 pm, 127 Moore
 
 - 09:00 am • Welcome and introductions
-- 09:15 am • Installing R, installing packages, getting help | [R](talks/R-Workshop-James.R) | [HTML slides](talks/R-Workshop-James.html) | [HTML notebook](talks/R-Workshop-James.nb.html) | [PDF](talks/R-Workshop-James.pdf) | [docx](talks/R-Workshop-James.docx) | [Markdown](talks/R-Workshop-James.md)
+- 09:15 am • Installing R, installing packages, getting help | [R](talks/R-Workshop-James.R) | [HTML slides](talks/R-Workshop-James.html) | [HTML notebook](talks/R-Workshop-James.nb.html) | [PDF](talks/R-Workshop-James.pdf) | [docx](talks/R-Workshop-James.docx) | [Markdown](talks/R-Workshop-James.md) |
 - 10:30 am • Break
 - 10:45 am • Reading & summarizing data files, indexing arrays and data frames, data types, simple descriptive stats
 - 12:30 pm • Lunch (on your own)
@@ -18,23 +18,23 @@ title: "2017 R Bootcamp Schedule"
 
 - 09:00 am • Welcome back
 - 09:15 am • Data wrangling & pipelines
-    + Hallquist data wrangling slides | [PPTX](talks/Hallquist_Data_Wrangling.pptx)
-    + tidyr and dplyr walkthrough | [HTML](tutorials/dplyr_walkthrough.html) | [Rmd](tutorials/dplyr_walkthrough.Rmd)
-    + joins walkthrough | [HTML](tutorials/joins_tutorial.html) | [Rmd](tutorials/joins_tutorial.Rmd)
+    + Hallquist data wrangling slides | [PPTX](talks/Hallquist_Data_Wrangling.pptx) |
+    + tidyr and dplyr walkthrough | [HTML](tutorials/dplyr_walkthrough.html) | [Rmd](tutorials/dplyr_walkthrough.Rmd) |
+    + joins walkthrough | [HTML](tutorials/joins_tutorial.html) | [Rmd](tutorials/joins_tutorial.Rmd) |
 - 10:30 am • Break
 - 10:45 am • Data visualization (primarily ggplot2)
-    + Hallquist R and ggplot2 graphics overview | [PPTX](talks/Hallquist_ggplot2_overview.pptx)
-    + Simple graphics for our bootcamp survey | [R](tutorials/ggplot_walkthrough.R)
-    + Jenny Bryan ggplot2 tutorial | [Download](https://github.com/jennybc/ggplot2-tutorial/archive/master.zip)
+    + Hallquist R and ggplot2 graphics overview | [PPTX](talks/Hallquist_ggplot2_overview.pptx) |
+    + Simple graphics for our bootcamp survey | [R](tutorials/ggplot_walkthrough.R) |
+    + Jenny Bryan ggplot2 tutorial | [Download](https://github.com/jennybc/ggplot2-tutorial/archive/master.zip) |
     + [ggplot2 documentation](http://ggplot2.tidyverse.org/reference/)
-- 12:00 pm • Lunch (on your own)
+- 11:45 pm • Lunch (pizza & drinks thanks to [SLEIC](http://imaging.psu.edu))
 - 01:00 pm • Programming basics: loops, apply functions, conditional logic, functions
-    + functional programming in R (Albohn) | [HTML](tutorials/functional_programming_in_R.html) | [Rmd](tutorials/functional_programming_in_R.Rmd)
+    + functional programming in R (Albohn) | [HTML](tutorials/functional_programming_in_R.html) | [Rmd](tutorials/functional_programming_in_R.Rmd) |
     + worked example of scoring psychometric data (Hallquist) | [R](tutorials/score_selfreports.R)
-- 02:15 pm • Best practices in R programming: script management, comments, versioning, legible flow | [Wickham style guide](http://adv-r.had.co.nz/Style.html)
+- 02:15 pm • Best practices in R programming: script management, comments, versioning, legible flow | [Wickham style guide](http://adv-r.had.co.nz/Style.html) |
 - 02:45 pm • Break
-- 03:00 pm • Transparent, open & reproducible science with R | [HTML slides](talks/r-eproducible-science.html) | [HTML notebook](talks/r-eproducible-science.nb.html) | [PDF](talks/r-eproducible-science.pdf) | [docx](talks/r-eproducible-science.docx) | [Markdown](talks/r-eproducible-science.md) |. 
-    - Bootcamp Survey Analysis | [HTML slides](talks/bootcamp-survey.html) | [HTML notebook](talks/bootcamp-survey.nb.html) | [PDF](talks/bootcamp-survey.pdf) | [docx](talks/bootcamp-survey.docx) | [Markdown](talks/bootcamp-survey.md) |.
+- 03:00 pm • Transparent, open & reproducible science with R | [HTML slides](talks/r-eproducible-science.html) | [HTML notebook](talks/r-eproducible-science.nb.html) | [PDF](talks/r-eproducible-science.pdf) | [docx](talks/r-eproducible-science.docx) | [Markdown](talks/r-eproducible-science.md) | 
+    - Bootcamp Survey Analysis | [HTML notebook](talks/bootcamp-survey.nb.html) | [PDF](talks/bootcamp-survey.pdf) | [docx](talks/bootcamp-survey.docx) | [Markdown](talks/bootcamp-survey.md) |
     - `papaja` demo | [Rmd](papaja_demo/gilmore-lebreton-hallquist.Rmd) | [PDF](papaja_demo/gilmore-lebreton-hallquist.pdf) |
 - 04:30 pm • End
 - 05:00 pm • Optional Happy Hour @ Whisker's
