@@ -13,7 +13,6 @@ output:
   github_document:
     toc: true
     toc_depth: 3
-  html_notebook: default
 ---
 
 ---
@@ -256,6 +255,9 @@ Here is the transformed file with a .Rmd extension.
 - 'Default' for the file: `rmarkdown::render("talks/bootcamp-survey.Rmd")`
 - **PDF document**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "pdf_document")`
 - **Word document**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "word_document")`
+
+---
+
 - **HTML slides**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "ioslides_presentation")`
 - **Multiple outputs**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = c("pdf_document", "word_document", "github_document", "ioslides_presentation")`
 
@@ -265,6 +267,9 @@ Here is the transformed file with a .Rmd extension.
 - Use R Markdown files for documents, reports, presentations.
     - One or more output formats from the same file.
     - Analysis/lab notebook.
+    
+---
+
 - Use R scripts or functions to automate different pieces of the pipeline.
 - Make README files to explain how to put pieces together.
 

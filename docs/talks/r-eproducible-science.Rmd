@@ -13,7 +13,6 @@ output:
   github_document:
     toc: true
     toc_depth: 3
-  html_notebook: default
 ---
 
 ---
@@ -28,8 +27,8 @@ output:
 
 ## Is there a reproducibility crisis?
 
-- Yes
-- A slight crisis
+- Yes, a significant crisis
+- Yes, a slight crisis
 - No crisis
 - Don't know
 
@@ -53,7 +52,7 @@ output:
 ---
 
 <div class="centered">
-<img src="https://images-na.ssl-images-amazon.com/images/I/51PjoYQf1jL._SX327_BO1,204,203,200_.jpg" height=500px/>
+<img src="https://cdn.shopify.com/s/files/1/0877/5762/products/Rigor_Mortis_1024x1024.jpg?v=1491240110" height=500px/>
 </div>
 
 ---
@@ -90,6 +89,8 @@ I urge you to read it.
     - Cleaning
     - Visualization
     - Analysis
+    - Reporting
+    - Manuscript generation?
 - "Hit by a truck" scenario
 
 <div class="notes">
@@ -254,6 +255,9 @@ Here is the transformed file with a .Rmd extension.
 - 'Default' for the file: `rmarkdown::render("talks/bootcamp-survey.Rmd")`
 - **PDF document**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "pdf_document")`
 - **Word document**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "word_document")`
+
+---
+
 - **HTML slides**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "ioslides_presentation")`
 - **Multiple outputs**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = c("pdf_document", "word_document", "github_document", "ioslides_presentation")`
 
@@ -263,6 +267,9 @@ Here is the transformed file with a .Rmd extension.
 - Use R Markdown files for documents, reports, presentations.
     - One or more output formats from the same file.
     - Analysis/lab notebook.
+    
+---
+
 - Use R scripts or functions to automate different pieces of the pipeline.
 - Make README files to explain how to put pieces together.
 
@@ -308,8 +315,8 @@ Here is the transformed file with a .Rmd extension.
 
 - Keep track of your past
 - Back to the Future
-- git: a system for software version control
-- GitHub: a website for managing projects that use git
+- **git**: a system for software version control
+- [**GitHub**](http://github.com): a website for managing projects that use git
 
 ## My GitHub workflow
 

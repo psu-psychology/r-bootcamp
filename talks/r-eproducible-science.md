@@ -1,7 +1,7 @@
 R-eproducible Psychological Science
 ================
 Rick Gilmore
-2017-08-17 08:44:22
+2017-08-17 12:48:21
 
 -   [Themes](#themes)
 -   [Is there a reproducibility crisis?](#is-there-a-reproducibility-crisis)
@@ -29,6 +29,7 @@ Rick Gilmore
     -   [Version control](#version-control)
     -   [My GitHub workflow](#my-github-workflow)
     -   [Scripting the pipeline](#scripting-the-pipeline)
+    -   [[Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html)](#web-sites)
     -   [Learn from my mistakes](#learn-from-my-mistakes)
     -   [References](#references)
 
@@ -46,8 +47,8 @@ Themes
 Is there a reproducibility crisis?
 ----------------------------------
 
--   Yes
--   A slight crisis
+-   Yes, a significant crisis
+-   Yes, a slight crisis
 -   No crisis
 -   Don't know
 
@@ -65,7 +66,7 @@ Not just in psychology
 
 ------------------------------------------------------------------------
 
-<img src="https://images-na.ssl-images-amazon.com/images/I/51PjoYQf1jL._SX327_BO1,204,203,200_.jpg" height=500px/>
+<img src="https://cdn.shopify.com/s/files/1/0877/5762/products/Rigor_Mortis_1024x1024.jpg?v=1491240110" height=500px/>
 
 ------------------------------------------------------------------------
 
@@ -90,6 +91,8 @@ What am I trying to reproduce?
     -   Cleaning
     -   Visualization
     -   Analysis
+    -   Reporting
+    -   Manuscript generation?
 -   "Hit by a truck" scenario
 
 But today I want us to think more parochially about our own workflows. How can using R make our own data collection, cleaning, visualization, and analysis workflows more reproducible. Ask yourself this: Can you pick up where you left off on a project you were working on yesterday? Last week? Last month? Six months ago? Put it this way: If you were hit by a truck tomorrow, could your adviser and collaborators pick up where you left off?
@@ -238,6 +241,9 @@ One file, many output options
 -   'Default' for the file: `rmarkdown::render("talks/bootcamp-survey.Rmd")`
 -   **PDF document**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "pdf_document")`
 -   **Word document**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "word_document")`
+
+------------------------------------------------------------------------
+
 -   **HTML slides**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "ioslides_presentation")`
 -   **Multiple outputs**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = c("pdf_document", "word_document", "github_document", "ioslides_presentation")`
 
@@ -248,6 +254,9 @@ Key points
 -   Use R Markdown files for documents, reports, presentations.
     -   One or more output formats from the same file.
     -   Analysis/lab notebook.
+
+------------------------------------------------------------------------
+
 -   Use R scripts or functions to automate different pieces of the pipeline.
 -   Make README files to explain how to put pieces together.
 
@@ -271,17 +280,17 @@ Advanced topics
     -   Make [this](../papaja_demo/gilmore-lebreton-hallquist.pdf) from [this](../papaja_demo/gilmore-lebreton-hallquist.Rmd)
 -   Use R Studio [projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
 -   Version control with git and [GitHub](http://github.com)
--   [Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html), [blogs](https://bookdown.org/yihui/blogdown/), (even [books](https://bookdown.org/)) with R Markdown
 -   Scriptable analysis workflows
     -   Reports for each participant, e.g. [PEEP-II project](https://github.com/gilmore-lab/peep-II-ratings-analysis)
     -   This bootcamp's [`Make_site.R`](../R/Make_site.R)
+-   [Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html), [blogs](https://bookdown.org/yihui/blogdown/), (even [books](https://bookdown.org/)) with R Markdown
 
 R Studio Projects
 -----------------
 
 -   Keep files, settings, organized
 -   Easy to switch between projects
--   Reduces mental effort (what directory and I in?)
+-   Reduces mental effort (what directory am I in?)
 -   Integrates with version control (e.g., GitHub)
 
 ------------------------------------------------------------------------
@@ -293,8 +302,8 @@ Version control
 
 -   Keep track of your past
 -   Back to the Future
--   git: a system for software version control
--   GitHub: a website for managing projects that use git
+-   **git**: a system for software version control
+-   [**GitHub**](http://github.com): a website for managing projects that use git
 
 My GitHub workflow
 ------------------
@@ -366,6 +375,16 @@ Scripting the pipeline
                                         "pdf_document",
                                         "word_document",
                                         "ioslides_presentation"))
+
+[Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html)
+-----------------------------------------------------------------
+
+-   [`_site.yml`](../_site.yml): site configuration parameters
+-   [`index.Rmd`](../index.Rmd): home page for site
+-   other `*.Rmd` files: other pages
+-   other directories for files
+-   `rmarkdown::render_site()`
+-   [GitHub pages](https://pages.github.com/) or other web site hosting service
 
 Learn from my mistakes
 ----------------------
