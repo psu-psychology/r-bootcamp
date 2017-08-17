@@ -1,12 +1,11 @@
 R-eproducible Psychological Science
 ================
 Rick Gilmore
-2017-08-16 18:06:38
+2017-08-17 08:44:22
 
 -   [Themes](#themes)
 -   [Is there a reproducibility crisis?](#is-there-a-reproducibility-crisis)
 -   [Not just in psychology](#not-just-in-psychology)
--   [If so, why?](#if-so-why)
 -   [[(Munafò et al. 2017)](http://doi.org/10.1038/s41562-016-0021) manifesto](#munafo2017-dc-manifesto)
 -   [What am I trying to reproduce?](#what-am-i-trying-to-reproduce)
 -   [Reproducible workflows](#reproducible-workflows)
@@ -15,7 +14,7 @@ Rick Gilmore
 -   [Make script that calls sequence of R commands or functions](#make-script-that-calls-sequence-of-r-commands-or-functions)
 -   [Strengths & Weaknesses](#strengths-weaknesses)
 -   [Example 2 - R Markdown](#example-2---r-markdown)
--   [Structure of an R Markdown file](#structure-of-an-r-markdown-file)
+-   [Structure of an [R Markdown .Rmd](R-Workshop-James.Rmd) file](#structure-of-an-r-markdown-.rmd-file)
 -   [One R to rule them all and in the console bind them...](#one-r-to-rule-them-all-and-in-the-console-bind-them...)
 -   [Your turn](#your-turn)
 -   [Things to try if you like](#things-to-try-if-you-like)
@@ -23,18 +22,24 @@ Rick Gilmore
     -   [Smaller idea in service of bigger](#smaller-idea-in-service-of-bigger)
     -   [Let's try it with some data](#lets-try-it-with-some-data)
     -   [One file, many output options](#one-file-many-output-options)
-    -   [Scripting the pipeline](#scripting-the-pipeline)
     -   [Key points](#key-points)
     -   [Toward a reproducible psychological science...](#toward-a-reproducible-psychological-science...)
     -   [Advanced topics](#advanced-topics)
+    -   [R Studio Projects](#r-studio-projects)
+    -   [Version control](#version-control)
     -   [My GitHub workflow](#my-github-workflow)
+    -   [Scripting the pipeline](#scripting-the-pipeline)
     -   [Learn from my mistakes](#learn-from-my-mistakes)
     -   [References](#references)
 
+------------------------------------------------------------------------
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/66oNv_DJuPc" frameborder="0" allowfullscreen>
+</iframe>
 Themes
 ------
 
-1.  Why worry about reproducible science?
+1.  Is there a reproducibility crisis?
 2.  What is reproducible psychological science?
 3.  How can R make my science more transparent, open, and reproducible?
 
@@ -58,8 +63,9 @@ Not just in psychology
 <div class="centered">
 <a href="http://www.nature.com/polopoly_fs/7.36718.1464174471!/image/reproducibility-graphic-online3.jpg_gen/derivatives/landscape_630/reproducibility-graphic-online3.jpg"> <img src="http://www.nature.com/polopoly_fs/7.36718.1464174471!/image/reproducibility-graphic-online3.jpg_gen/derivatives/landscape_630/reproducibility-graphic-online3.jpg"" height=500px> </a>
 
-If so, why?
------------
+------------------------------------------------------------------------
+
+<img src="https://images-na.ssl-images-amazon.com/images/I/51PjoYQf1jL._SX327_BO1,204,203,200_.jpg" height=500px/>
 
 ------------------------------------------------------------------------
 
@@ -102,11 +108,8 @@ Using R for reproducible workflows
 ----------------------------------
 
 -   **Option 1**: All commands in an R script: e.g., `project_analysis.R`
--   **Option 2**: Mix R code, output, comments in an [R Markdown](http://rmarkdown.rstudio.com/) document
-    -   R Markdown files = text files
-    -   One input file, multiple outputs to
-    -   PDF, Word (.docx)
-    -   HTML for notebooks, web pages, slides
+-   **Option 2a**: Mix R code, output, comments in an [R Markdown](http://rmarkdown.rstudio.com/) document
+-   **Option 2b**: Use R scripts with some [special formatting](http://rmarkdown.rstudio.com/articles_report_from_r_script.html), [(more info)](https://github.com/jennybc/happy-git-with-r/blob/master/31_workflow-first-use-r-script-and-github.Rmd).
 
 We've already shown you in this bootcamp how writing R scripts and functions can let you import, clean, munge, reorganize, plot, and analyze data. We've already seen how commenting code fragments makes it easier to read and understand. An extension to R called R Markdown lets us mix R code, analyses, text, tables, and other formatting to make all sorts of products. R Markdown files are just text files. But with this one text file, it's easy to produce multiple output types: PDF or Word formatted documents; HTML for blogs, web sites, or even slide presentation.
 
@@ -150,22 +153,22 @@ Strengths & Weaknesses
 
 -   R commands in files that can be re-run
 -   Separate pieces of workflow kept separate
--   "Master" script that can be run to regenerate full sequence of results
+-   "Master.R" script that can be run to regenerate full sequence of results
     -   Error in raw data file?
-    -   No problem; fix and re-run "Master"
+    -   No problem; fix and re-run "Master.R"
 -   How to save results or share with collaborators?
 
 Example 2 - R Markdown
 ----------------------
 
 -   James' R commands from Day 1: [Raw R script (.R)](R-Workshop-James.R)
--   Converted to [R Markdown](R-Workshop-James.R.Rmd)
--   Output as | [HTML notebook](R-Workshop-James.nb.html) | [HTML Slides](R-Workshop-James.html) | [PDF](R-Workshop-James.pdf) | [DOCX](R-Workshop-James.docx) |
+-   Converted to [R Markdown](R-Workshop-James.Rmd)
+-   Output as | [HTML notebook](R-Workshop-James.nb.html) | [HTML Slides](R-Workshop-James.html) | [PDF](R-Workshop-James.pdf) | [docx](R-Workshop-James.docx) |
 
 Just to show you how easy this is, let's look at the R syntax James used yesterday. I'm going to show you how adding just a tiny bit of text to that file transforms it. Here is the original R script. Here is the transformed file with a .Rmd extension.
 
-Structure of an R Markdown file
--------------------------------
+Structure of an [R Markdown .Rmd](R-Workshop-James.Rmd) file
+------------------------------------------------------------
 
 -   header info in [YAML Ain't Markup Language (YAML) format](http://www.yaml.org/start.html)
 -   Markdown for formating text (headers, **boldface**/*italics*, `code`, bulleted or numbered lists, [web links](http://www.psu.edu), etc.
@@ -202,9 +205,9 @@ Things to try if you like
     1. an enumerated **bold** point
     1. an enumerated *italicized* point
 
-    - [html_notebook](http://rmarkdown.rstudio.com/r_notebooks.html) Like [jupyter notebooks](http://juypter.org)
     - a [link](http://psu-psychology.github.io/r-bootcamp) to this bootcamp
     - an image: ![rawr](https://www.insidehighered.com/sites/default/server_files/media/PennState2.PNG)
+    - an equation: $e = mc^2$
 
 Big idea
 ========
@@ -216,8 +219,12 @@ Smaller idea in service of bigger
 -   Another suppporting point
 -   a **bold** point
 -   an *italicized* point
+
+------------------------------------------------------------------------
+
 -   a [link](http://psu-psychology.github.io/r-bootcamp) to this bootcamp
 -   an image: ![rawr](https://www.insidehighered.com/sites/default/server_files/media/PennState2.PNG)
+-   an equation: *e* = *m**c*<sup>2</sup>
 
 Let's try it with some data
 ---------------------------
@@ -233,6 +240,85 @@ One file, many output options
 -   **Word document**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "word_document")`
 -   **HTML slides**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "ioslides_presentation")`
 -   **Multiple outputs**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = c("pdf_document", "word_document", "github_document", "ioslides_presentation")`
+
+Key points
+----------
+
+-   Use R scripts to capture & reproduce workflows and/or
+-   Use R Markdown files for documents, reports, presentations.
+    -   One or more output formats from the same file.
+    -   Analysis/lab notebook.
+-   Use R scripts or functions to automate different pieces of the pipeline.
+-   Make README files to explain how to put pieces together.
+
+------------------------------------------------------------------------
+
+<img src="https://am23.akamaized.net/tms/cnt/uploads/2017/05/1491990205555-1.jpg" height=500px>
+
+Toward a reproducible psychological science...
+----------------------------------------------
+
+-   Transparent, reproducible, open workflows pre-publication
+-   Openly shared materials + data + code
+-   [(Munafò et al. 2017)](http://doi.org/10.1038/s41562-016-0021): reproducible practices across the workflow
+    -   Where to share and when? Lots of options. Let's talk.
+-   [(Gilmore and Adolph 2017)](http://dx.doi.org/10.1038/s41562-017-0128): video and reproducibility
+
+Advanced topics
+---------------
+
+-   Write papers in R Markdown using [`papaja`](https://github.com/crsh/papaja)
+    -   Make [this](../papaja_demo/gilmore-lebreton-hallquist.pdf) from [this](../papaja_demo/gilmore-lebreton-hallquist.Rmd)
+-   Use R Studio [projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
+-   Version control with git and [GitHub](http://github.com)
+-   [Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html), [blogs](https://bookdown.org/yihui/blogdown/), (even [books](https://bookdown.org/)) with R Markdown
+-   Scriptable analysis workflows
+    -   Reports for each participant, e.g. [PEEP-II project](https://github.com/gilmore-lab/peep-II-ratings-analysis)
+    -   This bootcamp's [`Make_site.R`](../R/Make_site.R)
+
+R Studio Projects
+-----------------
+
+-   Keep files, settings, organized
+-   Easy to switch between projects
+-   Reduces mental effort (what directory and I in?)
+-   Integrates with version control (e.g., GitHub)
+
+------------------------------------------------------------------------
+
+<img src="../img/ricks-recent-projects.jpg" height=550/>
+
+Version control
+---------------
+
+-   Keep track of your past
+-   Back to the Future
+-   git: a system for software version control
+-   GitHub: a website for managing projects that use git
+
+My GitHub workflow
+------------------
+
+1.  Create a repo on GitHub
+2.  Copy repo URL
+3.  `File/New Project.../`
+4.  Version Control, Git
+5.  Paste repo URL
+6.  Select local name for repo and directory where it lives.
+7.  Open project within R Studio `File/Open Project...`
+8.  Commit early & often
+
+------------------------------------------------------------------------
+
+<video height="440" width="720" controls>
+<source src="../mov/rstudio-project-on-github-1.mp4" type="video/mp4"> Your browser does not support the video tag.
+</video>
+
+------------------------------------------------------------------------
+
+<video height="440" width="720" controls>
+<source src="../mov/edit-save-commit-push-1.mp4" type="video/mp4"> Your browser does not support the video tag.
+</video>
 
 Scripting the pipeline
 ----------------------
@@ -280,49 +366,6 @@ Scripting the pipeline
                                         "pdf_document",
                                         "word_document",
                                         "ioslides_presentation"))
-
-Key points
-----------
-
--   Use R scripts to capture & reproduce workflows and/or
--   Use R Markdown files for documents, reports, presentations.
-    -   One or more output formats from the same file.
-    -   Analysis/lab notebook.
--   Use R scripts or functions to automate different pieces of the pipeline.
--   Make README files to explain how to put pieces together.
-
-Toward a reproducible psychological science...
-----------------------------------------------
-
--   Transparent, reproducible, open workflows pre-publication
--   Openly shared materials + data + code
--   [(Munafò et al. 2017)](http://doi.org/10.1038/s41562-016-0021): reproducible practices across the workflow
-    -   Where to share and when? Lots of options. Let's talk.
--   [(Gilmore and Adolph 2017)](http://dx.doi.org/10.1038/s41562-017-0128): video and reproducibility
-
-Advanced topics
----------------
-
--   Write papers in R Markdown using [`papaja`](https://github.com/crsh/papaja)
-    -   Make [this](../papaja_demo/gilmore-lebreton-hallquist.pdf) from [this](../papaja_demo/gilmore-lebreton-hallquist.Rmd)
--   Use R Studio [projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
--   Version control with git and [GitHub](http://github.com)
--   [Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html), [blogs](https://bookdown.org/yihui/blogdown/), (even [books](https://bookdown.org/)) with R Markdown
--   Scriptable analysis workflows
-    -   Reports for each participant, e.g. [PEEP-II project](https://github.com/gilmore-lab/peep-II-ratings-analysis)
-    -   This bootcamp's [`Make_site.R`](../R/Make_site.R)
-
-My GitHub workflow
-------------------
-
-1.  Create a repo on GitHub
-2.  Copy repo URL
-3.  `File/New Project.../`
-4.  Version Control, Git
-5.  Paste repo URL
-6.  Select local name for repo and directory where it lives.
-7.  Open project within R Studio `File/Open Project...`
-8.  Commit early & often
 
 Learn from my mistakes
 ----------------------

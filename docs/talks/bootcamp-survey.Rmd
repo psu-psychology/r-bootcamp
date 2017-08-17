@@ -72,6 +72,19 @@ str(survey)
 
 Clearly, we need to do some cleaning before we can do anything with this.
 
+Let's start by renaming variables
+
+```{r rename-vars}
+names(survey) <- c("Timestamp",
+                  "R_exp",
+                  "GoT",
+                  "Age_yrs",
+                  "Sleep_hrs",
+                  "Fav_day",
+                  "Tidy_data")
+```
+
+
 ```{r clean-survey}
 # complete.cases() drops NAs
 survey <- survey[complete.cases(survey),]
@@ -81,7 +94,6 @@ survey
 Now, lets make sure we have numbers where we expect them.
 
 ```{r make-numbers}
-survey$Age_yrs <- readr::parse_number(survey$Age_yrs)
 survey$Sleep_hrs <- readr::parse_number(survey$Sleep_hrs)
 survey
 ```
@@ -137,10 +149,6 @@ Got_hist
 Looks like we are of two minds about GoT.
 
 ![](https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/03/17/08/thrones-dragon.jpg)
-
-Goat to do something about that.
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/X6tKZ-cg4RI" frameborder="0" allowfullscreen></iframe>
 
 ```{r GoT-vs-r-exp}
 GoT_vs_r_exp <- survey %>%

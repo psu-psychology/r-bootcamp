@@ -33,6 +33,8 @@ title: "2017 R Bootcamp Schedule"
     + worked example of scoring psychometric data (Hallquist) | [R](tutorials/score_selfreports.R)
 - 02:15 pm • Best practices in R programming: script management, comments, versioning, legible flow | [Wickham style guide](http://adv-r.had.co.nz/Style.html)
 - 02:45 pm • Break
-- 03:00 pm • Transparent, open & reproducible science with R | [HTML slides](talks/r-eproducible-science.html) | [HTML notebook](talks/r-eproducible-science.nb.html) | [PDF](talks/r-eproducible-science.pdf) | [docx](talks/r-eproducible-science.docx) | [Markdown](talks/r-eproducible-science.md) |. Bootcamp Survey Analysis | [HTML slides](talks/bootcamp-survey.html) | [HTML notebook](talks/bootcamp-survey.nb.html) | [PDF](talks/bootcamp-survey.pdf) | [docx](talks/bootcamp-survey.docx) | [Markdown](talks/bootcamp-survey.md) |.`papaja` demo | [Rmd](papaja_demo/gilmore-lebreton-hallquist.Rmd) | [PDF](papaja_demo/gilmore-lebreton-hallquist.pdf) |
+- 03:00 pm • Transparent, open & reproducible science with R | [HTML slides](talks/r-eproducible-science.html) | [HTML notebook](talks/r-eproducible-science.nb.html) | [PDF](talks/r-eproducible-science.pdf) | [docx](talks/r-eproducible-science.docx) | [Markdown](talks/r-eproducible-science.md) |. 
+    - Bootcamp Survey Analysis | [HTML slides](talks/bootcamp-survey.html) | [HTML notebook](talks/bootcamp-survey.nb.html) | [PDF](talks/bootcamp-survey.pdf) | [docx](talks/bootcamp-survey.docx) | [Markdown](talks/bootcamp-survey.md) |.
+    - `papaja` demo | [Rmd](papaja_demo/gilmore-lebreton-hallquist.Rmd) | [PDF](papaja_demo/gilmore-lebreton-hallquist.pdf) |
 - 04:30 pm • End
 - 05:00 pm • Optional Happy Hour @ Whisker's
