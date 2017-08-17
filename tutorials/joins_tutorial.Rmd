@@ -1,5 +1,5 @@
 ---
-title: "Dplyr Joins Tutorial"
+title: "dplyr joins tutorial"
 author: "Michael Hallquist"
 date: "8/15/2017"
 output:

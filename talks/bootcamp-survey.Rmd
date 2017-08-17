@@ -1,20 +1,23 @@
 ---
 title: "Analysis of bootcamp survey"
 author: "Rick Gilmore"
-date: "`r Sys.time()`"
+date: '`r Sys.time()`'
 output:
-  html_notebook: default
+  html_document:
+    toc: yes
+    toc_depth: '3'
   github_document:
-    toc: true
+    toc: yes
     toc_depth: 3
+  html_notebook: default
+  ioslides_presentation:
+    widescreen: yes
   pdf_document:
-    toc: true
+    toc: yes
     toc_depth: 3
   word_document:
-    toc: true
+    toc: yes
     toc_depth: 3
-  ioslides_presentation:
-    widescreen: true
 ---
 
 ```{r setup, include=FALSE}

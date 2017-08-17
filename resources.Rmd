@@ -14,6 +14,8 @@ title: "Resources"
 
 - [WeR User Group](http://sites.psu.edu/werclub/2016/10/09/the-goal-of-we-r-penn-state-r-users-group/)
 - [Jenny Bryan R course](http://stat545.com/topics.html)
+- [Jenny Bryan graphics tutorials](http://stat545.com/graph00_index.html)
+- [ggplot2 graphics catalog](http://shiny.stat.ubc.ca/r-graph-catalog/)
 - [R bloggers](https://www.r-bloggers.com/)
 - [RStudio](http://rstudio.com)
 - [Tidyverse curriculum](https://dcl-2017-04.github.io/curriculum/)
