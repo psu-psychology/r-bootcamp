@@ -1,7 +1,7 @@
 Analysis of bootcamp survey
 ================
 Rick Gilmore
-2017-08-17 10:29:30
+2017-08-17 12:02:38
 
 -   [Goals](#goals)
 -   [Preliminaries](#preliminaries)
@@ -33,9 +33,16 @@ Load data and examine
 
 The survey data are stored in a [Google Sheet](https://docs.google.com/spreadsheets/d/1Ay56u6g4jyEEdlmV2NHxTLBlcjI2gHavta-Ik0kGrpg/edit#gid=896447063). We'll use the `googlesheets` package to open it and create a data frame. Documentation about the package can be found [here](https://cran.r-project.org/web/packages/googlesheets/vignettes/basic-usage.html).
 
-There are some idiosyncrasies in using the `googlesheets` package in an R Markdown document because it requires interaction with the console, so I created a separate R script, `Get_bootcamp_googlesheet.R` to extract the survey data, clean it, and save it to a CSV under `data/survey.csv`. We can then just load this file. But, let's look at [`R/Clean_survey_data.R`](../R/Clean_survey_data.R).
+There are some idiosyncrasies in using the `googlesheets` package in an R Markdown document because it requires interaction with the console, so I created a separate R script, `Get_bootcamp_googlesheet.R` to extract the survey data. If you try to execute the next chunk, it may give you an error, or it may ask you to allow `googlesheets` to access information in your Google profile.
 
-I also created a test data file, `data/survey-test.csv` so I could see how everything worked before y'all filled out your responses. The [`R/Make_test_survey.R`](../R/Make_test_survey.R) file shows how I did this. It's a great, reproducible practice to simulate the data you expect, then run it through your pipeline.
+``` r
+# Set eval=FALSE so I can render non-notebook formats
+source("../R/Get_bootcamp_googlesheet.R")
+```
+
+This script downloads the data file saves it to a CSV under `data/survey.csv`.We can then load this file.
+
+I also created a test data file, `data/survey-test.csv` so I could see how everything worked before y'all filled out your responses. The [`R/Make_test_survey.R`](../R/Make_test_survey.R) file shows how I did this. It's a great, reproducible practice to **simulate the data you expect**, then run it through your pipeline.
 
 ------------------------------------------------------------------------
 
@@ -61,7 +68,7 @@ survey <- read_csv("../data/survey.csv")
 survey
 ```
 
-    ## # A tibble: 35 x 7
+    ## # A tibble: 39 x 7
     ##             Timestamp `Your current level of experience/expertise with R`
     ##                 <chr>                                               <chr>
     ##  1               <NA>                                                <NA>
@@ -74,7 +81,7 @@ survey
     ##  8 8/15/2017 23:45:05                                             limited
     ##  9  8/16/2017 0:26:01                                                 pro
     ## 10  8/16/2017 1:09:44                                                none
-    ## # ... with 25 more rows, and 5 more variables: `Your enthusiasm for Game
+    ## # ... with 29 more rows, and 5 more variables: `Your enthusiasm for Game
     ## #   of Thrones` <int>, `Age in years` <int>, `Preferred number of hours
     ## #   spent sleeping/day` <chr>, `Favorite day of the week` <chr>, `Are your
     ## #   data tidy?` <chr>
@@ -85,7 +92,7 @@ The `str()` or 'structure' command is also a great way to see what you've got.
 str(survey)
 ```
 
-    ## Classes 'tbl_df', 'tbl' and 'data.frame':    35 obs. of  7 variables:
+    ## Classes 'tbl_df', 'tbl' and 'data.frame':    39 obs. of  7 variables:
     ##  $ Timestamp                                        : chr  NA "8/13/2017 23:29:24" "8/14/2017 12:01:12" "8/15/2017 12:42:09" ...
     ##  $ Your current level of experience/expertise with R: chr  NA "some" "some" "some" ...
     ##  $ Your enthusiasm for Game of Thrones              : int  NA 10 10 10 10 10 10 3 9 10 ...
@@ -115,7 +122,7 @@ str(survey)
 
 Clearly, we need to do some cleaning before we can do anything with this.
 
-Let's start by renaming variables
+Let's start by renaming variables.
 
 ``` r
 names(survey) <- c("Timestamp",
@@ -133,7 +140,7 @@ survey <- survey[complete.cases(survey),]
 survey
 ```
 
-    ## # A tibble: 34 x 7
+    ## # A tibble: 38 x 7
     ##             Timestamp   R_exp   GoT Age_yrs Sleep_hrs  Fav_day
     ##                 <chr>   <chr> <int>   <int>     <chr>    <chr>
     ##  1 8/13/2017 23:29:24    some    10      28      8!!!   Friday
@@ -146,16 +153,16 @@ survey
     ##  8  8/16/2017 0:26:01     pro     9      37         7   Friday
     ##  9  8/16/2017 1:09:44    none    10      25         9 Saturday
     ## 10  8/16/2017 8:51:05 limited     1      23       7.5 Thursday
-    ## # ... with 24 more rows, and 1 more variables: Tidy_data <chr>
+    ## # ... with 28 more rows, and 1 more variables: Tidy_data <chr>
 
-Now, lets make sure we have numbers where we expect them.
+Now, lets make sure we have numbers where we expect them. That person who really likes 8 hours ("8!!!") is a problem (for me, not them).
 
 ``` r
 survey$Sleep_hrs <- readr::parse_number(survey$Sleep_hrs)
 survey
 ```
 
-    ## # A tibble: 34 x 7
+    ## # A tibble: 38 x 7
     ##             Timestamp   R_exp   GoT Age_yrs Sleep_hrs  Fav_day
     ##                 <chr>   <chr> <int>   <int>     <dbl>    <chr>
     ##  1 8/13/2017 23:29:24    some    10      28       8.0   Friday
@@ -168,7 +175,7 @@ survey
     ##  8  8/16/2017 0:26:01     pro     9      37       7.0   Friday
     ##  9  8/16/2017 1:09:44    none    10      25       9.0 Saturday
     ## 10  8/16/2017 8:51:05 limited     1      23       7.5 Thursday
-    ## # ... with 24 more rows, and 1 more variables: Tidy_data <chr>
+    ## # ... with 28 more rows, and 1 more variables: Tidy_data <chr>
 
 Looks good. Let's save that cleaned file so we don't have to do this again.
 
@@ -243,6 +250,8 @@ Got_hist
 Looks like we are of two minds about GoT.
 
 ![](https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/03/17/08/thrones-dragon.jpg)
+
+Does R experience have any relation to GoT enthusiasm?
 
 ``` r
 GoT_vs_r_exp <- survey %>%
