@@ -93,7 +93,7 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">2017-08-16 18:01:32</p>
+            <p style="margin-top: 6px; margin-left: -2px;">2017-08-17 06:10:45</p>
           </hgroup>
   </slide>
 
@@ -250,8 +250,35 @@ source(&quot;R/Visualize_data.R&quot;)
 <ul>
 <li>header info in <a href='http://www.yaml.org/start.html' title=''>YAML Ain&#39;t Markup Language (YAML) format</a></li>
 <li>Markdown for formating text (headers, <strong>boldface</strong>/<em>italics</em>, <code>code</code>, bulleted or numbered lists, <a href='http://www.psu.edu' title=''>web links</a>, etc.</li>
-<li>R code &quot;chunks&quot;</li>
 </ul>
+
+</article></slide><slide class=''><hgroup><h2>Markdown</h2></hgroup><article  id="markdown">
+
+<ul>
+<li>Human-readable formatting</li>
+<li>Converts to HTML</li>
+<li>Used in blogging engines the world over</li>
+<li>Markdown + R bits -&gt; R Markdown</li>
+</ul>
+
+</article></slide><slide class=''><hgroup><h2>Code &quot;chunks&quot;</h2></hgroup><article  id="code-chunks">
+
+<ul>
+<li>Surround code chunks with triple back-ticks and <code>{r your-chunk-name}</code></li>
+</ul>
+
+<pre><code>```{r chunk-name}
+data(cars)
+summary(cars)
+```</code></pre>
+
+<pre >##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00</pre>
 
 </article></slide><slide class=''><hgroup><h2>One R to rule them all and in the console bind them&#8230;</h2></hgroup><article  id="one-r-to-rule-them-all-and-in-the-console-bind-them...">
 
@@ -322,51 +349,10 @@ source(&quot;R/Visualize_data.R&quot;)
 <li><strong>Multiple outputs</strong>: <code>rmarkdown::render(&#39;talks/bootcamp-survey.Rmd&#39;, output_format = c(&quot;pdf_document&quot;, &quot;word_document&quot;, &quot;github_document&quot;, &quot;ioslides_presentation&quot;)</code></li>
 </ul>
 
-</article></slide><slide class=''><hgroup><h2>Scripting the pipeline</h2></hgroup><article  id="scripting-the-pipeline">
-
-<pre ># Get_bootcamp_googlesheet.R
-# 
-# Script to authenticate to Google, extract R bootcamp survey data
-
-library(googlesheets)
-library(tidyverse)
-
-survey_url &lt;- &quot;https://docs.google.com/spreadsheets/d/1Ay56u6g4jyEEdlmV2NHxTLBlcjI2gHavta-Ik0kGrpg/edit?usp=sharing&quot;
-
-bootcamp_by_url &lt;- survey_url %&gt;%
-  extract_key_from_url() %&gt;%
-  gs_key()
-
-bootcamp_sheets &lt;- gs_ws_ls(bootcamp_by_url)</pre>
-
 </article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
 
-<pre >boot_data &lt;- bootcamp_by_url %&gt;%
-  gs_read(bootcamp_sheets[1])
-          
-names(boot_data) &lt;- c(&quot;Timestamp&quot;,
-                      &quot;R_exp&quot;,
-                      &quot;GoT&quot;,
-                      &quot;Age_yrs&quot;,
-                      &quot;Sleep_hrs&quot;,
-                      &quot;Fav_date&quot;,
-                      &quot;Tidy_data&quot;)
-
-write_csv(boot_data, path = &quot;data/survey.csv&quot;)</pre>
-
-</article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
-
-<pre ># Update_survey.R
-#
-# Updates Googlesheet survey data and generates new R Markdown report
-#
-
-source(&quot;R/Get_bootcamp_googlesheet.R&quot;)
-rmarkdown::render(&quot;talks/bootcamp-survey.Rmd&quot;, 
-                  output_format = c(&quot;github_document&quot;,
-                                    &quot;pdf_document&quot;,
-                                    &quot;word_document&quot;,
-                                    &quot;ioslides_presentation&quot;))</pre>
+<div class="centered">
+<p><img src="https://am23.akamaized.net/tms/cnt/uploads/2017/05/1491990205555-1.jpg" height=500px/></p></div>
 
 </article></slide><slide class=''><hgroup><h2>Key points</h2></hgroup><article  id="key-points">
 
@@ -413,6 +399,54 @@ rmarkdown::render(&quot;talks/bootcamp-survey.Rmd&quot;,
 <li>This bootcamp&#39;s <a href='../R/Make_site.R' title=''><code>Make_site.R</code></a></li>
 </ul></li>
 </ul>
+
+</article></slide><slide class=''><hgroup><h2>Scripting the pipeline</h2></hgroup><article  id="scripting-the-pipeline">
+
+<!-- Enclosing code sections with ``` but without {r} prints but does not execute the code. -->
+
+<pre ># Get_bootcamp_googlesheet.R
+# 
+# Script to authenticate to Google, extract R bootcamp survey data
+
+library(googlesheets)
+library(tidyverse)
+
+survey_url &lt;- &quot;https://docs.google.com/spreadsheets/d/1Ay56u6g4jyEEdlmV2NHxTLBlcjI2gHavta-Ik0kGrpg/edit?usp=sharing&quot;
+
+bootcamp_by_url &lt;- survey_url %&gt;%
+  extract_key_from_url() %&gt;%
+  gs_key()
+
+bootcamp_sheets &lt;- gs_ws_ls(bootcamp_by_url)</pre>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
+
+<pre >boot_data &lt;- bootcamp_by_url %&gt;%
+  gs_read(bootcamp_sheets[1])
+          
+names(boot_data) &lt;- c(&quot;Timestamp&quot;,
+                      &quot;R_exp&quot;,
+                      &quot;GoT&quot;,
+                      &quot;Age_yrs&quot;,
+                      &quot;Sleep_hrs&quot;,
+                      &quot;Fav_date&quot;,
+                      &quot;Tidy_data&quot;)
+
+write_csv(boot_data, path = &quot;data/survey.csv&quot;)</pre>
+
+</article></slide><slide class=''><hgroup><h2></h2></hgroup><article >
+
+<pre ># Update_survey.R
+#
+# Updates Googlesheet survey data and generates new R Markdown report
+#
+
+source(&quot;R/Get_bootcamp_googlesheet.R&quot;)
+rmarkdown::render(&quot;talks/bootcamp-survey.Rmd&quot;, 
+                  output_format = c(&quot;github_document&quot;,
+                                    &quot;pdf_document&quot;,
+                                    &quot;word_document&quot;,
+                                    &quot;ioslides_presentation&quot;))</pre>
 
 </article></slide><slide class=''><hgroup><h2>My GitHub workflow</h2></hgroup><article  id="my-github-workflow">
 

@@ -1,7 +1,7 @@
 Analysis of bootcamp survey
 ================
 Rick Gilmore
-2017-08-16 18:07:16
+2017-08-17 08:50:12
 
 -   [Goals](#goals)
 -   [Preliminaries](#preliminaries)
@@ -49,32 +49,35 @@ survey <- read_csv("../data/survey.csv")
     ## Parsed with column specification:
     ## cols(
     ##   Timestamp = col_character(),
-    ##   R_exp = col_character(),
-    ##   GoT = col_integer(),
-    ##   Age_yrs = col_integer(),
-    ##   Sleep_hrs = col_double(),
-    ##   Fav_day = col_character(),
-    ##   Tidy_data = col_character()
+    ##   `Your current level of experience/expertise with R` = col_character(),
+    ##   `Your enthusiasm for Game of Thrones` = col_integer(),
+    ##   `Age in years` = col_integer(),
+    ##   `Preferred number of hours spent sleeping/day` = col_character(),
+    ##   `Favorite day of the week` = col_character(),
+    ##   `Are your data tidy?` = col_character()
     ## )
 
 ``` r
 survey
 ```
 
-    ## # A tibble: 28 x 7
-    ##             Timestamp   R_exp   GoT Age_yrs Sleep_hrs  Fav_day
-    ##                 <chr>   <chr> <int>   <int>     <dbl>    <chr>
-    ##  1 8/13/2017 23:29:24    some    10      28       8.0   Friday
-    ##  2 8/14/2017 12:01:12    some    10      22       7.0   Friday
-    ##  3 8/15/2017 12:42:09    some    10      24      10.0 Saturday
-    ##  4 8/15/2017 17:13:08    none    10      28       9.0 Saturday
-    ##  5 8/15/2017 19:03:40 limited    10      24       9.0 Saturday
-    ##  6 8/15/2017 23:36:07    some    10      23       6.0   Friday
-    ##  7 8/15/2017 23:45:05 limited     3      25       8.0   Friday
-    ##  8  8/16/2017 0:26:01     pro     9      37       7.0   Friday
-    ##  9  8/16/2017 1:09:44    none    10      25       9.0 Saturday
-    ## 10  8/16/2017 8:51:05 limited     1      23       7.5 Thursday
-    ## # ... with 18 more rows, and 1 more variables: Tidy_data <chr>
+    ## # A tibble: 35 x 7
+    ##             Timestamp `Your current level of experience/expertise with R`
+    ##                 <chr>                                               <chr>
+    ##  1               <NA>                                                <NA>
+    ##  2 8/13/2017 23:29:24                                                some
+    ##  3 8/14/2017 12:01:12                                                some
+    ##  4 8/15/2017 12:42:09                                                some
+    ##  5 8/15/2017 17:13:08                                                none
+    ##  6 8/15/2017 19:03:40                                             limited
+    ##  7 8/15/2017 23:36:07                                                some
+    ##  8 8/15/2017 23:45:05                                             limited
+    ##  9  8/16/2017 0:26:01                                                 pro
+    ## 10  8/16/2017 1:09:44                                                none
+    ## # ... with 25 more rows, and 5 more variables: `Your enthusiasm for Game
+    ## #   of Thrones` <int>, `Age in years` <int>, `Preferred number of hours
+    ## #   spent sleeping/day` <chr>, `Favorite day of the week` <chr>, `Are your
+    ## #   data tidy?` <chr>
 
 The `str()` or 'structure' command is also a great way to see what you've got.
 
@@ -82,29 +85,29 @@ The `str()` or 'structure' command is also a great way to see what you've got.
 str(survey)
 ```
 
-    ## Classes 'tbl_df', 'tbl' and 'data.frame':    28 obs. of  7 variables:
-    ##  $ Timestamp: chr  "8/13/2017 23:29:24" "8/14/2017 12:01:12" "8/15/2017 12:42:09" "8/15/2017 17:13:08" ...
-    ##  $ R_exp    : chr  "some" "some" "some" "none" ...
-    ##  $ GoT      : int  10 10 10 10 10 10 3 9 10 1 ...
-    ##  $ Age_yrs  : int  28 22 24 28 24 23 25 37 25 23 ...
-    ##  $ Sleep_hrs: num  8 7 10 9 9 6 8 7 9 7.5 ...
-    ##  $ Fav_day  : chr  "Friday" "Friday" "Saturday" "Saturday" ...
-    ##  $ Tidy_data: chr  "Yes" "That's a personal question" "No" "Yes" ...
+    ## Classes 'tbl_df', 'tbl' and 'data.frame':    35 obs. of  7 variables:
+    ##  $ Timestamp                                        : chr  NA "8/13/2017 23:29:24" "8/14/2017 12:01:12" "8/15/2017 12:42:09" ...
+    ##  $ Your current level of experience/expertise with R: chr  NA "some" "some" "some" ...
+    ##  $ Your enthusiasm for Game of Thrones              : int  NA 10 10 10 10 10 10 3 9 10 ...
+    ##  $ Age in years                                     : int  NA 28 22 24 28 24 23 25 37 25 ...
+    ##  $ Preferred number of hours spent sleeping/day     : chr  NA "8!!!" "7" "10" ...
+    ##  $ Favorite day of the week                         : chr  NA "Friday" "Friday" "Saturday" ...
+    ##  $ Are your data tidy?                              : chr  NA "Yes" "That's a personal question" "No" ...
     ##  - attr(*, "spec")=List of 2
     ##   ..$ cols   :List of 7
-    ##   .. ..$ Timestamp: list()
+    ##   .. ..$ Timestamp                                        : list()
     ##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
-    ##   .. ..$ R_exp    : list()
+    ##   .. ..$ Your current level of experience/expertise with R: list()
     ##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
-    ##   .. ..$ GoT      : list()
+    ##   .. ..$ Your enthusiasm for Game of Thrones              : list()
     ##   .. .. ..- attr(*, "class")= chr  "collector_integer" "collector"
-    ##   .. ..$ Age_yrs  : list()
+    ##   .. ..$ Age in years                                     : list()
     ##   .. .. ..- attr(*, "class")= chr  "collector_integer" "collector"
-    ##   .. ..$ Sleep_hrs: list()
-    ##   .. .. ..- attr(*, "class")= chr  "collector_double" "collector"
-    ##   .. ..$ Fav_day  : list()
+    ##   .. ..$ Preferred number of hours spent sleeping/day     : list()
     ##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
-    ##   .. ..$ Tidy_data: list()
+    ##   .. ..$ Favorite day of the week                         : list()
+    ##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
+    ##   .. ..$ Are your data tidy?                              : list()
     ##   .. .. ..- attr(*, "class")= chr  "collector_character" "collector"
     ##   ..$ default: list()
     ##   .. ..- attr(*, "class")= chr  "collector_guess" "collector"
@@ -112,13 +115,47 @@ str(survey)
 
 Clearly, we need to do some cleaning before we can do anything with this.
 
+Let's start by renaming variables
+
+``` r
+names(survey) <- c("Timestamp",
+                  "R_exp",
+                  "GoT",
+                  "Age_yrs",
+                  "Sleep_hrs",
+                  "Fav_day",
+                  "Tidy_data")
+```
+
 ``` r
 # complete.cases() drops NAs
 survey <- survey[complete.cases(survey),]
 survey
 ```
 
-    ## # A tibble: 28 x 7
+    ## # A tibble: 34 x 7
+    ##             Timestamp   R_exp   GoT Age_yrs Sleep_hrs  Fav_day
+    ##                 <chr>   <chr> <int>   <int>     <chr>    <chr>
+    ##  1 8/13/2017 23:29:24    some    10      28      8!!!   Friday
+    ##  2 8/14/2017 12:01:12    some    10      22         7   Friday
+    ##  3 8/15/2017 12:42:09    some    10      24        10 Saturday
+    ##  4 8/15/2017 17:13:08    none    10      28         9 Saturday
+    ##  5 8/15/2017 19:03:40 limited    10      24         9 Saturday
+    ##  6 8/15/2017 23:36:07    some    10      23       6-7   Friday
+    ##  7 8/15/2017 23:45:05 limited     3      25         8   Friday
+    ##  8  8/16/2017 0:26:01     pro     9      37         7   Friday
+    ##  9  8/16/2017 1:09:44    none    10      25         9 Saturday
+    ## 10  8/16/2017 8:51:05 limited     1      23       7.5 Thursday
+    ## # ... with 24 more rows, and 1 more variables: Tidy_data <chr>
+
+Now, lets make sure we have numbers where we expect them.
+
+``` r
+survey$Sleep_hrs <- readr::parse_number(survey$Sleep_hrs)
+survey
+```
+
+    ## # A tibble: 34 x 7
     ##             Timestamp   R_exp   GoT Age_yrs Sleep_hrs  Fav_day
     ##                 <chr>   <chr> <int>   <int>     <dbl>    <chr>
     ##  1 8/13/2017 23:29:24    some    10      28       8.0   Friday
@@ -131,30 +168,7 @@ survey
     ##  8  8/16/2017 0:26:01     pro     9      37       7.0   Friday
     ##  9  8/16/2017 1:09:44    none    10      25       9.0 Saturday
     ## 10  8/16/2017 8:51:05 limited     1      23       7.5 Thursday
-    ## # ... with 18 more rows, and 1 more variables: Tidy_data <chr>
-
-Now, lets make sure we have numbers where we expect them.
-
-``` r
-survey$Age_yrs <- readr::parse_number(survey$Age_yrs)
-survey$Sleep_hrs <- readr::parse_number(survey$Sleep_hrs)
-survey
-```
-
-    ## # A tibble: 28 x 7
-    ##             Timestamp   R_exp   GoT Age_yrs Sleep_hrs  Fav_day
-    ##                 <chr>   <chr> <int>   <dbl>     <dbl>    <chr>
-    ##  1 8/13/2017 23:29:24    some    10      28       8.0   Friday
-    ##  2 8/14/2017 12:01:12    some    10      22       7.0   Friday
-    ##  3 8/15/2017 12:42:09    some    10      24      10.0 Saturday
-    ##  4 8/15/2017 17:13:08    none    10      28       9.0 Saturday
-    ##  5 8/15/2017 19:03:40 limited    10      24       9.0 Saturday
-    ##  6 8/15/2017 23:36:07    some    10      23       6.0   Friday
-    ##  7 8/15/2017 23:45:05 limited     3      25       8.0   Friday
-    ##  8  8/16/2017 0:26:01     pro     9      37       7.0   Friday
-    ##  9  8/16/2017 1:09:44    none    10      25       9.0 Saturday
-    ## 10  8/16/2017 8:51:05 limited     1      23       7.5 Thursday
-    ## # ... with 18 more rows, and 1 more variables: Tidy_data <chr>
+    ## # ... with 24 more rows, and 1 more variables: Tidy_data <chr>
 
 Looks good.
 

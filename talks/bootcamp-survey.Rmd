@@ -69,6 +69,19 @@ str(survey)
 
 Clearly, we need to do some cleaning before we can do anything with this.
 
+Let's start by renaming variables
+
+```{r rename-vars}
+names(survey) <- c("Timestamp",
+                  "R_exp",
+                  "GoT",
+                  "Age_yrs",
+                  "Sleep_hrs",
+                  "Fav_day",
+                  "Tidy_data")
+```
+
+
 ```{r clean-survey}
 # complete.cases() drops NAs
 survey <- survey[complete.cases(survey),]
@@ -78,7 +91,6 @@ survey
 Now, lets make sure we have numbers where we expect them.
 
 ```{r make-numbers}
-survey$Age_yrs <- readr::parse_number(survey$Age_yrs)
 survey$Sleep_hrs <- readr::parse_number(survey$Sleep_hrs)
 survey
 ```

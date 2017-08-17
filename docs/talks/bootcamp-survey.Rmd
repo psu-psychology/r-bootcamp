@@ -135,6 +135,10 @@ Looks like we are of two minds about GoT.
 
 ![](https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/03/17/08/thrones-dragon.jpg)
 
+Goat to do something about that.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/X6tKZ-cg4RI" frameborder="0" allowfullscreen></iframe>
+
 ```{r GoT-vs-r-exp}
 GoT_vs_r_exp <- survey %>%
   ggplot() +

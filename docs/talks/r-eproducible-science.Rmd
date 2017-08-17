@@ -4,14 +4,14 @@ author: "Rick Gilmore"
 date: "`r Sys.time()`"
 bibliography: bootcamp.bib
 output: 
+  ioslides_presentation:
+    widescreen: true
   pdf_document:
     toc: true
     toc_depth: 3
   github_document:
     toc: true
     toc_depth: 3
-  ioslides_presentation:
-    widescreen: true
   html_notebook: default
 ---
 
@@ -187,7 +187,27 @@ Here is the transformed file with a .Rmd extension.
 
 - header info in [YAML Ain't Markup Language (YAML) format](http://www.yaml.org/start.html)
 - Markdown for formating text (headers, **boldface**/*italics*, `code`, bulleted or numbered lists, [web links](http://www.psu.edu), etc.
-- R code "chunks"
+
+## Markdown
+
+- Human-readable formatting
+- Converts to HTML
+- Used in blogging engines the world over
+- Markdown + R bits -> R Markdown
+
+## Code "chunks"
+
+- Surround code chunks with triple back-ticks and `{r your-chunk-name}`
+
+<pre><code>```{r chunk-name}
+data(cars)
+summary(cars)
+```</code></pre>
+
+```{r chunk-name, echo=FALSE}
+data(cars)
+summary(cars)
+```
 
 ## One R to rule them all and in the console bind them...
 
@@ -247,7 +267,55 @@ Here is the transformed file with a .Rmd extension.
 - **HTML slides**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = "ioslides_presentation")`
 - **Multiple outputs**: `rmarkdown::render('talks/bootcamp-survey.Rmd', output_format = c("pdf_document", "word_document", "github_document", "ioslides_presentation")`
 
+---
+
+<div class="centered">
+<img src="https://am23.akamaized.net/tms/cnt/uploads/2017/05/1491990205555-1.jpg" height=500px/>
+</div>
+
+## Key points
+
+- Use R scripts to capture & reproduce workflows and/or
+- Use R Markdown files for documents, reports, presentations.
+    - One or more output formats from the same file.
+    - Analysis/lab notebook.
+- Use R scripts or functions to automate different pieces of the pipeline.
+- Make README files to explain how to put pieces together.
+
+## Toward a reproducible psychological science...
+
+- Transparent, reproducible, open workflows pre-publication
+- Openly shared materials + data + code
+- [[@Munafo2017-dc]](http://doi.org/10.1038/s41562-016-0021): reproducible practices across the workflow
+    - Where to share and when? Lots of options. Let's talk.
+- [[@Gilmore2017-eh]](http://dx.doi.org/10.1038/s41562-017-0128): video and reproducibility
+
+## Advanced topics
+
+- Write papers in R Markdown using [`papaja`](https://github.com/crsh/papaja)
+    - Make [this](../papaja_demo/gilmore-lebreton-hallquist.pdf) from [this](../papaja_demo/gilmore-lebreton-hallquist.Rmd)
+- Use R Studio [projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
+- Version control with git and [GitHub](http://github.com)
+- [Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html), [blogs](https://bookdown.org/yihui/blogdown/), (even [books](https://bookdown.org/)) with R Markdown
+- Scriptable analysis workflows
+    - Reports for each participant, e.g. [PEEP-II project](https://github.com/gilmore-lab/peep-II-ratings-analysis)
+    - This bootcamp's [`Make_site.R`](../R/Make_site.R)
+
+## My GitHub/RStudio workflow
+
+0. Create account on GitHub
+1. Create a repo on GitHub
+2. Copy repo URL
+3. `File/New Project.../`
+4. Version Control, Git
+5. Paste repo URL
+6. Select local name for repo and directory where it lives.
+7. Open project within R Studio `File/Open Project...`
+8. Commit early & often
+
 ## Scripting the pipeline
+
+<!-- Enclosing code sections with ``` but without {r} prints but does not execute the code. -->
 
 ```
 # Get_bootcamp_googlesheet.R
@@ -298,45 +366,6 @@ rmarkdown::render("talks/bootcamp-survey.Rmd",
                                     "word_document",
                                     "ioslides_presentation"))
 ```
-
-## Key points
-
-- Use R scripts to capture & reproduce workflows and/or
-- Use R Markdown files for documents, reports, presentations.
-    - One or more output formats from the same file.
-    - Analysis/lab notebook.
-- Use R scripts or functions to automate different pieces of the pipeline.
-- Make README files to explain how to put pieces together.
-
-## Toward a reproducible psychological science...
-
-- Transparent, reproducible, open workflows pre-publication
-- Openly shared materials + data + code
-- [[@Munafo2017-dc]](http://doi.org/10.1038/s41562-016-0021): reproducible practices across the workflow
-    - Where to share and when? Lots of options. Let's talk.
-- [[@Gilmore2017-eh]](http://dx.doi.org/10.1038/s41562-017-0128): video and reproducibility
-
-## Advanced topics
-
-- Write papers in R Markdown using [`papaja`](https://github.com/crsh/papaja)
-    - Make [this](../papaja_demo/gilmore-lebreton-hallquist.pdf) from [this](../papaja_demo/gilmore-lebreton-hallquist.Rmd)
-- Use R Studio [projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
-- Version control with git and [GitHub](http://github.com)
-- [Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html), [blogs](https://bookdown.org/yihui/blogdown/), (even [books](https://bookdown.org/)) with R Markdown
-- Scriptable analysis workflows
-    - Reports for each participant, e.g. [PEEP-II project](https://github.com/gilmore-lab/peep-II-ratings-analysis)
-    - This bootcamp's [`Make_site.R`](../R/Make_site.R)
-
-## My GitHub workflow
-
-1. Create a repo on GitHub
-2. Copy repo URL
-3. `File/New Project.../`
-4. Version Control, Git
-5. Paste repo URL
-6. Select local name for repo and directory where it lives.
-7. Open project within R Studio `File/Open Project...`
-8. Commit early & often
 
 ## Learn from my mistakes
 
