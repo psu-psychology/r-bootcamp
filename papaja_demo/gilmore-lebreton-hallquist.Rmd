@@ -67,6 +67,8 @@ We predicted that higher levels of enthusiasm for "Game of Thrones" would be rep
 
 ```{r import-survey}
 survey <- read_csv("../data/survey-test.csv")
+# Or we can use "cleaned" actual survey data
+# survey <- read_csv("../data/survey-clean.csv")
 
 survey$R_exp <- ordered(survey$R_exp, levels=c("none",
                                                "limited",

@@ -1,10 +1,11 @@
-Timestamp,R_exp,GoT,Age_yrs,Sleep_hrs,Fav_day,Tidy_data
-8/13/2017 23:29:24,some,10,28,8,Friday,Yes
+Timestamp,Your current level of experience/expertise with R,Your enthusiasm for Game of Thrones,Age in years,Preferred number of hours spent sleeping/day,Favorite day of the week,Are your data tidy?
+NA,NA,NA,NA,NA,NA,NA
+8/13/2017 23:29:24,some,10,28,8!!!,Friday,Yes
 8/14/2017 12:01:12,some,10,22,7,Friday,That's a personal question
 8/15/2017 12:42:09,some,10,24,10,Saturday,No
 8/15/2017 17:13:08,none,10,28,9,Saturday,Yes
 8/15/2017 19:03:40,limited,10,24,9,Saturday,No
-8/15/2017 23:36:07,some,10,23,6,Friday,Yes
+8/15/2017 23:36:07,some,10,23,6-7,Friday,Yes
 8/15/2017 23:45:05,limited,3,25,8,Friday,Yes
 8/16/2017 0:26:01,pro,9,37,7,Friday,That's a personal question
 8/16/2017 1:09:44,none,10,25,9,Saturday,No
@@ -27,3 +28,13 @@ Timestamp,R_exp,GoT,Age_yrs,Sleep_hrs,Fav_day,Tidy_data
 8/16/2017 13:38:42,some,10,23,9.5,Saturday,Yes
 8/16/2017 14:52:55,none,1,40,9,Sunday,Yes
 8/16/2017 16:39:33,limited,3,22,8,Friday,Yes
+8/16/2017 19:32:31,limited,10,25,10,Saturday,That's a personal question
+8/16/2017 22:43:48,some,7,27,8,Saturday,That's a personal question
+8/17/2017 8:25:17,none,6,24,10,Sunday,That's a personal question
+8/17/2017 8:43:05,limited,1,24,8,Saturday,Yes
+8/17/2017 8:44:28,none,8,26,7-8,Saturday,No
+8/17/2017 8:45:29,some,2,26,8,Friday,No
+8/17/2017 8:56:28,none,10,25,8,Saturday,Yes
+8/17/2017 9:00:58,limited,2,23,8,Saturday,Yes
+8/17/2017 9:17:51,limited,1,42,8,Saturday,Yes
+8/17/2017 11:12:51,none,5,27,7,Saturday,That's a personal question

@@ -21,6 +21,7 @@ title: "Resources"
 - [Tidyverse curriculum](https://dcl-2017-04.github.io/curriculum/)
 - [R for Data Science](http://r4ds.had.co.nz/)
 - Complete [manuscript](https://github.com/methexp/subliminal-EC) in `papaja`.
+- [Using R Markdown for Class Reports](http://www.stat.cmu.edu/~cshalizi/rmarkdown/)
 
 ## Online learning
 

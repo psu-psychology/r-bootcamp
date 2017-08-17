@@ -124,10 +124,10 @@
   \shorttitle{R you ready}
 
 
-  \author{Rick O. Gilmore\textsuperscript{1,2}, James LeBreton\textsuperscript{1}, \& Michael Hallquist\textsuperscript{1}}
+  \author{Rick O. Gilmore\textsuperscript{1,2}, James LeBreton\textsuperscript{1}, Michael Hallquist\textsuperscript{1}, \& Dan Albohn}
 
-  \def\affdep{{"", "", ""}}%
-  \def\affcity{{"", "", ""}}%
+  \def\affdep{{"", "", "", ""}}%
+  \def\affcity{{"", "", "", ""}}%
 
   \affiliation{
     \vspace{0.5cm}
@@ -143,7 +143,7 @@
 
                       Correspondence concerning this article should be addressed to Rick O. Gilmore, Department of Psychology, The Pennsylvania State University, University
 Park, PA 16802 USA. E-mail: \href{mailto:rogilmore@psu.edu}{\nolinkurl{rogilmore@psu.edu}}
-                                    }
+                                              }
 
 
   \abstract{Want to write a paper using R Markdown? Keep reading to see how.}
@@ -196,7 +196,7 @@ We asked participants in an optional \enquote{R Bootcamp} held at the
 Pennsylvania State University Department of Psychology to complete an
 anonymous survey using a Google Form. We asked participants to report
 their age in years. A total of 50 respondents answered the survey with a
-reported age of {[}22-55{]} years.
+reported age of {[}23-54{]} years.
 
 \subsection{Material}\label{material}
 
@@ -264,11 +264,11 @@ repository} associated with this paper.
 \toprule
 R\_exp & \multicolumn{1}{c}{Mean} & \multicolumn{1}{c}{Median} & \multicolumn{1}{c}{SD} & \multicolumn{1}{c}{Min} & \multicolumn{1}{c}{Max}\\
 \midrule
-none & 4.80 & 4.50 & 2.66 & 1.00 & 9.00\\
-limited & 4.90 & 4.50 & 1.91 & 2.00 & 8.00\\
-some & 4.30 & 4.00 & 2.54 & 1.00 & 8.00\\
-lots & 2.70 & 3.00 & 1.42 & 1.00 & 5.00\\
-pro & 5.00 & 5.00 & 1.15 & 3.00 & 7.00\\
+none & 4.10 & 4.00 & 2.38 & 1.00 & 9.00\\
+limited & 5.20 & 6.00 & 2.04 & 1.00 & 8.00\\
+some & 4.30 & 4.50 & 2.06 & 2.00 & 7.00\\
+lots & 3.60 & 4.00 & 1.78 & 1.00 & 6.00\\
+pro & 3.60 & 4.00 & 1.26 & 2.00 & 5.00\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -288,8 +288,8 @@ pro & 5.00 & 5.00 & 1.15 & 3.00 & 7.00\\
  & \multicolumn{1}{c}{GoT} & \multicolumn{1}{c}{Age\_yrs}\\
 \midrule
 GoT &  & \\
-Age\_yrs & -0.93*** & \\
-Sleep\_hrs & -0.25 & -0.01\\
+Age\_yrs & -0.92*** & \\
+Sleep\_hrs & -0.39** & 0.13\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -322,9 +322,9 @@ hours of sleep}
 \toprule
 Effect & \multicolumn{1}{c}{$F$} & \multicolumn{1}{c}{$\mathit{df}_1$} & \multicolumn{1}{c}{$\mathit{df}_2$} & \multicolumn{1}{c}{$\mathrm{MSE}$} & \multicolumn{1}{c}{$p$} & \multicolumn{1}{c}{$\eta^2_p$}\\
 \midrule
-R exp & 2.72 & 4 & 40 & 4.19 & .043 & .214\\
-Tidy data & 0.00 & 1 & 40 & 4.19 & .985 & .000\\
-R exp $\times$ Tidy data & 1.02 & 4 & 40 & 4.19 & .410 & .092\\
+R exp & 0.89 & 4 & 40 & 4.00 & .481 & .081\\
+Tidy data & 0.01 & 1 & 40 & 4.00 & .937 & .000\\
+R exp $\times$ Tidy data & 0.58 & 4 & 40 & 4.00 & .681 & .055\\
 \bottomrule
 \addlinespace
 \end{tabular}
@@ -340,21 +340,21 @@ data by levels of R experience.
 
 Let's examine the correlations between our continuous variables. As
 indicated in Table \ref{tab:apa-corr-table}, there is a negative
-correlation (\(r = -.93\), 95\% CI \([-.96\), \(-.88]\)) between Game of
-Thrones enthusiasm and age (\(t(48) = -17.78\), \(p < .001\)), a
-negative correlation (\(r = -.25\), 95\% CI \([-.49\), \(.03]\)) between
-Game of Thrones enthusiasm and sleep (\(t(48) = -1.78\), \(p = .082\)),
-but no correlation (\(r = -.01\), 95\% CI \([-.29\), \(.27]\)) between
-age and sleep (\(t(48) = -0.07\), \(p = .944\)). Figures
-\ref{fig:GoT-by-age-exp} and \ref{fig:GoT-by-sleep} depict these
+correlation (\(r = -.92\), 95\% CI \([-.95\), \(-.85]\)) between Game of
+Thrones enthusiasm and age (\(t(48) = -15.76\), \(p < .001\)), a
+negative correlation (\(r = -.39\), 95\% CI \([-.60\), \(-.13]\))
+between Game of Thrones enthusiasm and sleep (\(t(48) = -2.95\),
+\(p = .005\)), but no correlation (\(r = .13\), 95\% CI \([-.16\),
+\(.39]\)) between age and sleep (\(t(48) = 0.88\), \(p = .385\)).
+Figures \ref{fig:GoT-by-age-exp} and \ref{fig:GoT-by-sleep} depict these
 patterns.
 
 To test the hypothesis that GoT enthusiasm varies as a function of R
 expertise and the extent to which respondents use tidy data, we carried
-out a one-way ANOVA. R experience (\(F(4, 40) = 2.72\),
-\(\mathrm{MSE} = 4.19\), \(p = .043\), \(\eta^2_p = .214\)) and the use
-of tidy data principles (\(F(1, 40) = 0.00\), \(\mathrm{MSE} = 4.19\),
-\(p = .985\), \(\eta^2_p = .000\)) did not predict enthusiasm for Game
+out a one-way ANOVA. R experience (\(F(4, 40) = 0.89\),
+\(\mathrm{MSE} = 4.00\), \(p = .481\), \(\eta^2_p = .081\)) and the use
+of tidy data principles (\(F(1, 40) = 0.01\), \(\mathrm{MSE} = 4.00\),
+\(p = .937\), \(\eta^2_p = .000\)) did not predict enthusiasm for Game
 of Thrones. Table \ref{tab:GoT-aov-table} summarizes these results.
 
 \section{Discussion}\label{discussion}
