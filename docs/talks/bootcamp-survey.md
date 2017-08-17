@@ -1,7 +1,7 @@
 Analysis of bootcamp survey
 ================
 Rick Gilmore
-2017-08-17 09:27:53
+2017-08-17 10:29:30
 
 -   [Goals](#goals)
 -   [Preliminaries](#preliminaries)
@@ -170,7 +170,11 @@ survey
     ## 10  8/16/2017 8:51:05 limited     1      23       7.5 Thursday
     ## # ... with 24 more rows, and 1 more variables: Tidy_data <chr>
 
-Looks good.
+Looks good. Let's save that cleaned file so we don't have to do this again.
+
+``` r
+write_csv(survey, path="../data/survey_clean.csv")
+```
 
 We may want to make the `R_exp` variable ordered.
 
@@ -210,7 +214,7 @@ R_exp_hist <- survey %>%
 R_exp_hist
 ```
 
-![](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/R-exp-hist-1.png)
+![Distribution of prior R experience](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/R-exp-hist-1.png)
 
 ``` r
 Sleep_hrs_hist <- survey %>%
@@ -222,7 +226,7 @@ Sleep_hrs_hist
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/Sleep_hrs_hist-1.png)
+![Distribution of preferred sleep hrs/day](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/Sleep_hrs_hist-1.png)
 
 ``` r
 Got_hist <- survey %>%
@@ -234,7 +238,7 @@ Got_hist
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-![](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-4-1.png)
+![Distribution of GoT Enthusiasm](bootcamp-survey_files/figure-markdown_github-ascii_identifiers/unnamed-chunk-5-1.png)
 
 Looks like we are of two minds about GoT.
 

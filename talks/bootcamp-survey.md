@@ -1,7 +1,7 @@
 Analysis of bootcamp survey
 ================
 Rick Gilmore
-2017-08-17 10:03:21
+2017-08-17 10:29:30
 
 -   [Goals](#goals)
 -   [Preliminaries](#preliminaries)

@@ -94,7 +94,7 @@
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;">2017-08-17 08:27:13</p>
+            <p style="margin-top: 6px; margin-left: -2px;">2017-08-17 10:29:15</p>
           </hgroup>
   </slide>
 
@@ -374,13 +374,13 @@ source(&quot;R/Visualize_data.R&quot;)
 </ul></li>
 <li>Use R Studio <a href='https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects' title=''>projects</a></li>
 <li>Version control with git and <a href='http://github.com' title=''>GitHub</a></li>
-<li><a href='http://rmarkdown.rstudio.com/rmarkdown_websites.html' title=''>Web sites</a>, <a href='https://bookdown.org/yihui/blogdown/' title=''>blogs</a>, (even <a href='https://bookdown.org/' title=''>books</a>) with R Markdown</li>
 <li>Scriptable analysis workflows
 
 <ul>
 <li>Reports for each participant, e.g. <a href='https://github.com/gilmore-lab/peep-II-ratings-analysis' title=''>PEEP-II project</a></li>
 <li>This bootcamp&#39;s <a href='../R/Make_site.R' title=''><code>Make_site.R</code></a></li>
 </ul></li>
+<li><a href='http://rmarkdown.rstudio.com/rmarkdown_websites.html' title=''>Web sites</a>, <a href='https://bookdown.org/yihui/blogdown/' title=''>blogs</a>, (even <a href='https://bookdown.org/' title=''>books</a>) with R Markdown</li>
 </ul>
 
 </article></slide><slide class=''><hgroup><h2>R Studio Projects</h2></hgroup><article  id="r-studio-projects">
@@ -388,7 +388,7 @@ source(&quot;R/Visualize_data.R&quot;)
 <ul>
 <li>Keep files, settings, organized</li>
 <li>Easy to switch between projects</li>
-<li>Reduces mental effort (what directory and I in?)</li>
+<li>Reduces mental effort (what directory am I in?)</li>
 <li>Integrates with version control (e.g., GitHub)</li>
 </ul>
 
@@ -482,6 +482,17 @@ rmarkdown::render(&quot;talks/bootcamp-survey.Rmd&quot;,
                                     &quot;pdf_document&quot;,
                                     &quot;word_document&quot;,
                                     &quot;ioslides_presentation&quot;))</pre>
+
+</article></slide><slide class=''><hgroup><h2><a href='http://rmarkdown.rstudio.com/rmarkdown_websites.html' title=''>Web sites</a></h2></hgroup><article  id="web-sites">
+
+<ul>
+<li><a href='../_site.yml' title=''><code>_site.yml</code></a>: site configuration parameters</li>
+<li><a href='../index.Rmd' title=''><code>index.Rmd</code></a>: home page for site</li>
+<li>other <code>*.Rmd</code> files: other pages</li>
+<li>other directories for files</li>
+<li><code>rmarkdown::render_site()</code></li>
+<li><a href='https://pages.github.com/' title=''>GitHub pages</a> or other web site hosting service</li>
+</ul>
 
 </article></slide><slide class=''><hgroup><h2>Learn from my mistakes</h2></hgroup><article  id="learn-from-my-mistakes">
 

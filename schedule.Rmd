@@ -30,7 +30,7 @@ title: "2017 R Bootcamp Schedule"
 - 11:45 pm • Lunch (pizza & drinks thanks to [SLEIC](http://imaging.psu.edu))
 - 01:00 pm • Programming basics: loops, apply functions, conditional logic, functions
     + functional programming in R (Albohn) | [HTML](tutorials/functional_programming_in_R.html) | [Rmd](tutorials/functional_programming_in_R.Rmd) |
-    + worked example of scoring psychometric data (Hallquist) | [R](tutorials/score_selfreports.R)
+    + worked example of scoring psychometric data (Hallquist) | [R](tutorials/score_selfreports.R) |
 - 02:15 pm • Best practices in R programming: script management, comments, versioning, legible flow | [Wickham style guide](http://adv-r.had.co.nz/Style.html) |
 - 02:45 pm • Break
 - 03:00 pm • Transparent, open & reproducible science with R | [HTML slides](talks/r-eproducible-science.html) | [HTML notebook](talks/r-eproducible-science.nb.html) | [PDF](talks/r-eproducible-science.pdf) | [docx](talks/r-eproducible-science.docx) | [Markdown](talks/r-eproducible-science.md) | 

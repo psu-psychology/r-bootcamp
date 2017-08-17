@@ -96,7 +96,7 @@ survey
 Looks good. Let's save that cleaned file so we don't have to do this again.
 
 ```{r }
-write_csv(survey, path="data/survey_clean.csv")
+write_csv(survey, path="../data/survey_clean.csv")
 ```
 
 
@@ -122,7 +122,7 @@ Now, we follow Mike Meyer's advice: "Plot your data!"
 
 ### Descriptive plots
 
-```{r R-exp-hist}
+```{r R-exp-hist, fig.cap="Distribution of prior R experience"}
 R_exp_hist <- survey %>%
   ggplot() +
   aes(x=R_exp) +
@@ -130,7 +130,7 @@ R_exp_hist <- survey %>%
 R_exp_hist
 ```
 
-```{r Sleep_hrs_hist}
+```{r Sleep_hrs_hist, fig.cap="Distribution of preferred sleep hrs/day"}
 Sleep_hrs_hist <- survey %>%
   ggplot() +
   aes(x=Sleep_hrs) +
@@ -138,7 +138,7 @@ Sleep_hrs_hist <- survey %>%
 Sleep_hrs_hist
 ```
 
-```{r}
+```{r, fig.cap="Distribution of GoT Enthusiasm"}
 Got_hist <- survey %>%
   ggplot() +
   aes(x=GoT) +

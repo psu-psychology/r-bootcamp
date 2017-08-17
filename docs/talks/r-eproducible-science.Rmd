@@ -286,16 +286,16 @@ Here is the transformed file with a .Rmd extension.
     - Make [this](../papaja_demo/gilmore-lebreton-hallquist.pdf) from [this](../papaja_demo/gilmore-lebreton-hallquist.Rmd)
 - Use R Studio [projects](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects)
 - Version control with git and [GitHub](http://github.com)
-- [Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html), [blogs](https://bookdown.org/yihui/blogdown/), (even [books](https://bookdown.org/)) with R Markdown
 - Scriptable analysis workflows
     - Reports for each participant, e.g. [PEEP-II project](https://github.com/gilmore-lab/peep-II-ratings-analysis)
     - This bootcamp's [`Make_site.R`](../R/Make_site.R)
+- [Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html), [blogs](https://bookdown.org/yihui/blogdown/), (even [books](https://bookdown.org/)) with R Markdown
     
 ## R Studio Projects
 
 - Keep files, settings, organized
 - Easy to switch between projects
-- Reduces mental effort (what directory and I in?)
+- Reduces mental effort (what directory am I in?)
 - Integrates with version control (e.g., GitHub)
 
 ---
@@ -391,6 +391,15 @@ rmarkdown::render("talks/bootcamp-survey.Rmd",
                                     "word_document",
                                     "ioslides_presentation"))
 ```
+
+## [Web sites](http://rmarkdown.rstudio.com/rmarkdown_websites.html)
+
+- [`_site.yml`](../_site.yml): site configuration parameters
+- [`index.Rmd`](../index.Rmd): home page for site
+- other `*.Rmd` files: other pages
+- other directories for files
+- `rmarkdown::render_site()`
+- [GitHub pages](https://pages.github.com/) or other web site hosting service
 
 ## Learn from my mistakes
 
