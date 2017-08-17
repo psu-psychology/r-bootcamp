@@ -47,9 +47,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <div id="section-setup" class="section level2">
 <h2>Setup</h2>
 <p>Load/install required packages the long way. We will revisit this example in the exercises at the end to redo it with our new functional programming skills.</p>
-<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
-
-if(!require(&quot;learnr&quot;)){install.packages(&quot;learnr&quot;); library(&quot;learnr&quot;)}
+<pre class="r"><code>if(!require(&quot;learnr&quot;)){install.packages(&quot;learnr&quot;); library(&quot;learnr&quot;)}
 
 if(!require(&quot;tidyverse&quot;)){install.packages(&quot;tidyverse&quot;); library(&quot;tidyverse&quot;)}
 
@@ -569,15 +567,8 @@ starwars_NA_replace &lt;- as_tibble(starwars_NA_replace)</code></pre>
 <script type="application/shiny-prerendered" data-context="server-start">
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
 
-if(!require("learnr")){install.packages("learnr"); library("learnr")}
-
-if(!require("tidyverse")){install.packages("tidyverse"); library("tidyverse")}
-
-if(!require("purrr")){install.packages("purrr"); library("purrr")}
-
-if(!require("here")){install.packages("here"); library("here")}
-
-#setwd(here::here('functional_programming'))
+if (!require(pacman)) { install.packages("pacman"); library(pacman) }
+p_load(learnr, tidyverse, purrr, here)
 
 </script>
  
