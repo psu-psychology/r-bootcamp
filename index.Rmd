@@ -8,6 +8,9 @@ Welcome to the R Bootcamp for PSU Psychology researchers. The goal of this two-d
 
 **Note**: If possible, please bring a laptop, preferably with [R](https://cran.r-project.org) and [RStudio](https://www.rstudio.com/products/rstudio/download/) already installed. We will be walking through a number of demonstrations during the course and it may be useful to follow along on your own machine.
 
+To download all course materials, you can clone the entire Github repository using the command ```git clone https://github.com/psu-psychology/r-bootcamp.git```. If Git is unfamiliar, you can obtain a zip archive of the current version of all files here: <https://github.com/psu-psychology/r-bootcamp/archive/master.zip>
+
+
 ## Instructors
 
 Michael Hallquist, Ph.D.</br>
