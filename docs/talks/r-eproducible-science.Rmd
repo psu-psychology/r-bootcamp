@@ -4,6 +4,7 @@ author: "Rick Gilmore"
 date: "`r Sys.time()`"
 css: gilmore.css
 bibliography: bootcamp.bib
+logo: ../img/psu-logo.png
 output: 
   ioslides_presentation:
     widescreen: true
