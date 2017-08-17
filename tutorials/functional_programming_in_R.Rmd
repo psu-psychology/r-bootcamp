@@ -9,8 +9,15 @@ runtime: shiny_prerendered
 Load/install required packages the long way. We will revisit this example in
 the exercises at the end to redo it with our new functional programming skills.
 
-```{r setup, warning = FALSE, message = FALSE}
+```{r setup, warning = FALSE, message = FALSE, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+if (!require(pacman)) { install.packages("pacman"); library(pacman) }
+p_load(learnr, tidyverse, purrr, here)
+
+```
+
+```{r setup2, eval = FALSE}
 
 if(!require("learnr")){install.packages("learnr"); library("learnr")}
 
