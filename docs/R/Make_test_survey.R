@@ -1,5 +1,5 @@
 # Make_test_survey.R
-# Timestamp,R_exp,GoT,Age_yrs,Sleep_hrs,Fav_date,Tidy_data
+# Timestamp,R_exp,GoT,Age_yrs,Sleep_hrs,Fav_day,Tidy_data
 #8/11/2017 10:13:58,I should be teaching this course,9,54,8,1/17/2018,Yes
 
 n_subs = 50

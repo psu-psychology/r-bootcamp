@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<meta name="progressive" content="false" />
+<meta name="allow-skip" content="false" />
+
+<title>Functional Programming in R</title>
+
+
+<!-- highlightjs -->
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+</head>
+
+<body>
+
+
+
+<div class="pageContent band">
+<div class="bandContent page">
+
+<div class="topics">
+
+<div id="section-setup" class="section level2">
+<h2>Setup</h2>
+<p>Load/install required packages the long way. We will revisit this example in the exercises at the end to redo it with our new functional programming skills.</p>
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+if(!require(&quot;learnr&quot;)){install.packages(&quot;learnr&quot;); library(&quot;learnr&quot;)}
+
+if(!require(&quot;tidyverse&quot;)){install.packages(&quot;tidyverse&quot;); library(&quot;tidyverse&quot;)}
+
+if(!require(&quot;purrr&quot;)){install.packages(&quot;purrr&quot;); library(&quot;purrr&quot;)}
+
+if(!require(&quot;here&quot;)){install.packages(&quot;here&quot;); library(&quot;here&quot;)}
+
+#setwd(here::here(&#39;functional_programming&#39;))</code></pre>
+</div>
+<div id="section-introduction-to-functions" class="section level2">
+<h2>Introduction to Functions</h2>
+<ul>
+<li><p>Functions in R take some input argument (a ‘formal’) and execute some code based off of the input (‘body’)</p></li>
+<li><p>Functions are useful for creating ‘shortcuts’ that you use often and are not already implemented in R or an R package</p></li>
+<li><p>In order to use a function you create, you must first ‘define’ it, much like you would by assigning a value to an object in R</p></li>
+<li><p>To assign a function to an object (name), use the <code>function(input){body}</code> call:</p></li>
+</ul>
+<pre class="r"><code>hello_world &lt;- function() { print(&#39;Hello, world!&#39;) }</code></pre>
+<ul>
+<li><p>Here, <code>hello_world</code> is the name of the function, and <code>print()</code> is what the function does (everything inside the <code>{}</code>)</p></li>
+<li><p>Notice that this function does not have any input!</p></li>
+</ul>
+<p><em>First, reproduce the function above, and run it.</em> <em>Next, try modifying the function’s input and body to allow it to print your name instead of ‘world’.</em></p>
+<div class="tutorial-exercise" data-label="functions-ex-1" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="functions-ex-1-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>hello_world &lt;- function(name){
+  message &lt;- paste0(&#39;Hello, &#39;,name,&#39;!&#39;)
+  return(message)
+}
+
+hello_world(&#39;Dan&#39;)</code></pre>
+</div>
+</div>
+<div id="section-functions-cont." class="section level2">
+<h2>Functions (cont.)</h2>
+<p>That’s neat, but useless. Let’s walk through another example with some real life statistical significance.</p>
+<pre class="r"><code>set.seed(1999)
+
+z_score &lt;- function(score, values){
+  grand_mean &lt;- mean(values, na.rm = TRUE)
+  sdt &lt;- sd(values, na.rm = TRUE)
+  z &lt;- (score - grand_mean) / sdt
+  return(z)
+}
+
+values &lt;- runif(20, min = 0, max = 20)
+score &lt;- values[1]
+
+z_score(score, values)</code></pre>
+<pre><code>## [1] 0.7294446</code></pre>
+<ul>
+<li><p>The last line of the function (<code>return(z)</code>) is the function output</p></li>
+<li><p>In this example, we want what we stored in the object <code>z</code> to be given back</p></li>
+<li><p>For multiple returns, we need to store our final output in a list or dataframe</p></li>
+</ul>
+<div class="tutorial-exercise" data-label="func-exc" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="20">
+<pre class="text"><code>set.seed(1999)
+
+z_score &lt;- function(score, values){
+  grand_mean &lt;- mean(values, na.rm = TRUE)
+  sdt &lt;- sd(values, na.rm = TRUE)
+  z &lt;- (score - grand_mean) / sdt
+  return(z)
+}
+
+values &lt;- runif(20, min = 0, max = 20)
+score &lt;- values[1]
+
+z_score(score, values)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<ul>
+<li><p>Again, this is nice, but as it stands now you would have to run <code>z_score()</code> on each <em>individual</em> score to get the z score value</p></li>
+<li><p>We can unlock the full potential of R functions by combining it with loops, conditional logic, and other functionals (e.g., <code>lapply()</code>)</p></li>
+</ul>
+</div>
+<div id="section-loops" class="section level2">
+<h2>Loops</h2>
+<ul>
+<li><p>Basic R loops are similar to other programming languages (e.g., python, MatLab, etc.)</p></li>
+<li><p>Tells R to evaluate something until a certain point is reached (a ‘while’ loop), or until the end of a vector is reached (a ‘for’ loop)</p></li>
+<li><p>In other words, loops cycle through ‘decision-trees’ until a specified break-point is reached (see flowchart below)</p></li>
+</ul>
+<div class="figure">
+<img src="https://i2.wp.com/blog.datacamp.com/wp-content/uploads/2015/07/flowchart1.png?w=450?tap_a=5644-dce66f&amp;tap_s=10907-287229" alt="Loop Flowchart" />
+<p class="caption">Loop Flowchart</p>
+</div>
+</div>
+<div id="section-for-loops" class="section level2">
+<h2>For Loops</h2>
+<ul>
+<li><p>All loops iterate along some sequence</p></li>
+<li><p>Iterators are (generally) numbers, and are initialized by calling: <code>for (i in 1:10) {loop something here}</code></p></li>
+<li><p><code>i</code> is the iterator, and tells the <code>for</code> statement to cycle through the loop 10 times (<code>1:10</code>):</p></li>
+</ul>
+<p>1, 2, 3, 4, 5, 6, 7, 8, 9, 10</p>
+<pre class="r"><code>for (i in 1:10){
+  ## Loops cycle through what is inside the {} brackets
+  print(i)
+}</code></pre>
+<pre><code>## [1] 1
+## [1] 2
+## [1] 3
+## [1] 4
+## [1] 5
+## [1] 6
+## [1] 7
+## [1] 8
+## [1] 9
+## [1] 10</code></pre>
+<p><em>Try to use what you know to loop through numbers 1 - 10 and square each value</em></p>
+<p>Write the R code required to print each number’s squared value:</p>
+<div class="tutorial-exercise" data-label="for-loops-1-ex" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="for-loops-1-ex-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>for(i in 1:10){
+  print(i^2)
+}</code></pre>
+</div>
+<p>So when might this come in handy? Consider a list of values that you want to run the same function on; for example, we might want to rename the subject column of a dataframe to extract only the numeric values:</p>
+<pre class="r"><code>list &lt;- c(&#39;subject_1&#39;,&#39;subject_2&#39;,&#39;subject_3&#39;,&#39;subject_4&#39;)
+
+# Instead of manually counting how many iterations we need
+# we can instead look at the `length()` of the list we
+# just created
+length(list)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<pre class="r"><code># To extract just the numeric values, we use the
+# tidyverse function `readr::parse_number()`
+readr::parse_number(&#39;subject_45&#39;)</code></pre>
+<pre><code>## [1] 45</code></pre>
+<pre class="r"><code># Initialize an empty vector to fill
+list_sans_text &lt;- vector(&#39;numeric&#39;)
+
+# Let&#39;s try combining each of these into a for loop:
+for (i in 1:length(list)){
+  list_sans_text &lt;- readr::parse_number(i)
+}
+
+print(list_sans_text)</code></pre>
+<pre><code>## [1] 4</code></pre>
+<p>Hmm…that didn’t work. Why?</p>
+<ul>
+<li>Iterators are (generally) numbers, and therefore correspond to a <em>position</em> in a vector or list, not the value itself</li>
+</ul>
+<p><em>How would we tell the loop to use the value instead of the position?</em> <em>Try to fix the code below so that the output is a list of only subject numbers.</em></p>
+<div class="tutorial-exercise" data-label="for-loops-2-ex" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
+<pre class="text"><code>list &lt;- c(&#39;subject_1&#39;,&#39;subject_2&#39;,&#39;subject_3&#39;,&#39;subject_4&#39;)
+
+# Initialize an empty vector to fill
+list_sans_text &lt;- vector(&#39;numeric&#39;)
+
+for (i in 1:length(list)){
+  list_sans_text &lt;- readr::parse_number(i)
+}
+
+print(list_sans_text)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="for-loops-2-ex-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>list &lt;- c(&#39;subject_1&#39;,&#39;subject_2&#39;,&#39;subject_3&#39;,&#39;subject_4&#39;)
+
+# Initialize an empty vector to fill (`double()` here is
+# synonomous with `vector(&#39;numeric&#39;)`)
+list_sans_text &lt;- double()
+
+for (i in 1:length(list)){
+  list_sans_text[i] &lt;- readr::parse_number(list[i])
+}
+
+print(list_sans_text)</code></pre>
+</div>
+<ul>
+<li>Remember, iterators in <code>loops</code> correspond to a position within! If you want to use an actual value (character or numeric) you need to extract it first!</li>
+</ul>
+</div>
+<div id="section-while-loops" class="section level2">
+<h2>While Loops</h2>
+<ul>
+<li>While loops are generally the same as for loops, but instead of iterating along a sequence of values, they repeat until a condition is met</li>
+</ul>
+<div class="tutorial-exercise" data-label="while-loop-example" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
+<pre class="text"><code>x &lt;- 1
+
+while( x &lt;= 10){
+  y &lt;- x
+  print(y^2)
+  x &lt;- x+1
+}</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<ul>
+<li>Can you change the code above so that it uses the previous value as the power?</li>
+</ul>
+<div class="tutorial-exercise-support" data-label="while-loop-example-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>x &lt;- 1
+
+while( x &lt;= 10){
+  y &lt;- x
+  p &lt;- x-1
+  print(y^p)
+  x &lt;- x+1
+}</code></pre>
+</div>
+</div>
+<div id="section-a-hefty-loop-example" class="section level2">
+<h2>A Hefty Loop Example</h2>
+<ul>
+<li>The above are simple examples. Consider a more hefty example whereby you want to run quickly z score variables across multiple columns:</li>
+</ul>
+<pre class="r"><code>data(starwars)
+starwars &lt;- as.data.frame(starwars)
+head(starwars)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["height"],"name":[2],"type":["int"],"align":["right"]},{"label":["mass"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["hair_color"],"name":[4],"type":["chr"],"align":["left"]},{"label":["skin_color"],"name":[5],"type":["chr"],"align":["left"]},{"label":["eye_color"],"name":[6],"type":["chr"],"align":["left"]},{"label":["birth_year"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["gender"],"name":[8],"type":["chr"],"align":["left"]},{"label":["homeworld"],"name":[9],"type":["chr"],"align":["left"]},{"label":["species"],"name":[10],"type":["chr"],"align":["left"]},{"label":["films"],"name":[11],"type":["list"],"align":["right"]},{"label":["vehicles"],"name":[12],"type":["list"],"align":["right"]},{"label":["starships"],"name":[13],"type":["list"],"align":["right"]}],"data":[{"1":"Luke Skywalker","2":"172","3":"77","4":"blond","5":"fair","6":"blue","7":"19.0","8":"male","9":"Tatooine","10":"Human","11":"<chr [5]>","12":"<chr [2]>","13":"<chr [2]>"},{"1":"C-3PO","2":"167","3":"75","4":"NA","5":"gold","6":"yellow","7":"112.0","8":"NA","9":"Tatooine","10":"Droid","11":"<chr [6]>","12":"<chr [0]>","13":"<chr [0]>"},{"1":"R2-D2","2":"96","3":"32","4":"NA","5":"white, blue","6":"red","7":"33.0","8":"NA","9":"Naboo","10":"Droid","11":"<chr [7]>","12":"<chr [0]>","13":"<chr [0]>"},{"1":"Darth Vader","2":"202","3":"136","4":"none","5":"white","6":"yellow","7":"41.9","8":"male","9":"Tatooine","10":"Human","11":"<chr [4]>","12":"<chr [0]>","13":"<chr [1]>"},{"1":"Leia Organa","2":"150","3":"49","4":"brown","5":"light","6":"brown","7":"19.0","8":"female","9":"Alderaan","10":"Human","11":"<chr [5]>","12":"<chr [1]>","13":"<chr [0]>"},{"1":"Owen Lars","2":"178","3":"120","4":"brown, grey","5":"light","6":"blue","7":"52.0","8":"male","9":"Tatooine","10":"Human","11":"<chr [3]>","12":"<chr [0]>","13":"<chr [0]>"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>x_values &lt;- c(&#39;height&#39;,&#39;mass&#39;)
+
+for (i in 1:length(x_values)){
+  
+  new &lt;- paste0(x_values[i],&#39;_centered&#39;)
+  values &lt;- as.numeric(starwars[,x_values[i]])
+  mean &lt;- mean(values, na.rm=TRUE)
+  std &lt;- sd(values, na.rm=TRUE)
+  
+  for(j in 1:nrow(starwars)) {
+    # Here is our z-score function within the loop
+    starwars[j,new] &lt;- (starwars[j,x_values[i]] - mean) / std
+    }
+}
+
+# Check to make sure we have values by printing first 6 rows
+head(as_tibble(starwars))</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["height"],"name":[2],"type":["int"],"align":["right"]},{"label":["mass"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["hair_color"],"name":[4],"type":["chr"],"align":["left"]},{"label":["skin_color"],"name":[5],"type":["chr"],"align":["left"]},{"label":["eye_color"],"name":[6],"type":["chr"],"align":["left"]},{"label":["birth_year"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["gender"],"name":[8],"type":["chr"],"align":["left"]},{"label":["homeworld"],"name":[9],"type":["chr"],"align":["left"]},{"label":["species"],"name":[10],"type":["chr"],"align":["left"]},{"label":["films"],"name":[11],"type":["list"],"align":["right"]},{"label":["vehicles"],"name":[12],"type":["list"],"align":["right"]},{"label":["starships"],"name":[13],"type":["list"],"align":["right"]},{"label":["height_centered"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["mass_centered"],"name":[15],"type":["dbl"],"align":["right"]}],"data":[{"1":"Luke Skywalker","2":"172","3":"77","4":"blond","5":"fair","6":"blue","7":"19.0","8":"male","9":"Tatooine","10":"Human","11":"<chr [5]>","12":"<chr [2]>","13":"<chr [2]>","14":"-0.06781696","15":"-0.1198643"},{"1":"C-3PO","2":"167","3":"75","4":"NA","5":"gold","6":"yellow","7":"112.0","8":"NA","9":"Tatooine","10":"Droid","11":"<chr [6]>","12":"<chr [0]>","13":"<chr [0]>","14":"-0.21161731","15":"-0.1316667"},{"1":"R2-D2","2":"96","3":"32","4":"NA","5":"white, blue","6":"red","7":"33.0","8":"NA","9":"Naboo","10":"Droid","11":"<chr [7]>","12":"<chr [0]>","13":"<chr [0]>","14":"-2.25358235","15":"-0.3854181"},{"1":"Darth Vader","2":"202","3":"136","4":"none","5":"white","6":"yellow","7":"41.9","8":"male","9":"Tatooine","10":"Human","11":"<chr [4]>","12":"<chr [0]>","13":"<chr [1]>","14":"0.79498517","15":"0.2283063"},{"1":"Leia Organa","2":"150","3":"49","4":"brown","5":"light","6":"brown","7":"19.0","8":"female","9":"Alderaan","10":"Human","11":"<chr [5]>","12":"<chr [1]>","13":"<chr [0]>","14":"-0.70053852","15":"-0.2850978"},{"1":"Owen Lars","2":"178","3":"120","4":"brown, grey","5":"light","6":"blue","7":"52.0","8":"male","9":"Tatooine","10":"Human","11":"<chr [3]>","12":"<chr [0]>","13":"<chr [0]>","14":"0.10474347","15":"0.1338871"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<p>Was that more complicated then it needed to be? Most certainly. That’s why most people leave loops behind in favor of the <code>apply</code> family. But before we do, note two important concepts detailed in the example above:</p>
+<ol style="list-style-type: decimal">
+<li><p>You can nest loops within loops (theoretically infinitely)</p></li>
+<li><p>The easy way of extracting an element from a dataframe or list (<code>df$column</code>) does not play well within loops</p></li>
+</ol>
+</div>
+<div id="section-conditional-logic" class="section level2">
+<h2>Conditional Logic</h2>
+<p>Conditional logic in programming evaluates a statement as either <code>TRUE</code> or <code>FALSE</code> and performs code based on the statement. In this way, it is much like loops.</p>
+<ul>
+<li><p>The basic conditional logic functions are <code>if()</code> and <code>else()</code>, which are often used together</p></li>
+<li><p><code>if()</code> evaluates a statement:</p></li>
+</ul>
+<pre class="r"><code>x &lt;- 1
+
+# &#39;If x equals 1, print to the console &#39;This is TRUE&#39;&#39;
+if (x == 1) {&#39;This is TRUE&#39;}</code></pre>
+<pre><code>## [1] &quot;This is TRUE&quot;</code></pre>
+<ul>
+<li><p>Notice that we use <code>==</code> instead of <code>=</code></p></li>
+<li><p>When the statement is not <code>TRUE</code>, <code>else()</code> can be used as a follow up:</p></li>
+</ul>
+<pre class="r"><code>x &lt;- 2
+
+# &#39;If x equals 1, print &#39;This is TRUE&#39; to the console,
+# if x does not equal 1, print &#39;This is FALSE&#39; to the console&#39;
+if (x == 1) {&#39;This is TRUE&#39;} else {&#39;This is FALSE&#39;}</code></pre>
+<pre><code>## [1] &quot;This is FALSE&quot;</code></pre>
+<ul>
+<li>We can combine these two statements in a vectorized base function, <code>ifelse()</code>:</li>
+</ul>
+<pre class="r"><code>x &lt;- 2
+
+ifelse(x == 1, &#39;This is TRUE!&#39;, &#39;This is FALSE!&#39;)</code></pre>
+<pre><code>## [1] &quot;This is FALSE!&quot;</code></pre>
+<ul>
+<li><code>ifelse()</code> has the benefit of being vectorized, which means that it operates on a case-by-case level instead of the vector as a whole</li>
+</ul>
+<pre class="r"><code>set.seed(1999)
+x = runif(10)
+
+# This doesn&#39;t replace each value
+y &lt;- if (x &lt; .5) {TRUE} else {FALSE}
+
+# Instead, it evaluates the first element of the vector &#39;x&#39;
+x[1]; y</code></pre>
+<pre><code>## [1] 0.7681209</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code># ifelse() will work on each element
+
+y2 &lt;- ifelse(x &lt; .5, TRUE, FALSE)
+
+y2</code></pre>
+<pre><code>##  [1] FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<p><em>How might we use conditional logic with tidyverse’s <code>mutate()</code> function to change <code>starwars$gender</code> to capital letters?</em></p>
+<div class="tutorial-exercise" data-label="for-conditional-1-ex" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
+<pre class="text"><code>data(starwars)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="for-conditional-1-ex-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>data(starwars)
+
+starwars &lt;- starwars %&gt;% 
+  mutate(., gender2 = ifelse(.$gender == &#39;male&#39;, &#39;Male&#39;,
+                             ifelse(&#39;female&#39;,&#39;Female&#39;,.$gender)))</code></pre>
+</div>
+</div>
+<div id="section-apply-family-with-a-tidyverse-flavor" class="section level2">
+<h2>Apply Family (with a Tidyverse flavor)</h2>
+<ul>
+<li><p>The apply family–as the name suggests–applies a function across certain elements</p></li>
+<li><p>Think of this family as a simplified and optimized loops</p></li>
+<li><p>The apply family consists largely of:</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p><code>lapply()</code> - the simplest apply; it takes a function and applies it to each element of a list</p></li>
+<li><p><code>sapply()</code> and <code>vapply</code> - which returns simplified vectors instead of lists</p></li>
+<li><p><code>purrr::map()</code> - which can handle multiple inputs</p></li>
+</ol>
+<ul>
+<li>Let’s apply the <code>z_score()</code> function to multiple cases</li>
+</ul>
+<pre class="r"><code>data(starwars)
+head(starwars)</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["height"],"name":[2],"type":["int"],"align":["right"]},{"label":["mass"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["hair_color"],"name":[4],"type":["chr"],"align":["left"]},{"label":["skin_color"],"name":[5],"type":["chr"],"align":["left"]},{"label":["eye_color"],"name":[6],"type":["chr"],"align":["left"]},{"label":["birth_year"],"name":[7],"type":["dbl"],"align":["right"]},{"label":["gender"],"name":[8],"type":["chr"],"align":["left"]},{"label":["homeworld"],"name":[9],"type":["chr"],"align":["left"]},{"label":["species"],"name":[10],"type":["chr"],"align":["left"]},{"label":["films"],"name":[11],"type":["list"],"align":["right"]},{"label":["vehicles"],"name":[12],"type":["list"],"align":["right"]},{"label":["starships"],"name":[13],"type":["list"],"align":["right"]},{"label":["height_centered"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["mass_centered"],"name":[15],"type":["dbl"],"align":["right"]}],"data":[{"1":"Luke Skywalker","2":"172","3":"77","4":"blond","5":"fair","6":"blue","7":"19.0","8":"male","9":"Tatooine","10":"Human","11":"<chr [5]>","12":"<chr [2]>","13":"<chr [2]>","14":"-0.06781696","15":"-0.1198643"},{"1":"C-3PO","2":"167","3":"75","4":"NA","5":"gold","6":"yellow","7":"112.0","8":"NA","9":"Tatooine","10":"Droid","11":"<chr [6]>","12":"<chr [0]>","13":"<chr [0]>","14":"-0.21161731","15":"-0.1316667"},{"1":"R2-D2","2":"96","3":"32","4":"NA","5":"white, blue","6":"red","7":"33.0","8":"NA","9":"Naboo","10":"Droid","11":"<chr [7]>","12":"<chr [0]>","13":"<chr [0]>","14":"-2.25358235","15":"-0.3854181"},{"1":"Darth Vader","2":"202","3":"136","4":"none","5":"white","6":"yellow","7":"41.9","8":"male","9":"Tatooine","10":"Human","11":"<chr [4]>","12":"<chr [0]>","13":"<chr [1]>","14":"0.79498517","15":"0.2283063"},{"1":"Leia Organa","2":"150","3":"49","4":"brown","5":"light","6":"brown","7":"19.0","8":"female","9":"Alderaan","10":"Human","11":"<chr [5]>","12":"<chr [1]>","13":"<chr [0]>","14":"-0.70053852","15":"-0.2850978"},{"1":"Owen Lars","2":"178","3":"120","4":"brown, grey","5":"light","6":"blue","7":"52.0","8":"male","9":"Tatooine","10":"Human","11":"<chr [3]>","12":"<chr [0]>","13":"<chr [0]>","14":"0.10474347","15":"0.1338871"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<pre class="r"><code>myList &lt;- c(&#39;height&#39;,&#39;mass&#39;)
+
+# Returns list
+myValues &lt;- lapply(starwars[myList], scale)
+head(myValues$height); head(myValues$mass)</code></pre>
+<pre><code>##             [,1]
+## [1,] -0.06781696
+## [2,] -0.21161731
+## [3,] -2.25358235
+## [4,]  0.79498517
+## [5,] -0.70053852
+## [6,]  0.10474347</code></pre>
+<pre><code>##            [,1]
+## [1,] -0.1198643
+## [2,] -0.1316667
+## [3,] -0.3854181
+## [4,]  0.2283063
+## [5,] -0.2850978
+## [6,]  0.1338871</code></pre>
+<pre class="r"><code># Returns vector
+myValues2 &lt;- sapply(starwars[,c(&#39;height&#39;,&#39;mass&#39;)], scale)
+head(myValues2)</code></pre>
+<pre><code>##           height       mass
+## [1,] -0.06781696 -0.1198643
+## [2,] -0.21161731 -0.1316667
+## [3,] -2.25358235 -0.3854181
+## [4,]  0.79498517  0.2283063
+## [5,] -0.70053852 -0.2850978
+## [6,]  0.10474347  0.1338871</code></pre>
+<ul>
+<li><code>purrr::map()</code> is largely the same as <code>lapply()</code>, but returns consistent values, and has the ability to be scaled to multiple input values using <code>purrr::map2()</code> and <code>purrr::pmap()</code></li>
+</ul>
+<pre class="r"><code>set.seed(1999)
+df &lt;- data_frame(a = runif(20), b = runif(20), c = runif(20), d = runif(20))
+
+# The default for runif() should be a mean of 0.5
+# map_dbl() returns &#39;double&#39; (a numeric value with decimal points) not a list
+df %&gt;% map_dbl(., function(x) mean(x))</code></pre>
+<pre><code>##         a         b         c         d 
+## 0.5616511 0.5792588 0.5180648 0.5688397</code></pre>
+<pre class="r"><code># In this example, it is functionally equivelent to:
+df %&gt;% sapply(., mean)</code></pre>
+<pre><code>##         a         b         c         d 
+## 0.5616511 0.5792588 0.5180648 0.5688397</code></pre>
+<p><strong>See what happens if you use <code>map()</code> instead of <code>map_dbl()</code></strong></p>
+<div class="tutorial-exercise" data-label="map1-ex" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
+<pre class="text"><code>df &lt;- data_frame(a = runif(20), b = runif(20), c = runif(20), d = runif(20))
+
+df %&gt;% map_dbl(., function(x) mean(x))</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<ul>
+<li><code>purrr::map()</code>’s utility becomes more apparent when we consider a fairly common issue in data science: split-apply-combine, or map-reduce</li>
+</ul>
+<pre class="r"><code>data(starwars)
+# Omiting incomplete cases so it plays nicely with `lm()`
+starwars &lt;- as.data.frame(starwars) %&gt;% na.omit(.)
+
+# Model the relationship between height and mass for each gender
+models &lt;- starwars %&gt;% 
+  split(., .$gender) %&gt;% # split
+  map(~lm(height~mass, data = .)) %&gt;% # apply
+  map(summary) # combine
+
+models</code></pre>
+<pre><code>## $female
+## 
+## Call:
+## lm(formula = height ~ mass, data = .)
+## 
+## Residuals:
+##        5        7       44       61       62       87 
+## -14.6919  -3.8925  12.3387   4.1448   1.1465   0.9543 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept) 156.7755    23.6398   6.632  0.00268 **
+## mass          0.1616     0.4231   0.382  0.72197   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 10.03 on 4 degrees of freedom
+## Multiple R-squared:  0.03518,    Adjusted R-squared:  -0.206 
+## F-statistic: 0.1458 on 1 and 4 DF,  p-value: 0.722
+## 
+## 
+## $male
+## 
+## Call:
+## lm(formula = height ~ mass, data = .)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -41.816  -3.963   1.588   6.588  29.099 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 113.6923    14.0774   8.076 7.07e-08 ***
+## mass          0.8062     0.1630   4.947 6.80e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 16.66 on 21 degrees of freedom
+## Multiple R-squared:  0.5381, Adjusted R-squared:  0.5162 
+## F-statistic: 24.47 on 1 and 21 DF,  p-value: 6.8e-05</code></pre>
+<ul>
+<li>Note the use of <code>~</code> in the example above; this is short hand for an <em>annoynmous function</em> which can be written out in long form as <code>function(x) lm(height~mass, data = x)</code></li>
+</ul>
+</div>
+<div id="section-intermediate-exercises" class="section level2">
+<h2>Intermediate Exercises</h2>
+<p><strong>1)</strong> Write a function that will automatically and “tidily” give the mean, SD, and median of <code>starwars$height</code> in a dataframe.</p>
+<div class="tutorial-exercise" data-label="intermediate-ex-1" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
+<pre class="text"><code>data(starwars)
+starwars &lt;- as.data.frame(starwars)
+
+summary_stats &lt;- function(){
+  
+}
+
+summary_stats(starwars$height)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="intermediate-ex-1-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>data(starwars)
+starwars &lt;- as.data.frame(starwars)
+
+## Here&#39;s one possible approach...
+
+summary_stats &lt;- function(x){
+  name &lt;- as.character(x)
+  mean &lt;- mean(x, na.rm = TRUE)
+  sd &lt;- sqrt(var(x, na.rm = TRUE))
+  median &lt;- median(x, na.rm = TRUE)
+  
+  data.frame(mean=mean,sd=sd,median=median)
+}
+
+summary_stats(starwars$height)</code></pre>
+</div>
+<p><strong>2)</strong> Notice how we had to type the same thing four times to check and load four different packages at the beginning of this tutorial. This violates a fundamental rule of programming (never copy and paste the same thing). Try to check and load each required package using <code>lapply()</code>. Remember, <code>lapply()</code> takes a list as input, and returns a list as output. <em>Hint</em> for <code>lapply()</code> to work in this case, you must also pass the input argument <code>character.only=TRUE</code>.</p>
+<div class="tutorial-exercise" data-label="intermediate-ex-2" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
+<pre class="text"><code>paks &lt;- c(&#39;learnr&#39;,&#39;tidyverse&#39;,&#39;purrr&#39;,&#39;here&#39;)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="intermediate-ex-2-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>paks &lt;- c(&#39;learnr&#39;,&#39;tidyverse&#39;,&#39;purrr&#39;,&#39;here&#39;)
+
+if (any(lapply(paks, require, character.only=TRUE) == FALSE)) {
+  lapply(paks, install.packages(paks))
+}</code></pre>
+</div>
+<p><strong>3)</strong> Use conditional logic to add a column to the <code>starwars</code> dataset splitting it by median <code>starwars$height</code>.</p>
+<div class="tutorial-exercise" data-label="intermediate-ex-3" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
+<pre class="text"><code>data(starwars)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="intermediate-ex-3-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>data(starwars)
+
+medianHeight &lt;- median(starwars$height, na.rm = TRUE)
+
+starwars$median_split &lt;- ifelse(starwars$height &gt;= medianHeight, &#39;Above&#39;,&#39;Below&#39;)</code></pre>
+</div>
+<p><strong>4)</strong> Return to the <code>starwars</code> data set. Use a functional (<code>apply()</code> or <code>purrr::map()</code>) to iterate across every column (not just one) and find out how many <code>NA</code>s there are in each. Then, can you replace each <code>NA</code> value with <code>999</code>? <em>Hint</em> use the base function <code>replace()</code> inside your functional.</p>
+<div class="tutorial-exercise" data-label="intermediate-ex-4" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="10">
+<pre class="text"><code>data(starwars)</code></pre>
+<script type="application/json" data-opts-chunk="1">{"fig.width":6.5,"fig.height":4,"fig.retina":2,"fig.align":"default","fig.keep":"high","fig.show":"asis","out.width":624,"warning":false,"error":false,"message":false,"exercise.df_print":"paged","exercise.checker":"NULL"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="intermediate-ex-4-solution" data-caption="Code" data-completion="1" data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>data(starwars)
+
+# How many NAs do we have in our data?
+starwarsNAs &lt;- starwars %&gt;%
+  purrr::map(., function(x) sum(is.na(x)))
+
+# Let&#39;s replace these NAs
+starwars_NA_replace &lt;- starwars %&gt;%
+  purrr::map(function(x) replace(x, is.na(x), 999))
+
+## Hmm...creates a list, but we want a dataframe!
+starwars_NA_replace &lt;- as_tibble(starwars_NA_replace)</code></pre>
+</div>
+
+<script type="application/shiny-prerendered" data-context="server-start">
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+if(!require("learnr")){install.packages("learnr"); library("learnr")}
+
+if(!require("tidyverse")){install.packages("tidyverse"); library("tidyverse")}
+
+if(!require("purrr")){install.packages("purrr"); library("purrr")}
+
+if(!require("here")){install.packages("here"); library("here")}
+
+#setwd(here::here('functional_programming'))
+
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::register_http_handlers(session, metadata = NULL)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-functions-ex-1-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-functions-ex-1-code-editor`)), session)
+output$`tutorial-exercise-functions-ex-1-output` <- renderUI({
+  `tutorial-exercise-functions-ex-1-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-func-exc-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-func-exc-code-editor`)), session)
+output$`tutorial-exercise-func-exc-output` <- renderUI({
+  `tutorial-exercise-func-exc-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-for-loops-1-ex-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-for-loops-1-ex-code-editor`)), session)
+output$`tutorial-exercise-for-loops-1-ex-output` <- renderUI({
+  `tutorial-exercise-for-loops-1-ex-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-for-loops-2-ex-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-for-loops-2-ex-code-editor`)), session)
+output$`tutorial-exercise-for-loops-2-ex-output` <- renderUI({
+  `tutorial-exercise-for-loops-2-ex-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-while-loop-example-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-while-loop-example-code-editor`)), session)
+output$`tutorial-exercise-while-loop-example-output` <- renderUI({
+  `tutorial-exercise-while-loop-example-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-for-conditional-1-ex-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-for-conditional-1-ex-code-editor`)), session)
+output$`tutorial-exercise-for-conditional-1-ex-output` <- renderUI({
+  `tutorial-exercise-for-conditional-1-ex-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-map1-ex-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-map1-ex-code-editor`)), session)
+output$`tutorial-exercise-map1-ex-output` <- renderUI({
+  `tutorial-exercise-map1-ex-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-intermediate-ex-1-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-intermediate-ex-1-code-editor`)), session)
+output$`tutorial-exercise-intermediate-ex-1-output` <- renderUI({
+  `tutorial-exercise-intermediate-ex-1-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-intermediate-ex-2-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-intermediate-ex-2-code-editor`)), session)
+output$`tutorial-exercise-intermediate-ex-2-output` <- renderUI({
+  `tutorial-exercise-intermediate-ex-2-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-intermediate-ex-3-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-intermediate-ex-3-code-editor`)), session)
+output$`tutorial-exercise-intermediate-ex-3-output` <- renderUI({
+  `tutorial-exercise-intermediate-ex-3-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-intermediate-ex-4-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-intermediate-ex-4-code-editor`)), session)
+output$`tutorial-exercise-intermediate-ex-4-output` <- renderUI({
+  `tutorial-exercise-intermediate-ex-4-result`()
+})
+</script>
+ <!--html_preserve-->
+<script type="application/shiny-prerendered" data-context="dependencies">
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery-1.11.3"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap-3.3.5"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.9"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery-1.11.3"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["4.5.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/font-awesome-4.5.0"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/font-awesome.min.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["localforage"]},{"type":"character","attributes":{},"value":["1.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/localforage"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["localforage.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.9"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.9"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.9"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]}]}]}
+</script>
+<!--/html_preserve-->
+</div>
+
+</div> <!-- topics -->
+
+<div class="topicsContainer">
+<div class="topicsPositioner">
+<div class="band">
+<div class="bandContent topicsListContainer">
+
+<!-- begin doc-metadata -->
+<div id="doc-metadata">
+<h2 class="title toc-ignore" style="display:none;">Functional Programming in R</h2>
+</div>
+<!-- end doc-metadata -->
+
+</div> <!-- bandContent.topicsListContainer -->
+</div> <!-- band -->
+</div> <!-- topicsPositioner -->
+</div> <!-- topicsContainer -->
+
+
+</div> <!-- bandContent page -->
+</div> <!-- pageContent band -->
+
+
+
+
+<script>
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+
+</html>

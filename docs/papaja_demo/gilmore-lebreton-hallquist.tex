@@ -232,16 +232,21 @@ material.
 
 \subsection{Data analysis}\label{data-analysis}
 
-We used R (3.4.1, R Core Team, 2017) and the R-packages \emph{bindrcpp}
-(0.2, Müller, 2016), \emph{dplyr} (0.5.0, Wickham \& Francois, 2016),
-\emph{Formula} (1.2.1, Zeileis \& Croissant, 2010), \emph{ggplot2}
-(2.2.1, Wickham, 2009), \emph{googlesheets} (0.2.2, Bryan \& Zhao,
-2017), \emph{Hmisc} (4.0.3, Harrell Jr, Charles Dupont, \& others.,
-2017), \emph{lattice} (0.20.35, Sarkar, 2008), \emph{papaja}
-(0.1.0.9492, Aust \& Barth, 2017), \emph{purrr} (0.2.2.2, Henry \&
+We used R (3.4.1, R Core Team, 2017b) and the R-packages \emph{bindrcpp}
+(0.2, Müller, 2016), \emph{dplyr} (0.7.2, Wickham \& Francois, 2016),
+\emph{foreign} (0.8.69, R Core Team, 2017a), \emph{Formula} (1.2.2,
+Zeileis \& Croissant, 2010), \emph{ggplot2} (2.2.1, Wickham, 2009),
+\emph{gmodels} (2.16.2, Warnes et al., 2015), \emph{googlesheets}
+(0.2.2, Bryan \& Zhao, 2017), \emph{Hmisc} (4.0.3, Harrell Jr, Charles
+Dupont, \& others., 2017), \emph{lattice} (0.20.35, Sarkar, 2008),
+\emph{MASS} (7.3.47, Venables \& Ripley, 2002), \emph{multilevel} (2.6,
+Bliese, 2016), \emph{nlme} (3.1.131, Pinheiro, Bates, DebRoy, Sarkar, \&
+R Core Team, 2017), \emph{papaja} (0.1.0.9492, Aust \& Barth, 2017),
+\emph{plyr} (Wickham, 2011; 1.8.4, Wickham \& Francois, 2016),
+\emph{psych} (1.7.5, Revelle, 2017), \emph{purrr} (0.2.3, Henry \&
 Wickham, 2017), \emph{readr} (1.1.1, Wickham, Hester, \& Francois,
 2017), \emph{survival} (2.41.3, Terry M. Therneau \& Patricia M.
-Grambsch, 2000), \emph{tibble} (1.3.0, Wickham, Francois, \& Müller,
+Grambsch, 2000), \emph{tibble} (1.3.3, Wickham, Francois, \& Müller,
 2017), \emph{tidyr} (0.6.3, Wickham, 2017a), and \emph{tidyverse}
 (1.1.1, Wickham, 2017b) for all our analyses. The code used to generate
 these analyses is embedded in this document. To view it, see the R
@@ -372,6 +377,10 @@ So, let's get to it.
 Aust, F., \& Barth, M. (2017). \emph{papaja: Create APA manuscripts with
 R Markdown}. Retrieved from \url{https://github.com/crsh/papaja}
 
+\hypertarget{ref-R-multilevel}{}
+Bliese, P. (2016). \emph{Multilevel: Multilevel functions}. Retrieved
+from \url{https://CRAN.R-project.org/package=multilevel}
+
 \hypertarget{ref-R-googlesheets}{}
 Bryan, J., \& Zhao, J. (2017). \emph{Googlesheets: Manage google
 spreadsheets from r}. Retrieved from
@@ -390,10 +399,26 @@ Müller, K. (2016). \emph{Bindrcpp: An 'rcpp' interface to active
 bindings}. Retrieved from
 \url{https://CRAN.R-project.org/package=bindrcpp}
 
+\hypertarget{ref-R-nlme}{}
+Pinheiro, J., Bates, D., DebRoy, S., Sarkar, D., \& R Core Team. (2017).
+\emph{nlme: Linear and nonlinear mixed effects models}. Retrieved from
+\url{https://CRAN.R-project.org/package=nlme}
+
+\hypertarget{ref-R-foreign}{}
+R Core Team. (2017a). \emph{Foreign: Read data stored by 'minitab', 's',
+'sas', 'spss', 'stata', 'systat', 'weka', 'dBase', .} Retrieved from
+\url{https://CRAN.R-project.org/package=foreign}
+
 \hypertarget{ref-R-base}{}
-R Core Team. (2017). \emph{R: A language and environment for statistical
-computing}. Vienna, Austria: R Foundation for Statistical Computing.
-Retrieved from \url{https://www.R-project.org/}
+R Core Team. (2017b). \emph{R: A language and environment for
+statistical computing}. Vienna, Austria: R Foundation for Statistical
+Computing. Retrieved from \url{https://www.R-project.org/}
+
+\hypertarget{ref-R-psych}{}
+Revelle, W. (2017). \emph{Psych: Procedures for psychological,
+psychometric, and personality research}. Evanston, Illinois:
+Northwestern University. Retrieved from
+\url{https://CRAN.R-project.org/package=psych}
 
 \hypertarget{ref-R-lattice}{}
 Sarkar, D. (2008). \emph{Lattice: Multivariate data visualization with
@@ -411,9 +436,27 @@ allows presenting anything as significant. \emph{Psychol. Sci.},
 Terry M. Therneau, \& Patricia M. Grambsch. (2000). \emph{Modeling
 survival data: Extending the Cox model}. New York: Springer.
 
+\hypertarget{ref-R-MASS}{}
+Venables, W. N., \& Ripley, B. D. (2002). \emph{Modern applied
+statistics with s} (Fourth.). New York: Springer. Retrieved from
+\url{http://www.stats.ox.ac.uk/pub/MASS4}
+
+\hypertarget{ref-R-gmodels}{}
+Warnes, G. R., Bolker, B., Lumley, T., Randall C. Johnson are Copyright
+SAIC-Frederick, R. C. J. C. from, Intramural Research Program, I. F. by
+the, NIH, \ldots{} Cancer Research under NCI Contract NO1-CO-12400., C.
+for. (2015). \emph{Gmodels: Various r programming tools for model
+fitting}. Retrieved from
+\url{https://CRAN.R-project.org/package=gmodels}
+
 \hypertarget{ref-R-ggplot2}{}
 Wickham, H. (2009). \emph{Ggplot2: Elegant graphics for data analysis}.
 Springer-Verlag New York. Retrieved from \url{http://ggplot2.org}
+
+\hypertarget{ref-R-plyr}{}
+Wickham, H. (2011). The split-apply-combine strategy for data analysis.
+\emph{Journal of Statistical Software}, \emph{40}(1), 1--29. Retrieved
+from \url{http://www.jstatsoft.org/v40/i01/}
 
 \hypertarget{ref-R-tidyr}{}
 Wickham, H. (2017a). \emph{Tidyr: Easily tidy data with 'spread()' and

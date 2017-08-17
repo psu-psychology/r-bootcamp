@@ -3,9 +3,8 @@ title: "R-Workshop-James"
 author: "James LeBreton with Rick Gilmore"
 date: '`r Sys.time()`'
 output:
-  pdf_document: default
   html_notebook: default
-  html_document: default
+
 ---
   
 ```{r setup, include=FALSE}
@@ -21,7 +20,7 @@ path2data <- "../data/"
 ## TOPIC 1: Projects & Directories in R Studio
 ```{r}
 getwd() #get the current working directory
-setwd("~/Dropbox/James Work Files/R Workshop/2017") #change the working directory
+#setwd("~/Dropbox/James Work Files/R Workshop/2017") #change the working directory
 ```
 
 Since `~/Dropbox/James Work Files/R Workshop/2017` is specific to James' computer, it won't work for others. When using an RStudio project, I don't change my working directory. Instead, I just make sure I give relevant functions information about the directories where other resources can be found.
@@ -29,7 +28,8 @@ Since `~/Dropbox/James Work Files/R Workshop/2017` is specific to James' compute
 ## TOPIC 2: Installing Packages & Loading into Active Library of Resources
 
 ### Install packages via syntax 
-```{r}
+```{r eval=FALSE}
+# Can install by evaluating chunk, but not by "knitting"
 install.packages("multilevel") #Downloading a package to my computer
 #loading packages into working library
 library("multilevel")
@@ -38,7 +38,7 @@ library("multilevel")
 ---
 
 ### Understanding How R Searches for Information
-```{r}
+```{r eval=FALSE}
 search()
 detach(package:multilevel)
 search()
@@ -168,7 +168,7 @@ data2
 data3=data1 #make a copy of the original dataframe
 ```
 
-```{r}
+```{r eval=FALSE}
 install.packages("plyr")
 library(plyr)
 data3=rename(data3, replace=c("v2"="id","v3" = "model"))  #renames specific variables
@@ -205,7 +205,7 @@ write.table(d, file = paste0(path2data, "d2.csv"), sep=",",row.names=F)
 write.table(d, paste0(path2data, "d1.csv"), sep=",", row.names=FALSE) 
 ```
 
-```{r}
+```{r eval=FALSE}
 #save the data as a text file to be read into SPSS
 install.packages("foreign")
 library("foreign")
@@ -321,7 +321,7 @@ dd3=rbind(dd1,dd2)
 summary(dd3)
 ```
 
-```{r}
+```{r eval=FALSE}
 #when you have different columns in your data, you can use rbind.fill
 #first let's compute some extra variables and add them to dd1
 #Computing new variables in an existing data.frame
@@ -333,7 +333,7 @@ library(plyr)
 ```
 
 ```{r}
-dd3=rbind.fill(dd1,dd2)
+dd3=plyr::rbind.fill(dd1,dd2)
 head(dd3); tail(dd3)
 ```
 
@@ -351,7 +351,7 @@ names(dd4)
 ```{r}
 #Renaming a variable in a data.frame
 #let's rename HOWLONG to TENURE and MARITAL to STATUS
-dd4=rename(dd4, c(HOWLONG="TENURE", MARITAL="STATUS")) 
+dd4=plyr::rename(dd4, c(HOWLONG="TENURE", MARITAL="STATUS")) 
 names(dd4)
 ```
 
@@ -362,7 +362,7 @@ names(dd4)
 ```{r}
 #Categorical Variables: recode sex into a different, dummy variable
 #Only “factor” type variables are assigned value labels
-dd4$GENDER2=revalue(as.factor(dd4$GENDER), c("1"="male","2"="female"))
+dd4$GENDER2=plyr::revalue(as.factor(dd4$GENDER), c("1"="male","2"="female"))
 dd4$GENDER3=(dd4$GENDER-1)
 class(dd4$GENDER)
 class(dd4$GENDER2)
@@ -393,27 +393,27 @@ quantile(dd3$JSAT,probs=c(.1,.2,.3,.4,.5,.6,.7,.8,.9),na.rm=T)
 
 ### Alternative: Hmisc
 
-```{r}
+```{r eval=FALSE}
 install.packages("Hmisc")
 library("Hmisc")
 ```
 
 ```{r}
-describe(dd4)
+Hmisc::describe(dd4)
 ```
 
 ### Alternative:  psych
 
-```{r}
+```{r eval=FALSE}
 detach("package:Hmisc")
 install.packages("psych")
 library(psych)
 ```
 
 ```{r}
-describe(dd4,na.rm=T)
-describe(dd4,na.rm=F)
-describe(na.omit(dd4))
+psych::describe(dd4,na.rm=T)
+psych::describe(dd4,na.rm=F)
+psych::describe(na.omit(dd4))
 ```
 
 ### Simple Distributions
@@ -455,13 +455,13 @@ hist(dd4$JSAT, main="Job Satisfaction Histogram",xlab="Job Satisfaction" )
 cor(dd4[,20:22],use="complete.obs")
 ```
 
-```{r}
+```{r eval=FALSE}
 install.packages("Hmisc")
 library(Hmisc)
 ```
 
 ```{r}
-rcorr(as.matrix(dd4[,c(20:22)]))
+Hmisc::rcorr(as.matrix(dd4[,c(20:22)]))
 ```
 
 ## Popular Packages
