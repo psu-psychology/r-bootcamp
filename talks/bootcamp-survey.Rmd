@@ -32,18 +32,29 @@ Load required packages.
 ```{r load-packages}
 library(tidyverse)
 library(googlesheets)
+
 ```
 
 ## Load data and examine
-
 The survey data are stored in a [Google Sheet](https://docs.google.com/spreadsheets/d/1Ay56u6g4jyEEdlmV2NHxTLBlcjI2gHavta-Ik0kGrpg/edit#gid=896447063). We'll use the `googlesheets` package to open it and create a data frame. Documentation about the package can be found [here](https://cran.r-project.org/web/packages/googlesheets/vignettes/basic-usage.html).
 
 There are some idiosyncrasies in using the `googlesheets` package in an R Markdown document because it requires interaction with the console, so I created a separate R script, `Get_bootcamp_googlesheet.R` to extract the survey data.
 If you try to execute the next chunk, it may give you an error, or it may ask you to allow `googlesheets` to access information in your Google profile.
 
-```{r update-survey-data-from-google-sheet, eval=FALSE}
+```{r update-survey-data-from-google-sheet}
 # Set eval=FALSE so I can render non-notebook formats
-source("../R/Get_bootcamp_googlesheet.R")
+survey_url <- "https://docs.google.com/spreadsheets/d/1Ay56u6g4jyEEdlmV2NHxTLBlcjI2gHavta-Ik0kGrpg/edit?usp=sharing"
+
+bootcamp_by_url <- survey_url %>%
+  extract_key_from_url() %>%
+  gs_key()
+
+bootcamp_sheets <- gs_ws_ls(bootcamp_by_url)
+
+boot_data <- bootcamp_by_url %>%
+  gs_read(bootcamp_sheets[1])
+          
+write_csv(boot_data, path="../data/survey.csv")
 ```
 
 This script downloads the data file saves it to a CSV under `data/survey.csv`.We can then load this file.
@@ -152,6 +163,8 @@ Got_hist <- survey %>%
 Got_hist
 ```
 
+---
+
 Looks like we are of two minds about GoT.
 
 ![](https://static.independent.co.uk/s3fs-public/styles/article_small/public/thumbnails/image/2017/03/17/08/thrones-dragon.jpg)
@@ -164,16 +177,19 @@ GoT_vs_r_exp <- survey %>%
   aes(x=GoT, y=Age_yrs) +
   facet_grid(. ~ R_exp) +
   geom_point()
+  # + stat_smooth()
 GoT_vs_r_exp
 ```
 
-```{r tidy-data}
+```{r tidy-data, cache=TRUE}
 tidy_hist <- survey %>%
   ggplot() +
   aes(x=Tidy_data) +
   geom_histogram(stat = "count")
 tidy_hist
 ```
+
+
 
 ## Analysis
 
