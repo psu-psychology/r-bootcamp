@@ -9,7 +9,7 @@ runtime: shiny_prerendered
 Load/install required packages the long way. We will revisit this example in
 the exercises at the end to redo it with our new functional programming skills.
 If you cannot get this document to work, you can view it interactively at this
-[link](http://bit.ly/2wTJLuf).
+[link](http://bit.ly/functionalprogramming).
 
 ```{r setup, warning = FALSE, message = FALSE, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
