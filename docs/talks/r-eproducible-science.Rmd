@@ -421,5 +421,5 @@ rmarkdown::render("talks/bootcamp-survey.Rmd",
 - Learn from others
 - Just do it!
 
-## References
+## References {.smaller}
 

@@ -189,8 +189,6 @@ tidy_hist <- survey %>%
 tidy_hist
 ```
 
-
-
 ## Analysis
 
 I could use a document like this to plan out my analysis plan **before** I conduct it.

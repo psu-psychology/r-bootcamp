@@ -2,7 +2,7 @@
 title: "2017 R Bootcamp Schedule"
 ---
 
-## Wednesday, August 16, 9:00 am - 12:30 pm, 127 Moore
+## Wednesday, August 16, 9:00 am - 12:30 pm, 127 Moore. | [Videos on Databrary](https://nyu.databrary.org/volume/473/slot/20244/-) |.
 
 - 09:00 am • Welcome and introductions
 - 09:15 am • Installing R, installing packages, getting help | [R](talks/R-Workshop-James.R) | [HTML slides](talks/R-Workshop-James.html) | [HTML notebook](talks/R-Workshop-James.nb.html) | [PDF](talks/R-Workshop-James.pdf) | [docx](talks/R-Workshop-James.docx) | [Markdown](talks/R-Workshop-James.md) |
@@ -14,7 +14,7 @@ title: "2017 R Bootcamp Schedule"
 
 **Homework**: Please complete this anonymous (and light-hearted) [survey](https://docs.google.com/forms/d/1l5OX8PcN_lfVn3ykr_PtHCzhRbWzMbxhqtgILD45zRg/edit).
 
-## Thursday, August 17, 9:00 am - 4:00 pm, 127 Moore
+## Thursday, August 17, 9:00 am - 4:00 pm, 127 Moore. | [Videos on Databrary](https://nyu.databrary.org/volume/473/slot/20245/-) |.
 
 - 09:00 am • Welcome back
 - 09:15 am • Data wrangling & pipelines
